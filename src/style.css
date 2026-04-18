@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(to right, #7a0000, #ff2e2e, #7a0000);
+}
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.logo {
+    display: flex;
+    gap: 10px;
+    width: 10px;
+    height: auto;
+}
+.logo img {
+    width: 50px;
+    height: auto;
+}
+.caixas-ganho {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+.caixa-aposta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 300px;
+    border-radius: 8px;
+    background: linear-gradient(165deg, #caae0e, #EEED09);
+    border: 3px solid #FFD700;
+}
+.caixa-aposta h1 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    color: #fff3ae;
+    margin: 0;
+}
+
+.caixa-aposta h2 {
+    font-size: 30px;
+    color: #fff3ae;
+    margin: 0;
+}
+
+.caixa-multiplicador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 300px;
+    border-radius: 8px;
+    background: linear-gradient(165deg, #961400, #FF2400);
+    border: 3px solid #961400;
+}
+.caixa-multiplicador h1 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    color: #ff9b8b;
+    margin: 0;
+}
+.caixa-multiplicador h2 {
+    font-size: 30px;
+    color: #ff9b8b;
+    margin: 0;
+}
+.caixa-potencial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 300px;
+    border-radius: 8px;
+    background: linear-gradient(165deg, #2A8000, #3db601);
+    border: 3px solid #2A8000;
+}
+.caixa-potencial h1 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    color: #c6f8ad;
+    margin: 0;
+}
+
+.caixa-potencial h2 {
+    font-size: 30px;
+    color: #c6f8ad;
+    margin: 0;
+}
+.campo-jogo {
+    display: block;
+    justify-self: center;
+    gap: 10px;
+    justify-items: center;
+    margin-top: 50px;
+    height: 600px;
+    width: 1000px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.377);
+}
+
+ .botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+.btn-apostar {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff3ae;
+    background-color: #caae0e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-apostar-cem img {
+    width: 20px;
+    height: auto;
+    background-color: #caae0e ;
+    margin-left: 10px;
+}
