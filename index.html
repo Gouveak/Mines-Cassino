@@ -1,11 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="src/style.css">
+    <title>Mines</title>
 </head>
 <body>
-    
+    <header>
+        <h1>Mines</h1>
+        <div class="logo">
+             <img src="src/assets/imagens/circulo azul.png"> 
+             <img src="src/assets/imagens/circulo azul.png"> 
+        </div>
+    </header>
+    <main>
+        <section class="caixas-ganho">
+                <div class="caixa-aposta">
+                    <h1>Aposta</h1>
+                    <h2>$ 0</h2>
+                </div>
+                <div class="caixa-multiplicador">
+                    <h1>Multiplicador</h1>
+                    <h2>1.0x</h2>
+                </div>
+                <div class="caixa-potencial">
+                    <h1>Potencial</h1>
+                    <h2>$ 0</h2>
+                </div>
+        </section>
+        <section class="campo-jogo">
+            <div class="jogo">
+
+            </div>
+        </section>
+        <section class="botoes">
+            <div class="btn-apostar">
+                <button class="btn-apostar-dez" id="btn-apostar-dez"></button>
+                <button class="btn-apostar-cinquenta" id="btn-apostar-cinquenta">Apostar</button>
+                <button class="btn-apostar-cem" id="btn-apostar-cem"><img src="src/assets/imagens/fichacem.png"></button>
+
+            </div>
+            
+            <button class="btn-coletar" id="btn-coletar">Coletar</button>
+            <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
+        </section>
+    </main>
+    <script src="src/script.js"></script>
 </body>
 </html>
