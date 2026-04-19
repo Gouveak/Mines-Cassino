@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Definir Saldo</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="saldo.css">
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="src/saldo.css">
 </head>
 <body>
 
@@ -16,20 +16,7 @@
         <button onclick="salvarSaldo()">Salvar</button>
     </div>
 
-    <script>
-        function salvarSaldo() {
-            let valor = document.getElementById("saldoInput").value;
-
-            if (valor <= 0) {
-                alert("Digite um valor válido");
-                return;
-            }
-
-            localStorage.setItem("saldo", valor);
-
-            window.location.href = "index.html";
-        }
-    </script>
+    <script src="src/saldo.js"></script>
 
 </body>
 </html>
