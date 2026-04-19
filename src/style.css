@@ -25,7 +25,6 @@ body {
     justify-content: space-between;
 }
 
-
 .titulo {
     font-family: 'Great Vibes', cursive !important;
     font-size: 28px;
@@ -35,7 +34,6 @@ body {
     color: transparent;
     -webkit-text-fill-color: transparent;
 }
-
 
 .logo {
     display: flex;
@@ -79,11 +77,7 @@ body {
     width: 360px;
     border-radius: 8px;
     background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #FFD700;
-    box-shadow:
-    0 0 5px #e6c300,
-    0 0 10px #ffd700,
-    0 0 20px #ffd700;
+    border: 3px solid #ccb118;
 }
 .caixa-aposta h1 {
     font-size: 20px;
@@ -111,11 +105,7 @@ body {
     width: 300px;
     border-radius: 8px;
     background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #e7c91c;
-    box-shadow:
-    0 0 5px #e6c300,
-    0 0 10px #ffd700,
-    0 0 20px #ffd700;
+    border: 3px solid #ccb118;
 }
 .caixa-multiplicador h1 {
     font-size: 20px;
@@ -137,11 +127,7 @@ body {
     width: 300px;
     border-radius: 10px;
     background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #e7c91c;
-    box-shadow:
-    0 0 5px #e6c300,
-    0 0 10px #ffd700,
-    0 0 20px #ffd700;
+    border: 3px solid #ccb118;
 }
 
 .caixa-potencial h1 {
@@ -176,7 +162,11 @@ body {
     0 0 10px #ff1a1a,
     0 0 20px #ff4d4d;
 }
-
+.jogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .botoes {
     display: flex;
     justify-content: center;
@@ -208,11 +198,7 @@ body {
     width: 300px;
     border-radius: 8px;
     background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #e7c91c;
-    box-shadow:
-    0 0 5px #e6c300,
-    0 0 10px #ffd700,
-    0 0 20px #ffd700;
+    border: 3px solid #ccb118;
 }
 .caixa-saldo h1 {
     font-size: 20px;
@@ -238,10 +224,6 @@ body {
     justify-content: center;
     background: linear-gradient(165deg, #8b0000, #ff1a1a);
     border: 3px solid #ff1a1a;
-    box-shadow:
-    0 0 5px #8b0000,
-    0 0 10px #ff1a1a,
-    0 0 20px #ff1a1a;
 }
 .btn-apostar-cem img,
 .btn-apostar-cinquenta img,
@@ -378,4 +360,23 @@ button {
 .footer-copy {
     font-size: 12px;
     color: #777;
+}
+.malha {
+    display: grid;
+    grid-template-columns: repeat(5, 100px);
+    gap: 20px;
+    justify-content: center;
+    margin-top: 35px;
+}
+.bloco {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    background: linear-gradient(165deg, #3b0000, #ff1a1a);
+    border: 2px solid #ff1a1a;
+    box-shadow:
+        0 0 5px #8b0000,
+        0 0 10px #ff1a1a;
+    cursor: pointer;
+    transition: 0.2s;
 }
