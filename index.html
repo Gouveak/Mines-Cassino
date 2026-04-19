@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+ <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <title>Bet</title>
+ </head>
+
+ <style>
+
+    .btn {
+      display: flex;
+      justify-content: center;
+ }
+
+ </style>
+
+     <body>
     
-</body>
-</html>
+      <section class="btn">
+       <button id="campo" onclick='perder()'><img src="src/assets/imagens/circulo azul.png" alt="blue"></button>
+       </section>
+             
+
+    
+    
+      <script>
+   
+      function perder() {
+        document.getElementById("campo").innerHTML = '<img src="src/assets/sons/vermelho.png" alt="red" width="512px" height="512px">'
+       }
+
+      </script>
+        </body>
+          </html>
