@@ -1,35 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
- <head>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bet</title>
- </head>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
+    <title>Mines</title>
+</head>
+<body>
+   <header class="header">
+    <nav class="nav">
 
- <style>
+        <h1 class="titulo">Mines</h1>
 
-    .btn {
-      display: flex;
-      justify-content: center;
- }
+        <div class="logo">
+            <img src="src/assets/imagens/circulo azul.png">
+            <img src="src/assets/imagens/circulo azul.png">
+        </div>
 
- </style>
+        
+        <a href="saldo.html" class="link-saldo">Sair</a>
 
-     <body>
-    
-      <section class="btn">
-       <button id="campo" onclick='perder()'><img src="src/assets/imagens/circulo azul.png" alt="blue"></button>
-       </section>
-             
+    </nav>
+</header>
+    <main>
+        <section class="caixas-ganho">
+                <div class="caixa-saldo">
+                    <h1>Saldo</h1>
+                    <h2>$ 0</h2>
+                </div>
+                <div class="caixa-multiplicador">
+                    <h1>Multiplicador</h1>
+                    <h2>1.0x</h2>
+                </div>
+                <div class="caixa-potencial">
+                    <h1>Potencial</h1>
+                    <h2>$ 0</h2>
+                </div>
+            </section>
+           <section class="container">
 
-    
-    
-      <script>
-   
-      function perder() {
-        document.getElementById("campo").innerHTML = '<img src="src/assets/sons/vermelho.png" alt="red" width="512px" height="512px">'
-       }
+             <div class="formulario">
+                <div class="caixa-aposta">
+                    <h1>Aposta</h1>
+                    <h2>$ 0</h2>
+                </div>
+                 <div class="caixa-apostar">
+                     <button class="btn-apostar-dez" id="btn-apostar-dez">
+                         <img src="src/assets/imagens/ficha10.png" alt="">
+                        </button>
+                        
+                        <button class="btn-apostar-cinquenta" id="btn-apostar-cinquenta">
+                            <img src="src/assets/imagens/ficha50.png" alt="">
+                        </button>
+                        
+                        <button class="btn-apostar-cem" id="btn-apostar-cem">
+                            <img src="src/assets/imagens/ficha100.png" alt="">
+                        </button>
+                    </div>
+                    <button class="btn-coletar" id="btn-coletar">Coletar</button>
+                    <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
+             </div>
 
-      </script>
-        </body>
-          </html>
+                <div class="campo-jogo">
+                    <div class="jogo">
+                        <div class="malha" id="malha"></div>
+                     </div>
+                 </div>
+
+            </section>
+      
+            
+    </main>
+    <script src="src/script.js"></script>
+
+    <footer class="footer">
+    <div class="footer-content">
+        
+        <h2 class="footer-logo">MINES</h2>
+
+        <p class="footer-text">
+            Jogue sem responsabilidade. Proibido para maiores de 18 anos.
+        </p>
+
+        <div class="footer-links">
+            <a>Termos</a>
+            <a>Privacidade</a>
+            <a>Suporte</a>
+        </div>
+
+        <p class="footer-copy">
+            © 2026 DSBet - Todos os direitos reservados
+        </p>
+
+    </div>
+</footer>
+</body>
+</html>
