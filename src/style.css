@@ -390,3 +390,28 @@ button {
     cursor: pointer;
     transition: 0.2s;
 }
+
+.bloco {
+    position: relative;
+    transform-style: preserve-3d;
+}
+.frente,
+.verso {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.verso {
+  transform: rotateY(180deg);
+}
+.rotacionado {
+  transform: rotateY(180deg);
+}
+
