@@ -15,7 +15,7 @@ document.getElementById("btnSalvarSaldo").addEventListener("click", () => { // e
   }
 
   localStorage.setItem("saldoGlobal", saldo); // o saldo é armazenado no navegador para que possa ser acessado pela outra página
-  window.location.href = "index.html"; // o usuário é direcionado para a página do mines
+  window.location.href = "jogo.html"; // o usuário é direcionado para a página do mines
 
 });
 
