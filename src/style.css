@@ -245,7 +245,8 @@ body {
     transform: scale(1.1);
 }
 .btn-coletar,
-.btn-reiniciar {
+.btn-reiniciar,
+.btn-iniciar {
     padding: 20px 60px;
     font-size: 17px;
     font-family: 'Fredoka', sans-serif;
@@ -259,6 +260,11 @@ body {
     transition: 0.1s ease;
 }
 
+.btn-iniciar {
+    background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+    box-shadow: 0 2px 0 #2a5a9e, 0 0 10px rgba(0, 210, 255, 0.6);
+    justify-content: center;
+}
 
 .btn-coletar {
     background: linear-gradient(45deg, #00ff88, #00cc66);
@@ -269,6 +275,10 @@ body {
 .btn-coletar:hover {
     transform: translateY(-2px) scale(1.005);
     box-shadow: 0 6px 0 #008f4a, 0 0 25px rgba(0, 255, 136, 1);
+}
+.btn-iniciar:hover {
+    transform: translateY(-2px) scale(1.005);
+    box-shadow: 0 6px 0 #2a5a9e, 0 0 25px rgba(0, 210, 255, 1);
 }
 
 
