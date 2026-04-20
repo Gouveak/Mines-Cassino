@@ -1,25 +1,154 @@
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    height: 100vh;
-    background: #111;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
     color: #fff;
 }
 
+/* Container geral */
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* CARD GRANDE */
+.form-box {
+    width: 600px;
+    max-width: 90%;
+    padding: 40px;
+
+    background: linear-gradient(145deg, #111, #1c1c1c);
+    border-radius: 20px;
+
+    box-shadow: 
+        0 0 30px rgba(255, 204, 0, 0.15),
+        inset 0 0 20px rgba(255, 204, 0, 0.05);
+
+    text-align: center;
+}
+
+/* Header do card */
+.card-header {
+    margin-bottom: 30px;
+}
+
+.card-header h2 {
+    color: #ffcc00;
+    font-size: 28px;
+    margin: 0;
+}
+
+.card-header p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* Área de saldo */
+.saldo-box {
+    background: #0f0f0f;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+
+.saldo-label {
+    font-size: 14px;
+    color: #aaa;
+}
+
+.saldo-valor {
+    font-size: 32px;
+    color: #00ff99;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Input */
+.input-group {
+    margin: 20px 0;
+}
+
 .form-container input {
-    padding: 10px;
-    margin: 15px 0;
-    border-radius: 8px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
     border: none;
+    outline: none;
+
+    background: #222;
+    color: #fff;
+    font-size: 16px;
+
+    transition: 0.3s;
+}
+
+.form-container input:focus {
+    box-shadow: 0 0 12px #ffcc00;
+}
+
+/* BOTÕES */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .form-container button {
-    padding: 10px 20px;
+    flex: 1;
+    padding: 14px;
     border: none;
-    border-radius: 8px;
-    background: #ffcc00;
+    border-radius: 10px;
+
+    font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Depositar */
+.btn-depositar {
+    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    color: #000;
+}
+
+.btn-depositar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ffcc00;
+}
+
+/* Sacar */
+.btn-sacar {
+    background: linear-gradient(45deg, #ff4444, #cc0000);
+    color: #fff;
+}
+
+.btn-sacar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff4444;
+}
+
+/* Botões rápidos */
+.quick-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.quick-buttons button {
+    background: #222;
+    color: #fff;
+}
+
+.quick-buttons button:hover {
+    background: #333;
+}
+
+/* Rodapé */
+.card-footer {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #777;
 }
