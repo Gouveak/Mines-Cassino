@@ -1,25 +1,133 @@
+/* remove margens padrão e define fonte */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+
+    /* fundo escuro com tom vermelho → vibe cassino */
+    background: radial-gradient(circle at top, #2b0000, #000);
+}
+
+/* container que centraliza o card */
 .form-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: center;     /* centraliza vertical */
+    justify-content: center; /* centraliza horizontal */
+    height: 100vh;           /* ocupa a tela inteira */
 
-    height: 100vh;
-    background: #111;
     color: #fff;
 }
 
-.form-container input {
-    padding: 10px;
-    margin: 15px 0;
-    border-radius: 8px;
-    border: none;
+/* card principal */
+.form-box {
+    width: 520px;           /* tamanho maior (o que você pediu) */
+    max-width: 90%;         /* evita quebrar em tela pequena */
+    padding: 50px 40px;     /* espaço interno */
+
+    /* fundo com leve variação pra não ficar chapado */
+    background: linear-gradient(145deg, #1a0000, #330000);
+
+    border-radius: 18px;    /* cantos arredondados */
+
+    /* sombra + glow → deixa com cara de sistema real */
+    box-shadow: 
+        0 0 25px rgba(255, 204, 0, 0.2),
+        inset 0 0 20px rgba(255, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.form-container button {
-    padding: 10px 20px;
+/* título */
+.topo h1 {
+    margin: 0;
+    color: #ffcc00; /* amarelo destaque */
+    font-size: 28px;
+}
+
+/* subtítulo */
+.topo p {
+    margin: 5px 0 25px;
+    color: #ccc; /* cinza suave pra não competir com o título */
+}
+
+/* caixa de destaque */
+.destaque {
+    width: 100%;
+    background: #220000;
+
+    /* borda amarela  */
+    border: 1px solid #ffcc00;
+
+    padding: 12px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+/* texto dentro da caixa */
+.destaque p {
+    margin: 0;
+    color: #ffcc00;
+    font-size: 14px;
+}
+
+/* input */
+#saldoInput {
+    width: 100%;
+    padding: 14px;
+    margin: 15px 0;
+
+    border-radius: 10px;
     border: none;
-    border-radius: 8px;
-    background: #ffcc00;
+    outline: none;
+
+    background: #111; /* bem escuro */
+    color: #fff;
+    font-size: 16px;
+
+    /* borda vermelha leve */
+    border: 1px solid #550000;
+}
+
+/* quando clica no input */
+#saldoInput:focus {
+    box-shadow: 0 0 10px #ff0000; /* brilho vermelho */
+}
+
+/* botão principal */
+#btnSalvarSaldo {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    /* amarelo com degradê  */
+    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    color: #000;
+
+    font-weight: bold;
+    font-size: 16px;
+
     cursor: pointer;
+    transition: 0.2s;
+}
+
+/* efeito quando passa o mouse */
+#btnSalvarSaldo:hover {
+    transform: scale(1.03);         
+    box-shadow: 0 0 15px #ffcc00;    
+}
+
+
+.info {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #aaa;
 }
