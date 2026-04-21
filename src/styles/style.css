@@ -36,6 +36,8 @@ main {
         }
 
        
+
+
 .titulo {
     position: absolute;
     left: 50%;
@@ -161,7 +163,7 @@ main {
 .caixa-aposta h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #fff8d6;
+    color: #6b5300;
     margin: 0;
 }
 
@@ -189,7 +191,7 @@ main {
 .caixa-multiplicador h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #fff8d6;
+    color: #6b5300;
     margin: 0;
 }
 .caixa-multiplicador h2 {
@@ -216,7 +218,7 @@ main {
 .caixa-potencial h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #fff8d6;
+    color: #6b5300;
     margin: 0;
 }
 
@@ -245,6 +247,16 @@ main {
     0 0 6px #6b0015,
     0 0 12px #a00028,
     0 0 24px #d11a3a;
+}
+.campo-jogo img {
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.05;
+    left: 186px;
+    top: -15px;
 }
 .jogo {
     display: flex;
@@ -302,14 +314,14 @@ main {
     justify-content: center;
     height: 100px;
     width: 360px;
-    border-radius: 8px;
-    background: linear-gradient(165deg, #f5d547, #c9a400);
-    border: 3px solid #b89600;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #d30b0b, #f09819, #ffd700, #2ecc71, #3498db, #63008a);
+
 }
 .caixa-chance h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #fff8d6;
+    color: #6b5300;
     margin: 0;
 }
 .caixa-chance h2 {
@@ -317,9 +329,9 @@ main {
     color: #fff8d6;
     margin: 0;
     text-shadow: 
-    0 0 5px #e6c300,
-    0 0 10px #ffd700,
-    0 0 20px #ffd700;
+    0 0 5px #b8860b,
+    0 0 12px #ffd700,
+    0 0 24px #ffaa00;
 }
 .caixa-saldo {
      display: flex;
@@ -336,7 +348,7 @@ main {
 .caixa-saldo h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #fff8d6;
+    color: #6b5300;
     margin: 0;
 }
 
@@ -352,18 +364,19 @@ main {
 
 .caixa-apostar {
     display: flex;
-
     border-radius: 10px;
     justify-content: center;
-    background: linear-gradient(165deg, #3a000c, #6b0015);
     border: 3px solid #5a0012;
+    width: 360px;
+    height: 120px;
+    gap: 10px;
 }
 
 .btn-apostar-cem img,
 .btn-apostar-cinquenta img,
 .btn-apostar-dez img {
     width: 100px;
-    height: 100px;
+    height: 130px;
     display: block; 
     border-radius: 50%; 
     object-fit: cover;
@@ -401,7 +414,8 @@ main {
     height: 600px;
     overflow: hidden;
     border-radius: 10px;
-    border: 2px solid #ffcc00;
+
+    
 }
 
 .anuncio {
@@ -411,6 +425,10 @@ main {
     object-fit: cover;
     opacity: 0;
     transition: opacity 0.5s ease;
+    box-shadow: 
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
 }
 
 .anuncio.ativo {
