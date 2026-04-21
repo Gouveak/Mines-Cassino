@@ -15,46 +15,15 @@ class Jogo extends EventTarget {
   #aposta;
   #saldo;
   #potencial;
-  #ganhoTotal;
+  #ganhoTotal = localStorage.getItem("ganhoTotal");
   #multiplicador = 1;
   #idBlocosBomba;
   #venceu = true;
   #blocos = [];
-
-  aumentarMultiplicador() {
-    this.#multiplicador += 1;
-    console.log(`Multiplicador: ${this.#multiplicador}`);
-    this.dispatchEvent(new Event("atualizarMultiplicador"));
-  }
-
-  resetarAtributos() {
-    this.#aposta = 0;
-    localStorage.setItem("totalAposta", this.#aposta);
-    this.dispatchEvent(new Event("atualizarAposta"));
-    this.#multiplicador = 1;
-    this.dispatchEvent(new Event("atualizarMultiplicador"));
-    this.#blocos = [];
-    this.#idBlocosBomba = [];
-  }
-
-  encerrarPartida(malha) {
-    if (this.#venceu) {
-      window.alert("Você venceu!");
-      this.#saldo += this.#potencial;
-      this.#ganhoTotal += this.#potencial;
-      localStorage.setItem("saldoGlobal", this.#saldo);
-      localStorage.setItem("ganhoTotal", this.#ganhoTotal);
-    }
-
-    this.resetarAtributos();
-
-    if (!this.#venceu) {
-      window.alert("Você perdeu!");
-    }
-
-    malha.innerHTML = "";
-    toggleBotoes();
-  }
+  imagens = {
+    estrela: "01100101011100110111010001110010.png",
+    bomba: "01100010011011110110110101100010.png",
+  };
 
   get potencial() {
     return `$ ${this.#aposta * this.#multiplicador}`;
@@ -76,10 +45,38 @@ class Jogo extends EventTarget {
     this.#saldo = Number(valor);
   }
 
-  imagens = {
-    estrela: "01100101011100110111010001110010.png",
-    bomba: "01100010011011110110110101100010.png",
-  };
+  aumentarMultiplicador() {
+    this.#multiplicador += 1;
+    console.log(`Multiplicador: ${this.#multiplicador}`);
+    this.dispatchEvent(new Event("atualizarMultiplicador"));
+  }
+
+  resetarAtributos() {
+    this.#aposta = 0;
+    localStorage.setItem("totalAposta", this.#aposta);
+    this.dispatchEvent(new Event("atualizarAposta"));
+    this.#multiplicador = 1;
+    this.dispatchEvent(new Event("atualizarMultiplicador"));
+    this.#blocos = [];
+    this.#idBlocosBomba = [];
+  }
+
+  encerrarPartida() {
+    if (this.#venceu) {
+      window.alert("Você venceu!");
+      this.#saldo += this.#potencial;
+      this.#ganhoTotal += this.#potencial;
+      localStorage.setItem("saldoGlobal", this.#saldo);
+      localStorage.setItem("ganhoTotal", this.#ganhoTotal);
+    }
+
+    this.resetarAtributos();
+
+    if (!this.#venceu) {
+      window.alert("Você perdeu!");
+    }
+    this.dispatchEvent(new Event("partidaEncerrada"));
+  }
 
   adicionarFrenteVerso(blocoEl) {
     const frente = document.createElement("div");
@@ -91,6 +88,7 @@ class Jogo extends EventTarget {
     blocoEl.appendChild(frente);
     blocoEl.appendChild(verso);
   }
+
   // sorteia 8 numeros aleatorios e guarda eles na propriedade idBlocosBomba
   sortearBlocosBomba() {
     let numeros = [];
@@ -110,11 +108,12 @@ class Jogo extends EventTarget {
       elBloco.classList.add("rotacionado");
     });
   }
+
   perdeu() {
     this.#venceu = false;
     this.revelarTudo(malha);
     setTimeout(() => {
-      this.encerrarPartida(malha);
+      this.encerrarPartida();
     }, 800);
   }
 
@@ -124,6 +123,7 @@ class Jogo extends EventTarget {
     );
     return objCorrespondente;
   }
+
   revelarBloco(elemento) {
     const idElemento = elemento.dataset.idBloco;
     console.log(idElemento);
@@ -139,7 +139,7 @@ class Jogo extends EventTarget {
     }
   }
 
-  iniciarPartida(malha) {
+  iniciarPartida() {
     this.sortearBlocosBomba();
 
     // cria 25 blocos
@@ -227,6 +227,7 @@ function toggleBotoes() {
   btnApostarCinquenta.disabled = true;
   btnApostarCem.disabled = true;
 }
+
 // exporta o jogo para os atributos serem usados em outros arquivos
 export const jogo = new Jogo();
 btnIniciar.addEventListener("click", () => {
@@ -241,8 +242,13 @@ btnIniciar.addEventListener("click", () => {
     return;
   }
 
+  jogo.addEventListener("partidaEncerrada", () => {
+    malha.innerHTML = "";
+    toggleBotoes();
+  });
+
   console.log("clicou");
   jogo.aposta = aposta;
   jogo.saldo = saldo;
-  jogo.iniciarPartida(malha);
+  jogo.iniciarPartida();
 });
