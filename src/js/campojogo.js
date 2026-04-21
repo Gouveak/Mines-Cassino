@@ -1,12 +1,13 @@
 // eventos criados para manter os valores da interface atualizados: atualizarMultiplicador e atualizarAposta
 /*  exemplo de uso
 import { jogo } from "./campojogo.js";
-  const multiplicadorValor = document.getElementById("multiplicador");
-  function definirMultiplicador() {
-  multiplicadorValor.innerHTML = `${jogo.multiplicador}.0x`;
+  const apostaValor = document.getElementById("multiplicador");
+  function definirAposta() {
+  apostaValor.innerHTML = `${jogo.aposta}`;
 }
-// o código abaixo chama a função definirMultiplicador() toda vez que o jogo emite o evento atualizarMultiplicador
-jogo.addEventListener("atualizarMultiplicador", definirMultiplicador);
+
+// o código abaixo chama a função definirAposta() toda vez que o jogo emite o evento atualizarAposta
+jogo.addEventListener("atualizarAposta", definirAposta);
 
 */
 
@@ -31,7 +32,7 @@ class Jogo extends EventTarget {
     localStorage.setItem("totalAposta", this.#aposta);
     this.dispatchEvent(new Event("atualizarAposta"));
     this.#multiplicador = 1;
-    this.dispatchEvent(new Event("atualizarMultiplicador"));    
+    this.dispatchEvent(new Event("atualizarMultiplicador"));
     this.#blocos = [];
     this.#idBlocosBomba = [];
   }
@@ -46,11 +47,13 @@ class Jogo extends EventTarget {
     }
 
     this.resetarAtributos();
+
     if (!this.#venceu) {
       window.alert("Você perdeu!");
     }
+
     malha.innerHTML = "";
-    btnIniciar.disabled = false;
+    toggleBotoes();
   }
 
   get potencial() {
@@ -59,6 +62,10 @@ class Jogo extends EventTarget {
 
   get multiplicador() {
     return `${this.#multiplicador.toFixed(1)}x`;
+  }
+
+  get aposta() {
+    return `$ ${this.#aposta}`;
   }
 
   set aposta(valor) {
@@ -97,25 +104,38 @@ class Jogo extends EventTarget {
     this.#idBlocosBomba = numeros;
   }
 
-  async revelarBloco(elemento) {
-    const idElemento = elemento.dataset.idBloco;
-    console.log(idElemento);
-    elemento.classList.add("rotacionado");
+  revelarTudo() {
+    const todosElBlocos = malha.querySelectorAll(".bloco");
+    todosElBlocos.forEach((elBloco) => {
+      elBloco.classList.add("rotacionado");
+    });
+  }
+  perdeu() {
+    this.#venceu = false;
+    this.revelarTudo(malha);
+    setTimeout(() => {
+      this.encerrarPartida(malha);
+    }, 800);
+  }
+
+  encontarObjCorrespondente(idElemento) {
     const objCorrespondente = this.#blocos.find(
       (bloco) => bloco.idCorrespondente == idElemento,
     );
+    return objCorrespondente;
+  }
+  revelarBloco(elemento) {
+    const idElemento = elemento.dataset.idBloco;
+    console.log(idElemento);
+    elemento.classList.add("rotacionado");
+
+    const objCorrespondente = this.encontarObjCorrespondente(idElemento);
+
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
     if (objCorrespondente.temEstrela) {
       this.aumentarMultiplicador();
     } else {
-      this.#venceu = false;
-      const todosElBlocos = malha.querySelectorAll(".bloco");
-      todosElBlocos.forEach((elBloco) => {
-        elBloco.classList.add("rotacionado");
-      });
-      setTimeout(() => {
-        this.encerrarPartida(malha);
-      }, 800);
+      this.perdeu();
     }
   }
 
@@ -145,6 +165,7 @@ class Jogo extends EventTarget {
         // troca a imagem do verso para a bomba
         verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["bomba"]}')`;
       }
+
       blocoEl.addEventListener(
         "click",
         (e) => {
@@ -152,6 +173,7 @@ class Jogo extends EventTarget {
         },
         { once: true },
       );
+
       malha.appendChild(blocoEl);
       // cria um objeto da classe Bloco com dois atributos: o id do elemento que corresponde a ele no DOM e uma boolean: ele é ou não um dos blocos sorteados com a bomba
       const blocoObj = new Bloco(blocoEl.dataset.idBloco, isBlocoSorteado);
@@ -187,12 +209,38 @@ class Bloco {
 
 const malha = document.getElementById("malha");
 const btnIniciar = document.getElementById("btn-iniciar");
+const btnApostarDez = document.getElementById("btn-apostar-dez");
+const btnApostarCinquenta = document.getElementById("btn-apostar-cinquenta");
+const btnApostarCem = document.getElementById("btn-apostar-cem");
+
+function toggleBotoes() {
+  if (btnIniciar.disabled == true) {
+    btnIniciar.disabled = false;
+    btnApostarDez.disabled = false;
+    btnApostarCinquenta.disabled = false;
+    btnApostarCem.disabled = false;
+    return;
+  }
+
+  btnIniciar.disabled = true;
+  btnApostarDez.disabled = true;
+  btnApostarCinquenta.disabled = true;
+  btnApostarCem.disabled = true;
+}
 // exporta o jogo para os atributos serem usados em outros arquivos
 export const jogo = new Jogo();
 btnIniciar.addEventListener("click", () => {
-  btnIniciar.disabled = true;
-  const aposta = localStorage.getItem("totalAposta");
+  toggleBotoes();
+
+  const aposta = Number(localStorage.getItem("totalAposta"));
   const saldo = localStorage.getItem("saldoGlobal");
+
+  if (aposta < 10 || aposta % 10 !== 0) {
+    window.alert("Você deve apostar um valor válido.");
+    toggleBotoes();
+    return;
+  }
+
   console.log("clicou");
   jogo.aposta = aposta;
   jogo.saldo = saldo;
