@@ -10,17 +10,11 @@
 </head>
 
 <body>
-    <header class="header">
+<header class="header">
         <nav class="nav">
-
-            <h1 class="titulo">Mines</h1>
-
-           
-
-
-            <a href="index.html" class="link-saldo">Sair</a>
-
-        </nav>
+    <h1 class="titulo">Mines</h1>
+    <a href="index.html" class="link-saldo">Sair</a>
+</nav>
     </header>
     <main>
         <section class="caixas-ganho">
@@ -61,6 +55,10 @@
                     </button>
                 </div>
                 <button class="btn-coletar" id="btn-coletar">Coletar</button>
+                <div class="caixa-chance">
+                    <h1>Chance de Ganhar</h1>
+                    <h2 id="chanceCaixa">0%</h2>
+                </div>
                 <button class="btn-iniciar" id="btn-iniciar">Iniciar Jogo</button>
                 <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
             </div>
@@ -70,11 +68,21 @@
                     <div class="malha" id="malha"></div>
                 </div>
             </div>
+           <div class="formulario-dois">
+             <div class="anuncio-container">
+                  <img class="anuncio ativo" src="src/assets/imagens/dsbet.png">
+                  <img class="anuncio" src="src/assets/imagens/ficha100.png">
+                  <img class="anuncio" src="src/assets/imagens/ficha50.png">
+                   <img class="anuncio" src="src/assets/imagens/ficha10.png">
 
+            </div>
+</div>
+            
         </section>
 
 
     </main>
+    <script src="src/js/anuncio.js"></script>
     <script src="src/js/campojogo.js"></script>
     <script src="src/js/aposta.js"></script>
     <script src="src/js/coletar.js"></script>
