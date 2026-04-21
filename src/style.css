@@ -7,58 +7,124 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(to right, #7a0000, #ff2e2e, #7a0000);
-}
-
-.header {
-    background: linear-gradient(90deg, #8b0000, #ff1a1a);
-    padding: 15px 30px;
+    background: radial-gradient(circle at top, #4a000f, #0a0a0a);
     box-shadow: 
-    0 0 5px #8b0000,
-    0 0 10px #ff1a1a,
-    0 0 20px #ff4d4d;
+        inset 0 0 5px #8b0000,
+         inset 0 0 10px #ff1a1a,
+        inset 0 0 20px #ff4d4d;
 }
 
-.nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+main {
+    margin-left: 50px;
 }
+ .header {
+            position: relative;
+            background: radial-gradient(circle at top, #4a000f, #240404);
+            padding: 15px 30px;
+            box-shadow: 
+                0 0 5px #8b0000,
+                0 0 10px #ff1a1a,
+                0 0 20px #ff4d4d;
+            overflow: hidden;
+        }
 
+        .nav {
+            display: flex;
+            align-items: center;
+            position: relative;
+            justify-content: space-between;
+        }
+
+       
 .titulo {
+    position: absolute;
+    left: 50%;
+    top: -8px;
+    transform: translateX(-50%);
     font-family: 'Great Vibes', cursive !important;
-    font-size: 28px;
-    background: linear-gradient(45deg, #ffcc00, #ffffff);
+    font-size: 34px;
+    background: linear-gradient(90deg, #fff3a0, #ffd700, #ffb300, #fff3a0);
+    background-size: 200%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
+    text-shadow:
+        0 0 5px #ffd700,
+        0 0 10px #ffcc00,
+        0 0 20px #ffb300;
+    animation: brilhoTitulo 3s linear infinite;
+}
+@keyframes brilhoTitulo {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 200%;
+    }
+}
+.titulo::before,
+.titulo::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 900px;
+    height: 10px;
+    transform: translateY(-50%);
+
+    background: radial-gradient(circle, #ffd700 4px, transparent 5px);
+    background-size: 30px 10px;
+    background-repeat: repeat-x;
+
+    filter: drop-shadow(0 0 5px #ffd700);
 }
 
+.titulo::before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.titulo::after {
+    left: 100%;
+    margin-left: 15px;
+}
 .logo {
     display: flex;
-    gap: 10px;
+    position: relative;
+    align-items: center;
+    gap: 15px;
+    left: -350px;
+    top: -8px;
 }
 
 .logo img {
-    width: 35px;
-    height: 35px;
+    position: absolute;
+    width: 200px;
+    height: auto;
 }
 
 .link-saldo {
+    z-index: 1;
+    margin-left: auto;
     text-decoration: none;
-    color: #fff;
+    color: #0a0a0a;
     font-weight: bold;
-
-    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    background: linear-gradient(135deg, #fff3a0, #ffd700, #ffb300);
     padding: 8px 14px;
     border-radius: 8px;
-
+    border: 1px solid #c99700;
+    box-shadow:
+        0 0 5px rgba(255,215,0,0.6),
+        inset 0 1px 3px rgba(255,255,255,0.5);
     transition: 0.2s;
 }
 
 .link-saldo:hover {
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #fff8c4, #ffe066, #ffc107);
+    box-shadow:
+        0 0 10px rgba(255,215,0,0.9),
+        0 0 20px rgba(255,200,0,0.7);
+    transform: translateY(-0.5px);
 }
 
 .caixas-ganho {
@@ -76,19 +142,32 @@ body {
     height: 100px;
     width: 360px;
     border-radius: 8px;
-    background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #ccb118;
+    background: linear-gradient(165deg, #f5d547, #c9a400);
+    border: 3px solid #b89600;
+    animation: cassino 1.5s ease-in-out infinite;
+}
+
+@keyframes cassino {
+    0% {
+        box-shadow: 0 0 5px #e6c200, 0 0 10px #ffd700;
+    }
+    50% {
+        box-shadow: 0 0 12px #ffd700, 0 0 25px #ffdf40;
+    }
+    100% {
+        box-shadow: 0 0 5px #e6c200, 0 0 10px #ffd700;
+    }
 }
 .caixa-aposta h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #FAE6FA;
+    color: #fff8d6;
     margin: 0;
 }
 
 .caixa-aposta h2 {
     font-size: 30px;
-    color: #FAE6FA;
+    color: #fff8d6;
     margin: 0;
     text-shadow: 
     0 0 5px #e6c300,
@@ -104,19 +183,23 @@ body {
     height: 100px;
     width: 300px;
     border-radius: 8px;
-    background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #ccb118;
+    background: linear-gradient(165deg, #f5d547, #c9a400);
+    border: 3px solid #b89600;
 }
 .caixa-multiplicador h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #FAE6FA;
+    color: #fff8d6;
     margin: 0;
 }
 .caixa-multiplicador h2 {
     font-size: 30px;
-    color: #FAE6FA;
+    color: #fff8d6;
     margin: 0;
+    text-shadow: 
+    0 0 5px #e6c300,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
 }
 .caixa-potencial {
     display: flex;
@@ -126,27 +209,28 @@ body {
     height: 100px;
     width: 300px;
     border-radius: 10px;
-    background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #ccb118;
+    background: linear-gradient(165deg, #f5d547, #c9a400);
+    border: 3px solid #b89600;
 }
 
 .caixa-potencial h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #FAE6FA;
+    color: #fff8d6;
     margin: 0;
 }
 
 .caixa-potencial h2 {
     font-size: 30px;
-    color: #ffffff;
+    color: #fff8d6;
     text-shadow: 
-        0 0 5px #e6c300,
-        0 0 10px #ffd700,
-        0 0 20px #ffd700;
+    0 0 5px #e6c300,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
     margin: 0;
 }
 .container {
+    display: flex;
     position: relative;
     width: 1000px;   
     margin: 50px auto;
@@ -158,9 +242,9 @@ body {
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.377);
     box-shadow: 
-    0 0 5px #8b0000,
-    0 0 10px #ff1a1a,
-    0 0 20px #ff4d4d;
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
 }
 .jogo {
     display: flex;
@@ -188,6 +272,54 @@ body {
     height: 600px;
     padding: 20px;
     border-radius: 12px;
+    box-shadow: 
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
+}
+.formulario-dois {
+    position: absolute;
+    left: 100%;     
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.377);
+    width: 370px;
+    height: 600px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
+}
+
+.caixa-chance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 360px;
+    border-radius: 8px;
+    background: linear-gradient(165deg, #f5d547, #c9a400);
+    border: 3px solid #b89600;
+}
+.caixa-chance h1 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    color: #fff8d6;
+    margin: 0;
+}
+.caixa-chance h2 {
+    font-size: 30px;
+    color: #fff8d6;
+    margin: 0;
+    text-shadow: 
+    0 0 5px #e6c300,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
 }
 .caixa-saldo {
      display: flex;
@@ -197,34 +329,36 @@ body {
     height: 100px;
     width: 300px;
     border-radius: 8px;
-    background: linear-gradient(165deg, #e7c91c, #d4d40d);
-    border: 3px solid #ccb118;
+    background: linear-gradient(165deg, #f5d547, #c9a400);
+    border: 3px solid #b89600;
+
 }
 .caixa-saldo h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #FAE6FA;
+    color: #fff8d6;
     margin: 0;
 }
 
 .caixa-saldo h2 {
     font-size: 30px;
-    color: #FAE6FA;
     margin: 0;
+    color: #fff8d6;
     text-shadow: 
-        0 0 5px #e6c300,
-        0 0 10px #ffd700,
-        0 0 20px #ffd700;
+    0 0 5px #e6c300,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
 }
 
 .caixa-apostar {
     display: flex;
-    gap: 30px;
+
     border-radius: 10px;
     justify-content: center;
-    background: linear-gradient(165deg, #8b0000, #ff1a1a);
-    border: 3px solid #ff1a1a;
+    background: linear-gradient(165deg, #3a000c, #6b0015);
+    border: 3px solid #5a0012;
 }
+
 .btn-apostar-cem img,
 .btn-apostar-cinquenta img,
 .btn-apostar-dez img {
@@ -239,6 +373,8 @@ body {
     padding: 0;
     transition: 0.2s ease;
 }
+
+
 .btn-apostar-cem img:hover,
 .btn-apostar-cinquenta img:hover,
 .btn-apostar-dez img:hover {
@@ -248,8 +384,8 @@ body {
 .btn-reiniciar,
 .btn-iniciar {
     padding: 20px 60px;
-    font-size: 17px;
-    font-family: 'Fredoka', sans-serif;
+    font-size: 19px;
+    font-family: 'Arial', sans-serif;
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -259,7 +395,27 @@ body {
     gap: 10px;
     transition: 0.1s ease;
 }
+.anuncio-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 2px solid #ffcc00;
+}
 
+.anuncio {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.anuncio.ativo {
+    opacity: 1;
+}
 .btn-iniciar {
     background: linear-gradient(45deg, #00d2ff, #3a7bd5);
     box-shadow: 0 2px 0 #2a5a9e, 0 0 10px rgba(0, 210, 255, 0.6);
@@ -324,16 +480,32 @@ button {
 
 
 .footer {
+    position: relative;
     background: linear-gradient(to top, #000, #1a0000);
     box-shadow: 
-    0 0 5px #8b0000,
-    0 0 10px #ff1a1a,
-    0 0 20px #ff4d4d;
+        0 0 5px #8b0000,
+        0 0 10px #ff1a1a,
+        0 0 20px #ff4d4d;
     color: #fff;
     padding: 40px 20px;
     text-align: center;
     margin-top: 50px;
 }
+
+.footer::before,
+.footer::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 100%;
+    height: 10px;
+    background: radial-gradient(circle, #ffd700 4px, transparent 5px);
+    background-size: 30px 10px;
+    background-repeat: repeat-x;
+    filter: drop-shadow(0 0 5px #ffd700);
+}
+
 .footer-logo {
     font-family: 'Fredoka', sans-serif;
     font-size: 28px;
@@ -390,3 +562,28 @@ button {
     cursor: pointer;
     transition: 0.2s;
 }
+
+.bloco {
+    position: relative;
+    transform-style: preserve-3d;
+}
+.frente,
+.verso {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.verso {
+  transform: rotateY(180deg);
+}
+.rotacionado {
+  transform: rotateY(180deg);
+}
+
