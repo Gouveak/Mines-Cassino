@@ -1,0 +1,164 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #4a000f, #0a0a0a);
+    
+}
+
+
+.header {
+    position: relative;
+    z-index: 100;
+    background: radial-gradient(circle at top, #4a000f, #240404);
+    
+    padding: 2px 30px; 
+    min-height: 75px; 
+    display: flex;
+    align-items: center;
+    overflow: visible; 
+    box-shadow: 
+        0 0 5px #8b0000,
+        0 0 10px #ff1a1a,
+        0 0 20px #ff4d4d;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+    height: 100%;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.logo img {
+    width: 150px; 
+    height: auto;
+    display: block;
+}
+
+.link-saldo {
+    z-index: 10;
+    text-decoration: none;
+    color: #0a0a0a;
+    font-weight: bold;
+    background: linear-gradient(135deg, #fff3a0, #ffd700, #ffb300);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    border: 1px solid #c99700;
+}
+
+
+.titulo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 52px; 
+    line-height: 1.1; 
+    white-space: nowrap;
+    background: linear-gradient(90deg, #fff3a0, #ffd700, #ffb300, #fff3a0);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+   
+     text-shadow:
+        0 0 5px #ffd700,
+        0 0 10px #ffcc00,
+        0 0 20px #ffb300;
+    animation: brilhoTitulo 3s linear infinite;
+    z-index: 5;
+    
+    padding-top: 5px; 
+}
+
+
+.titulo::before,
+.titulo::after {
+    content: "";
+    position: absolute;
+    top: 60%; 
+    
+   
+    width: 900px; 
+    height: 10px;
+    
+    transform: translateY(-50%);
+    
+    
+    background: radial-gradient(circle, #ffd700 4px, transparent 5.5px);
+    background-size: 30px 10px; 
+    background-repeat: repeat-x;
+    
+    filter: drop-shadow(0 0 5px #ffd700);
+}
+
+.titulo::before {
+    right: 100%;
+    
+    margin-right: 25px; 
+}
+
+.titulo::after {
+    left: 100%;
+   
+    margin-left: 25px;
+}
+
+
+.container {
+    display: flex;
+    position: relative;
+    width: 1000px;   
+    margin: 40px auto;
+}
+
+.campo-jogo {
+    height: 600px;
+    width: 1000px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 24px #d11a3a;
+}
+
+
+
+
+
+@keyframes brilhoTitulo {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 200%;
+    }
+}
+
+@keyframes brilhoTitulo {
+    from {
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+    }
+}
+

@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-
+    padding: 0;
     
     background: radial-gradient(circle at top, #910f0fe5, #000);
 }
@@ -24,14 +24,15 @@ body {
     padding: 50px 40px;     
 
     
-    background: linear-gradient(145deg, #1a0000, #330000);
+    background: linear-gradient(145deg, #250606, #7d0202cb);
 
     border-radius: 18px;    
 
     
     box-shadow: 
-        0 0 25px rgba(255, 204, 0, 0.685),
-        inset 0 0 20px rgba(255, 0, 0, 0.623);
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
 
     display: flex;
     flex-direction: column;
@@ -86,7 +87,7 @@ body {
     border: none;
     outline: none;
 
-    color: #fff;
+    color: #000000;
     font-size: 16px;
 
     
@@ -131,7 +132,16 @@ body {
 }
 
 .logo-capi {
-    width: 70px;
+    width: 115px;
     filter: drop-shadow(0 0 8px red)
             drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
+    
+}
+
+.ds-img {
+        text-align: center;
+    }
+
+.Ds-titulo {
+    text-align: center;
 }
