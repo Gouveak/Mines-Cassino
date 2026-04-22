@@ -13,39 +13,35 @@
 <body>
     <header class="header">
         <nav class="nav">
-    <h1 class="titulo">Mines</h1>
-    
-</nav>
+            <h1 class="titulo">Mines</h1>
+
+        </nav>
     </header>
-   <div class="form-container">
-    <div class="form-box">
+    <div class="form-container">
+        <div class="form-box">
 
-        <div class="topo">
-            <div class="ds-img">
-                <img src="src/assets/imagens/dsbet.png" alt="logo" class="logo-capi"> 
+            <div class="topo">
+                <div class="ds-img">
+                    <img src="src/assets/imagens/dsbet.png" alt="logo" class="logo-capi">
+                </div>
+                <h1 class="Ds-titulo">DSBet</h1>
+                <p>Defina seu saldo inicial</p>
             </div>
-            <h1 class="Ds-titulo">DSBet</h1>
-            <p>Defina seu saldo inicial</p>
+
+            <div class="destaque">
+                <p>Saldo mínimo: 10 fichas</p>
+            </div>
+
+            <input type="number" id="saldoInput" min="10" step="10" placeholder="Digite seu saldo (Ex: 10, 20, 50...)">
+
+            <button id="btnSalvarSaldo">Entrar no jogo</button>
+
+            <div class="info">
+                Esse saldo será usado na partida
+            </div>
+
         </div>
-
-        <div class="destaque">
-            <p>Saldo mínimo: 10 fichas</p>
-        </div>
-
-        <input 
-            type="number" 
-            id="saldoInput" 
-            placeholder="Digite seu saldo" 
-        />
-
-        <button id="btnSalvarSaldo">Entrar no jogo</button>
-
-        <div class="info">
-            Esse saldo será usado na partida
-        </div>
-
     </div>
-</div>
 
     <footer class="footer">
         <div class="footer-content">
@@ -70,7 +66,7 @@
     </footer>
 
     <script src="src/js/saldo.js"></script>
-    
+
 
 </body>
 
