@@ -213,15 +213,14 @@ const btnApostarDez = document.getElementById("btn-apostar-dez");
 const btnApostarCinquenta = document.getElementById("btn-apostar-cinquenta");
 const btnApostarCem = document.getElementById("btn-apostar-cem");
 
-function toggleBotoes() {
-  if (btnIniciar.disabled == true) {
-    btnIniciar.disabled = false;
-    btnApostarDez.disabled = false;
-    btnApostarCinquenta.disabled = false;
-    btnApostarCem.disabled = false;
-    return;
-  }
+function ativarBotoes() {
+  btnIniciar.disabled = false;
+  btnApostarDez.disabled = false;
+  btnApostarCinquenta.disabled = false;
+  btnApostarCem.disabled = false;
+}
 
+function desativarBotoes() {
   btnIniciar.disabled = true;
   btnApostarDez.disabled = true;
   btnApostarCinquenta.disabled = true;
@@ -231,20 +230,20 @@ function toggleBotoes() {
 // exporta o jogo para os atributos serem usados em outros arquivos
 export const jogo = new Jogo();
 btnIniciar.addEventListener("click", () => {
-  toggleBotoes();
+  desativarBotoes();
 
   const aposta = Number(localStorage.getItem("totalAposta"));
   const saldo = localStorage.getItem("saldoGlobal");
 
   if (aposta < 10 || aposta % 10 !== 0) {
     window.alert("Você deve apostar um valor válido.");
-    toggleBotoes();
+    ativarBotoes();
     return;
   }
 
   jogo.addEventListener("partidaEncerrada", () => {
     malha.innerHTML = "";
-    toggleBotoes();
+    ativarBotoes();
   });
 
   console.log("clicou");
