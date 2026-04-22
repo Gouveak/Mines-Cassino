@@ -308,6 +308,7 @@ main {
 }
 
 .caixa-chance {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -316,17 +317,19 @@ main {
     width: 360px;
     border-radius: 10px;
     background: linear-gradient(90deg, #d30b0b, #f09819, #ffd700, #2ecc71, #3498db, #63008a);
+    overflow: hidden;
 
 }
-.caixa-ganho::after {
+.caixa-chance::after {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: conic-gradient(from 0deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff0000);
+    width: 500px;
+    height: 500px;
+    background-image: conic-gradient(transparent, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff0000);
     border-radius: 10px;
     animation: brilhoChance 3s linear infinite;
     animation-delay: -2s;
+    overflow: hidden;
 }
 @keyframes brilhoChance {
     0% {
@@ -601,6 +604,7 @@ button {
     cursor: pointer;
     transition: 0.2s;
 }
+
 
 .bloco {
     position: relative;
