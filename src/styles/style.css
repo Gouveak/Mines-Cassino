@@ -605,6 +605,7 @@ button {
 .bloco {
     position: relative;
     transform-style: preserve-3d;
+    color: #000;
 }
 .frente,
 .verso {
