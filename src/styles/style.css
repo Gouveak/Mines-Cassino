@@ -146,7 +146,7 @@ main {
     border-radius: 8px;
     background: linear-gradient(165deg, #f5d547, #c9a400);
     border: 3px solid #b89600;
-    animation: cassino 1.5s ease-in-out infinite;
+    animation: cassino 0.5s ease-in-out infinite;
 }
 
 @keyframes cassino {
@@ -154,7 +154,7 @@ main {
         box-shadow: 0 0 5px #e6c200, 0 0 10px #ffd700;
     }
     50% {
-        box-shadow: 0 0 12px #ffd700, 0 0 25px #ffdf40;
+        box-shadow: 0 0 12px #ffd700, 0 0 50px #ffdf40;
     }
     100% {
         box-shadow: 0 0 5px #e6c200, 0 0 10px #ffd700;
@@ -318,6 +318,26 @@ main {
     background: linear-gradient(90deg, #d30b0b, #f09819, #ffd700, #2ecc71, #3498db, #63008a);
 
 }
+.caixa-ganho::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: conic-gradient(from 0deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff0000);
+    border-radius: 10px;
+    animation: brilhoChance 3s linear infinite;
+    animation-delay: -2s;
+}
+@keyframes brilhoChance {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 .caixa-chance h1 {
     font-size: 20px;
     padding-bottom: 10px;
@@ -483,7 +503,7 @@ main {
 }
 @keyframes brilho {
     from {
-        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        text-shadow: 0 0 5px rgba(255, 217, 0, 0.5);
     }
     to {
         text-shadow: 0 0 20px rgba(255, 215, 0, 1);
