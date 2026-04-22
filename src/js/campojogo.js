@@ -15,11 +15,16 @@ class Jogo extends EventTarget {
   #aposta;
   #saldo;
   #potencial;
-  #ganhoTotal = localStorage.getItem("ganhoTotal");
+  #ganhoTotal = Number(localStorage.getItem("ganhoTotal")) || 0;
   #multiplicador = 1;
   #idBlocosBomba;
+  #idClicados = [];
   #venceu = true;
   #blocos = [];
+
+  qtdJogadas = 1;
+  qtdPartidas = 1;
+
   imagens = {
     estrela: "01100101011100110111010001110010.png",
     bomba: "01100010011011110110110101100010.png",
@@ -64,8 +69,11 @@ class Jogo extends EventTarget {
   encerrarPartida() {
     if (this.#venceu) {
       window.alert("Você venceu!");
+
       this.#saldo += this.#potencial;
       this.#ganhoTotal += this.#potencial;
+      this.qtdPartidas += 1;
+
       localStorage.setItem("saldoGlobal", this.#saldo);
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
     }
@@ -90,16 +98,25 @@ class Jogo extends EventTarget {
   }
 
   // sorteia 8 numeros aleatorios e guarda eles na propriedade idBlocosBomba
-  sortearBlocosBomba() {
+  sortearBlocosBomba(numeroNaoPermitido) {
     let numeros = [];
+
     while (numeros.length < 8) {
       const numeroAleatorio = Math.floor(Math.random() * 25) + 1; // gera um número aleatório entre 1 e 25;
-      if (!numeros.includes(numeroAleatorio)) {
+      if (
+        !this.#idClicados.includes(numeroAleatorio) &&
+        numeroAleatorio !== numeroNaoPermitido &&
+        !numeros.includes(numeroAleatorio)
+      ) {
         numeros.push(numeroAleatorio);
+        console.log(numeros);
       }
     }
     numeros.sort((a, b) => a - b);
     this.#idBlocosBomba = numeros;
+    if (numeroNaoPermitido) {
+      console.log("os novos numeros são: " + this.#idBlocosBomba);
+    }
   }
 
   revelarTudo() {
@@ -117,6 +134,33 @@ class Jogo extends EventTarget {
     }, 800);
   }
 
+  manipular(idElemento) {
+    console.log("O usuário clicou na bomba cedo demais, manipulando...");
+    this.#idBlocosBomba = [];
+    this.#blocos = [];
+    this.sortearBlocosBomba(idElemento);
+    const blocosEl = malha.querySelectorAll(".bloco");
+    blocosEl.forEach((blocoEl) => {
+      const verso = blocoEl.querySelector(".verso");
+      console.log("imagem do verso mudou");
+
+      const isBlocoSorteado = this.#idBlocosBomba.includes(
+        Number(blocoEl.dataset.idBloco),
+      );
+
+      // se o id do bloco é um dos que foram sorteados
+      if (isBlocoSorteado) {
+        // troca a imagem do verso para a bomba
+        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["bomba"]}')`;
+      } else {
+        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["estrela"]}')`;
+      }
+
+      const blocoObj = new Bloco(blocoEl.dataset.idBloco, isBlocoSorteado);
+      this.#blocos.push(blocoObj);
+    });
+  }
+
   encontarObjCorrespondente(idElemento) {
     const objCorrespondente = this.#blocos.find(
       (bloco) => bloco.idCorrespondente == idElemento,
@@ -125,18 +169,30 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
+    console.log("Quantidade de jogadas : " + this.qtdJogadas);
+
     const idElemento = elemento.dataset.idBloco;
     console.log(idElemento);
-    elemento.classList.add("rotacionado");
 
     const objCorrespondente = this.encontarObjCorrespondente(idElemento);
-
+    this.#idClicados.push(Number(idElemento));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
+
     if (objCorrespondente.temEstrela) {
+      this.aumentarMultiplicador();
+      elemento.classList.add("rotacionado");
+      return;
+    }
+    console.log("não tem estrela");
+    if (!objCorrespondente.temEstrela && this.qtdJogadas < 3) {
+      console.log("vai manipular");
+      this.manipular(Number(idElemento));
       this.aumentarMultiplicador();
     } else {
       this.perdeu();
     }
+    this.qtdJogadas += 1;
+    elemento.classList.add("rotacionado");
   }
 
   iniciarPartida() {
