@@ -592,11 +592,12 @@ button {
     width: 90px;
     height: 90px;
     border-radius: 10px;
-    background: linear-gradient(165deg, #3b0000, #ff1a1a);
-    border: 2px solid #ff1a1a;
+    background: linear-gradient(165deg, #510067, #e100a7);
+    border: 2px solid #e100a7;
+;
     box-shadow:
-        0 0 5px #8b0000,
-        0 0 10px #ff1a1a;
+        0 0 5px #510067,
+        0 0 10px #e100a7;
     cursor: pointer;
     transition: 0.2s;
 }
