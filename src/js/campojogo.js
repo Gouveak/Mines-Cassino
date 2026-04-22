@@ -64,6 +64,7 @@ class Jogo extends EventTarget {
     this.dispatchEvent(new Event("atualizarMultiplicador"));
     this.#blocos = [];
     this.#idBlocosBomba = [];
+    this.#idClicados = [];
   }
 
   encerrarPartida() {
