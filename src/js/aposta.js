@@ -1,3 +1,6 @@
+import { jogo } from "./campojogo.js";
+
+
 const caixaSaldoEl = document.getElementById("saldoCaixa"); // const correspondente ao h2 com o saldo
 let saldoAtual = Number(localStorage.getItem("saldoGlobal")); // let resgata o saldo do input (no primeiro uso); caso o usuário feche ou recarregue a aba sem querer, o valor para saldo será mantido. Para apagar, deve-se pressionar o botão sair
 
@@ -10,7 +13,7 @@ if (caixaSaldoEl) { // o saldo armazenado como variável global substituirá o t
 }
 
 const caixaApostaEl = document.getElementById("apostaCaixa"); // const correspondnete ao h2 com a aposta
-let valorAposta = Number(localStorage.getItem("totalAposta")); // let resgata a variável correspondnete ao valor da aposta, definida mais adiante
+let valorAposta = Number(localStorage.getItem("totalAposta")); // let resgata a variável correspondente ao valor da aposta, definida mais adiante
 
 
 
@@ -50,3 +53,12 @@ document.getElementById("btn-apostar-cinquenta").addEventListener("click", () =>
 document.getElementById("btn-apostar-cem").addEventListener("click", () => {
   apostar(100);
 });
+
+
+function atualizarInterfaceAposta() { // exibe o valor de aposta atualizado de campojogo.js, definido pelo dev Giovanni. Quando o jogo é finalizado, a aposta será sempre zerada
+
+  caixaApostaEl.innerHTML = jogo.aposta; // pega o valor atualizado de aposta (de campojogo.js)
+  valorAposta = 0; // estabelece o mesmo valor para a var local para evitar conflitos
+}
+
+jogo.addEventListener("atualizarAposta", atualizarInterfaceAposta); // quando o jogo executar atualizarAposta em resetarAtributos(), a função acima será chamada, exibindo o valor corretamente
