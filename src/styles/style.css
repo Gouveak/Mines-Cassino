@@ -168,6 +168,7 @@ main {
 }
 
 .caixa-aposta h2 {
+    z-index: 923;
     font-size: 30px;
     color: #fff8d6;
     margin: 0;
@@ -187,7 +188,44 @@ main {
     border-radius: 8px;
     background: linear-gradient(165deg, #f5d547, #c9a400);
     border: 3px solid #b89600;
+    position: relative;
+    overflow: visible;
+    transition: box-shadow 0.3s ease;
 }
+
+.caixa-multiplicador * {
+    position: relative;
+    z-index: 1;
+}
+
+.caixa-multiplicador.fogo-ativo {
+    animation: pulsoBorda 0.8s ease-out forwards;
+}
+
+@keyframes pulsoBorda {
+    0%   { 
+        box-shadow: 0 0 0px transparent;
+        border-color: #b89600;
+        background: linear-gradient(165deg, #f5d547, #c9a400);
+    }
+    30%  { 
+        box-shadow: 0 0 20px #ff6a00cc, 0 0 40px #ff450066;
+        border-color: #ff6a00;
+        background: linear-gradient(165deg, #ffaa00, #ff6a00);
+    }
+    70%  { 
+        box-shadow: 0 0 10px #ff6a0088, 0 0 20px #ff450033;
+        border-color: #ffaa00;
+        background: linear-gradient(165deg, #ffc840, #ffaa00);
+    }
+    100% { 
+        box-shadow: 0 0 0px transparent;
+        border-color: #b89600;
+        background: linear-gradient(165deg, #f5d547, #c9a400);
+    }
+}
+
+
 .caixa-multiplicador h1 {
     font-size: 20px;
     padding-bottom: 10px;
@@ -199,9 +237,21 @@ main {
     color: #fff8d6;
     margin: 0;
     text-shadow: 
-    0 0 5px #e6c300,
-    0 0 10px #ffd700,
-    0 0 20px #ffd700;
+        0 0 5px #e6c300,
+        0 0 10px #ffd700,
+        0 0 20px #ffd700;
+    transition: transform 0.1s ease;
+}
+
+.caixa-multiplicador.fogo-ativo h2 {
+    animation: numeroAmplia 0.8s ease-out forwards;
+}
+
+@keyframes numeroAmplia {
+    0%   { transform: scale(1);    text-shadow: 0 0 5px #e6c300, 0 0 10px #ffd700, 0 0 20px #ffd700; }
+    30%  { transform: scale(2);  text-shadow: 0 0 8px #ff6a00, 0 0 20px #ff4500, 0 0 40px #ff450088; }
+    60%  { transform: scale(1.8);  text-shadow: 0 0 6px #ffaa00, 0 0 14px #ffd700, 0 0 28px #ffd70066; }
+    100% { transform: scale(1);    text-shadow: 0 0 5px #e6c300, 0 0 10px #ffd700, 0 0 20px #ffd700; }
 }
 .caixa-potencial {
     display: flex;
@@ -231,6 +281,66 @@ main {
     0 0 20px #ffd700;
     margin: 0;
 }
+.caixa-temporizador {
+    right: 60px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 300px;
+    border-radius: 10px;
+    background: linear-gradient(165deg, #1a0000, #0f0000);
+    border: 3px solid #ff2200;
+    box-shadow: 0 0 15px #ff220066, inset 0 0 20px #ff000011;
+    animation: pulsarTemporizador 1.5s ease-in-out infinite;
+}
+
+.caixa-temporizador h1 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    color: #ff4422;
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.caixa-temporizador h2 {
+    font-size: 36px;
+    color: #ff3300;
+    text-shadow: 
+        0 0 5px #ff2200,
+        0 0 15px #ff2200,
+        0 0 30px #ff0000,
+        0 0 60px #cc000088;
+    margin: 0;
+    font-family: monospace;
+    letter-spacing: 4px;
+    animation: piscaNumero 1.5s ease-in-out infinite;
+}
+
+@keyframes pulsarTemporizador {
+    0%, 100% { 
+        box-shadow: 0 0 10px #ff220044, inset 0 0 20px #ff000011;
+        border-color: #ff2200;
+    }
+    50% { 
+        box-shadow: 0 0 30px #ff2200cc, 0 0 60px #ff000044, inset 0 0 30px #ff000022;
+        border-color: #ff5500;
+    }
+}
+
+@keyframes piscaNumero {
+    0%, 100% { 
+        opacity: 1;
+        text-shadow: 0 0 5px #ff2200, 0 0 15px #ff2200, 0 0 30px #ff0000;
+    }
+    50% { 
+        opacity: 0.7;
+        text-shadow: 0 0 10px #ff4400, 0 0 25px #ff2200, 0 0 50px #ff000088;
+    }
+}
 .container {
     display: flex;
     position: relative;
@@ -258,6 +368,24 @@ main {
     left: 186px;
     top: -15px;
 }
+.gif-confete {
+    position: fixed;
+    justify-self: center;
+    width: 1000px;
+    top: 50%;
+    left: 45%;
+    pointer-events: none;
+    z-index: 999;
+    animation: gifSumir 0.8s ease-out forwards;
+}
+
+@keyframes gifSumir {
+    0%   { opacity: 0; transform: translate(-50%, -40%) scale(0.8); }
+    15%  { opacity: 1; transform: translate(-50%, -50%) scale(1);   }
+    80%  { opacity: 1; transform: translate(-50%, -55%) scale(1);   }
+    100% { opacity: 0; transform: translate(-50%, -65%) scale(0.95);}
+}
+
 .jogo {
     display: flex;
     justify-content: center;
@@ -316,35 +444,39 @@ main {
     height: 100px;
     width: 360px;
     border-radius: 10px;
-    background: linear-gradient(90deg, #d30b0b, #f09819, #ffd700, #2ecc71, #3498db, #63008a);
+    background-color: rgba(0, 0, 0, 0);
     overflow: hidden;
-
+    z-index: 0;
 }
+
+.caixa-chance::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background-image: conic-gradient(#d30b0b, #f09819, #ffd700, #2ecc71, #3498db, #63008a, #d30b0b);
+    animation: brilhoChance 3s linear infinite;
+    z-index: -2;
+}
+
 .caixa-chance::after {
     content: "";
     position: absolute;
-    width: 500px;
-    height: 500px;
-    background-image: conic-gradient(transparent, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff0000);
-    border-radius: 10px;
-    animation: brilhoChance 3s linear infinite;
-    animation-delay: -2s;
-    overflow: hidden;
-}
-@keyframes brilhoChance {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    inset: 3px;
+    background: rgba(0, 0, 0, 0.507);
+    border-radius: 8px;
+    z-index: -1;
 }
 
+@keyframes brilhoChance {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 .caixa-chance h1 {
     font-size: 20px;
     padding-bottom: 10px;
-    color: #6b5300;
+    color: #ffc800;
     margin: 0;
 }
 .caixa-chance h2 {
@@ -357,7 +489,7 @@ main {
     0 0 24px #ffaa00;
 }
 .caixa-saldo {
-     display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -365,8 +497,52 @@ main {
     width: 300px;
     border-radius: 8px;
     background: linear-gradient(165deg, #f5d547, #c9a400);
-    border: 3px solid #b89600;
+    border: 3px solid transparent;
+    background:
+        linear-gradient(165deg, #f5d547, #c9a400) padding-box,
+        linear-gradient(var(--a), #fff176, #f5d547, #b89600, #fff9c4, #b89600, #f5d547) border-box;
+    position: relative;
+    overflow: hidden;
+    animation: girarBordaSaldo 3s linear infinite;
+}
 
+@property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes girarBordaSaldo {
+    to { --a: 360deg; }
+}
+
+/* brilho varrendo */
+.caixa-saldo::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.45),
+        transparent
+    );
+    transform: skewX(-20deg);
+    animation: brilhoSaldo 2.5s ease-in-out infinite;
+}
+
+@keyframes brilhoSaldo {
+    0%   { left: -75%; }
+    40%  { left: 125%; }
+    100% { left: 125%; }
+}
+
+.caixa-saldo * {
+    position: relative;
+    z-index: 1;
 }
 .caixa-saldo h1 {
     font-size: 20px;
@@ -389,12 +565,31 @@ main {
     display: flex;
     border-radius: 10px;
     justify-content: center;
-    border: 3px solid #5a0012;
+    border: 3px solid transparent;
+    background:
+        linear-gradient(#0f0f0f, #0f0f0f) padding-box,
+        linear-gradient(var(--a), #5a0012, #ff4d6d, #5a0012) border-box;
     width: 360px;
     height: 120px;
     gap: 10px;
+    position: relative;
+    animation: girarBorda 4s linear infinite;
 }
 
+@property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes girarBorda {
+    to { --a: 360deg; }
+}
+
+.caixa-apostar * {
+    position: relative;
+    z-index: 1;
+}
 .btn-apostar-cem img,
 .btn-apostar-cinquenta img,
 .btn-apostar-dez img {
@@ -457,23 +652,23 @@ main {
 .anuncio.ativo {
     opacity: 1;
 }
-.btn-iniciar {
+.btn-coletar {
     background: linear-gradient(45deg, #00d2ff, #3a7bd5);
     box-shadow: 0 2px 0 #2a5a9e, 0 0 10px rgba(0, 210, 255, 0.6);
     justify-content: center;
 }
 
-.btn-coletar {
+.btn-iniciar {
     background: linear-gradient(45deg, #00ff88, #00cc66);
     box-shadow: 0 2px 0 #008f4a, 0 0 10px rgba(0, 255, 136, 0.6);
     justify-content: center;
 }
 
-.btn-coletar:hover {
+.btn-iniciar:hover {
     transform: translateY(-2px) scale(1.005);
     box-shadow: 0 6px 0 #008f4a, 0 0 25px rgba(0, 255, 136, 1);
 }
-.btn-iniciar:hover {
+.btn-coletar:hover {
     transform: translateY(-2px) scale(1.005);
     box-shadow: 0 6px 0 #2a5a9e, 0 0 25px rgba(0, 210, 255, 1);
 }

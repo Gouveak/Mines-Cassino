@@ -23,7 +23,6 @@ class Jogo extends EventTarget {
   #blocos = [];
 
   qtdJogadas = 1;
-  qtdPartidas = 1;
 
   imagens = {
     estrela: "01100101011100110111010001110010.png",
@@ -188,6 +187,7 @@ class Jogo extends EventTarget {
     if (objCorrespondente.temEstrela) {
       this.aumentarMultiplicador();
       elemento.classList.add("rotacionado");
+      this.qtdJogadas += 1;
       return;
     }
     console.log("não tem estrela");

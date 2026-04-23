@@ -34,6 +34,10 @@
         <h1>Potencial</h1>
         <h2>$ 0</h2>
       </div>
+       <div class="caixa-temporizador">
+        <h1>Temporizador</h1>
+        <h2>03:00</h2>
+      </div>
     </section>
     <section class="container">
       <div class="formulario">
@@ -54,12 +58,14 @@
             <img src="src/assets/imagens/ficha100.png" alt="" />
           </button>
         </div>
-        <button class="btn-coletar" id="btn-coletar">Coletar</button>
+        <button class="btn-iniciar" id="btn-iniciar"><b>COMEÇAR</b></button>
+        <button class="btn-coletar" id="btn-coletar"><b>COLETAR</b></button>
+
         <div class="caixa-chance">
           <h1>Chance de Estrela</h1>
           <h2 id="chanceCaixa">0%</h2>
         </div>
-        <button class="btn-iniciar" id="btn-iniciar">Iniciar Jogo</button>
+
         <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
       </div>
 
@@ -71,6 +77,7 @@
         </div>
       </div>
       <div class="formulario-dois">
+        
         <div class="anuncio-container">
           <img class="anuncio ativo" src="src/assets/imagens/dsbet.png" />
           <img class="anuncio" src="src/assets/imagens/absolutejeff.jpeg" />
@@ -84,8 +91,9 @@
       </div>
     </section>
   </main>
+  <script type="module" src="src/js/temporizador.js"></script>
   <script src="src/js/tela-de-ganhar-perder.js"></script>
-  <script src="src/js/numeros.js"></script>
+  <script type="module" src="src/js/numeros.js"></script>
   <script src="src/js/anuncio.js"></script>
   <script type="module" src="src/js/campojogo.js"></script>
   <script type="module" src="src/js/chance.js"></script>
