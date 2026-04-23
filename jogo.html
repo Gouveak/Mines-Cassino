@@ -1,122 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/style.css">
-    <title>Mines</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/styles/style.css" />
+  <title>Mines</title>
 </head>
 
 <body>
-<header class="header">
-        <nav class="nav">
-    <h1 class="titulo">Mines</h1>
-    <a href="index.html" class="link-saldo">Sair</a>
-</nav>
-    </header>
-    <main>
-        <section class="caixas-ganho">
-             <div class="logo">
-                <img src="src/assets/imagens/dsbet.png">
-            </div>
-            <div class="caixa-saldo">
-                <h1>Saldo</h1>
-                <h2 id="saldoCaixa">$ 0</h2>
-            </div>
-            <div class="caixa-multiplicador">
-                <h1>Multiplicador</h1>
-                <h2>1.0x</h2>
-            </div>
-            <div class="caixa-potencial">
-                <h1>Potencial</h1>
-                <h2>$ 0</h2>
-            </div>
-        </section>
-        <section class="container">
+  <header class="header">
+    <nav class="nav">
+      <h1 class="titulo">Mines</h1>
+      <a href="index.html" id="btn-sair" class="link-saldo">Sair</a>
+    </nav>
+  </header>
+  <main>
 
-            <div class="formulario">
-                <div class="caixa-aposta">
-                    <h1>Aposta</h1>
-                    <h2 id="apostaCaixa">$ 0</h2>
-                </div>
-                <div class="caixa-apostar">
-                    <button class="btn-apostar-dez" id="btn-apostar-dez">
-                        <img src="src/assets/imagens/ficha10.png" alt="">
-                    </button>
-
-                    <button class="btn-apostar-cinquenta" id="btn-apostar-cinquenta">
-                        <img src="src/assets/imagens/ficha50.png" alt="">
-                    </button>
-
-                    <button class="btn-apostar-cem" id="btn-apostar-cem">
-                        <img src="src/assets/imagens/ficha100.png" alt="">
-                    </button>
-                </div>
-                <button class="btn-coletar" id="btn-coletar">Coletar</button>
-                <div class="caixa-chance">
-                    <h1>Chance de Ganhar</h1>
-                    <h2 id="chanceCaixa">0%</h2>
-                </div>
-                <button class="btn-iniciar" id="btn-iniciar">Iniciar Jogo</button>
-                <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
-            </div>
-
-            <div class="campo-jogo">
-                <div class="jogo">
-                    <div class="malha" id="malha"></div>
-                </div>
-            </div>
-           <div class="formulario-dois">
-             <div class="anuncio-container">
-                  <img class="anuncio ativo" src="src/assets/imagens/dsbet.png">
-                  <img class="anuncio" src="src/assets/imagens/absolutejeff.jpeg">
-                  <img class="anuncio" src="src/assets/imagens/jeffagricultor.jpeg">
-                  <img class="anuncio" src="src/assets/imagens/jeffchefe.jpeg">
-                  <img class="anuncio" src="src/assets/imagens/jeffsonico.jpeg">
-                  <img class="anuncio" src="src/assets/imagens/kingjeff.jpeg">
-                  <img class="anuncio" src="src/assets/imagens/superjeff.jpeg">
-                  <img class="anuncio" src="src/assets/imagens/surfjeff.jpeg">
-
-            </div>
-</div>
-            
-        </section>
-
-
-    </main>
-    <script src="src/js/anuncio.js"></script>
-    <script src="src/js/campojogo.js"></script>
-    <script src="src/js/aposta.js"></script>
-    <script src="src/js/coletar.js"></script>
-    <script src="src/js/ganho_potencial.js"></script>
-    <script src="src/js/logica_jogo.js"></script>
-    <script src="src/js/multiplicador.js"></script>
-    <script src="src/js/reiniciar.js"></script>
-    <script src="src/js/sair.js"></script>
-
-    <footer class="footer">
-        <div class="footer-content">
-
-            <h2 class="footer-logo">MINES</h2>
-
-            <p class="footer-text">
-                Jogue sem responsabilidade. Proibido para maiores de 18 anos.
-            </p>
-
-            <div class="footer-links">
-                <a>Termos</a>
-                <a>Privacidade</a>
-                <a>Suporte</a>
-            </div>
-
-            <p class="footer-copy">
-                © 2026 DSBet - Todos os direitos reservados
-            </p>
-
+    <section class="caixas-ganho">
+      <div class="logo">
+        <img src="src/assets/imagens/dsbet.png" />
+      </div>
+      <div class="caixa-saldo">
+        <h1>Saldo</h1>
+        <h2 id="saldoCaixa">$ 0</h2>
+      </div>
+      <div class="caixa-multiplicador">
+        <h1>Multiplicador</h1>
+        <h2 id="multiplicador">1.0x</h2>
+      </div>
+      <div class="caixa-potencial">
+        <h1>Potencial</h1>
+        <h2>$ 0</h2>
+      </div>
+    </section>
+    <section class="container">
+      <div class="formulario">
+        <div class="caixa-aposta">
+          <h1>Aposta</h1>
+          <h2 id="apostaCaixa">$ 0</h2>
         </div>
-    </footer>
+        <div class="caixa-apostar">
+          <button class="btn-apostar-dez" id="btn-apostar-dez">
+            <img src="src/assets/imagens/ficha10.png" alt="" />
+          </button>
+
+          <button class="btn-apostar-cinquenta" id="btn-apostar-cinquenta">
+            <img src="src/assets/imagens/ficha50.png" alt="" />
+          </button>
+
+          <button class="btn-apostar-cem" id="btn-apostar-cem">
+            <img src="src/assets/imagens/ficha100.png" alt="" />
+          </button>
+        </div>
+        <button class="btn-coletar" id="btn-coletar">Coletar</button>
+        <div class="caixa-chance">
+          <h1>Chance de Ganhar</h1>
+          <h2 id="chanceCaixa">0%</h2>
+        </div>
+        <button class="btn-iniciar" id="btn-iniciar">Iniciar Jogo</button>
+        <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
+      </div>
+
+
+      <div class="campo-jogo">
+        <img src="src/assets/imagens/01100101011100110111010001110010.png">
+        <div class="jogo">
+          <div class="malha" id="malha"></div>
+        </div>
+      </div>
+      <div class="formulario-dois">
+        <div class="anuncio-container">
+          <img class="anuncio ativo" src="src/assets/imagens/dsbet.png" />
+          <img class="anuncio" src="src/assets/imagens/absolutejeff.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/jeffagricultor.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/jeffchefe.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/jeffsonico.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/kingjeff.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/superjeff.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/surfjeff.jpeg" />
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="src/js/tela-de-ganhar-perder.js"></script>
+  <script src="src/js/numeros.js"></script>
+  <script src="src/js/anuncio.js"></script>
+  <script type="module" src="src/js/campojogo.js"></script>
+  <script type="module" src="src/js/aposta.js"></script>
+  <script src="src/js/coletar.js"></script>
+  <script src="src/js/ganho_potencial.js"></script>
+  <script src="src/js/logica_jogo.js"></script>
+  <script type="module" src="src/js/multiplicador.js"></script>
+  <script src="src/js/reiniciar.js"></script>
+  <script src="src/js/sair.js"></script>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <h2 class="footer-logo">MINES</h2>
+
+      <p class="footer-text">
+        Projeto desenvolvido exclusivamente para fins educacionais, no âmbito das atividades acadêmicas da ETEC de
+        Guarulhos.
+      </p>
+
+      <div class="footer-links">
+        <a>Termos</a>
+        <a>Privacidade</a>
+        <a>Suporte</a>
+      </div>
+
+      <p class="footer-copy">© 2026 DSBet - Todos os direitos reservados</p>
+    </div>
+  </footer>
 </body>
 
 </html>
