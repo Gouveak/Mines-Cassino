@@ -1,4 +1,19 @@
+<<<<<<< HEAD
 import { jogo } from "./campojogo.js";
+=======
+
+import { jogo } from "./campojogo.js";
+
+const potencialValor = document.getElementById("idPotencial");
+
+function definirPotencial() {
+    potencialValor.innerHTML = jogo.potencial;
+}
+
+jogo.addEventListener("atualizarMultiplicador", definirPotencial);
+
+
+>>>>>>> 149b2aada2909d55ae0e9b99e5db7afd5d96d625
 // aqui vc pode reaproveitar a lógica do multiplicador.js
 
 // exemplo
