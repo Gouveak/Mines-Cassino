@@ -1,3 +1,15 @@
+
+import { jogo } from "./campojogo.js";
+
+const potencialValor = document.getElementById("idPotencial");
+
+function definirPotencial() {
+    potencialValor.innerHTML = jogo.potencial;
+}
+
+jogo.addEventListener("atualizarMultiplicador", definirPotencial);
+
+
 // aqui vc pode reaproveitar a lógica do multiplicador.js
 
 // exemplo
