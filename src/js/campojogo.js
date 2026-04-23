@@ -45,7 +45,7 @@ class Jogo extends EventTarget {
     return this.#idBlocosBomba;
   }
   get aposta() {
-    return `$ ${this.aposta}`;
+    return `$ ${this.#aposta}`;
   }
 
   set aposta(valor) {
