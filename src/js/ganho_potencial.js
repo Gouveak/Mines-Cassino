@@ -1,3 +1,4 @@
+import { jogo } from "./campojogo.js";
 // aqui vc pode reaproveitar a lógica do multiplicador.js
 
 // exemplo
@@ -17,3 +18,13 @@ jogo.addEventListener("atualizarMultiplicador", definirPotencial);
 
 // import { jogo } from "./campojogo.js"; essa importação PRECISA estar no topo do arquivo
 // se não funcionar vá em jogo.html e veja se seu script tem type="module" assim como o campojogo.js e multiplicador.js têm. se não tiver, coloque
+
+
+
+const potencialValor = document.getElementById("idPotencial");
+
+function definirPotencial() {
+    potencialValor.innerHTML = jogo.potencial;
+}
+
+jogo.addEventListener("atualizarMultiplicador", definirPotencial);
