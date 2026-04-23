@@ -16,6 +16,7 @@
       <a href="index.html" id="btn-sair" class="link-saldo">Sair</a>
     </nav>
   </header>
+  <img class="fundo" src="src/assets/imagens/fundo.jpeg" />
   <main>
 
     <section class="caixas-ganho">
@@ -65,20 +66,28 @@
           <h1>Chance de Estrela</h1>
           <h2 id="chanceCaixa">0%</h2>
         </div>
-
-        <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
       </div>
 
 
       <div class="campo-jogo">
         <img src="src/assets/imagens/01100101011100110111010001110010.png">
+        <div class="tela-card">
+          <h1>PARABÉNS!!!</h1>
+          <h2>VOCÊ ESTÁ ENTRE OS MELHORES JOGADORES!</h2>
+          <img src="src/assets/imagens/dinheiro.gif" />
+          <button id="recompensaCaixa">RECOMPENSA: $ 20</button>
+
+
+        </div>
         <div class="jogo">
           <div class="malha" id="malha"></div>
         </div>
       </div>
       <div class="formulario-dois">
-        
+      
+    
         <div class="anuncio-container">
+        
           <img class="anuncio ativo" src="src/assets/imagens/propagandaeslote.jpeg" />
           <img class="anuncio" src="src/assets/imagens/propagandamines.jpeg" />
           <img class="anuncio" src="src/assets/imagens/propagandacartas.jpeg" />
@@ -87,7 +96,7 @@
     </section>
   </main>
   <script type="module" src="src/js/temporizador.js"></script>
-  <script src="src/js/tela-de-ganhar-perder.js"></script>
+  <script type="module" src="src/js/tela-card.js"></script>
   <script type="module" src="src/js/numeros.js"></script>
   <script src="src/js/anuncio.js"></script>
   <script type="module" src="src/js/campojogo.js"></script>

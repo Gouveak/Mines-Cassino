@@ -19,6 +19,7 @@ main {
 }
  .header {
             position: relative;
+            z-index: 2;
             background: radial-gradient(circle at top, #4a000f, #240404);
             padding: 15px 30px;
             box-shadow: 
@@ -38,6 +39,16 @@ main {
        
 
 
+.fundo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.5;
+}
 .titulo {
     position: absolute;
     left: 50%;
@@ -349,10 +360,11 @@ main {
 }
 
 .campo-jogo {
+    z-index: 2;
     height: 600px;
     width: 1000px;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.377);
+    background-color: #180204;
     box-shadow: 
     0 0 6px #6b0015,
     0 0 12px #a00028,
@@ -401,13 +413,14 @@ main {
 
 
 .formulario {
+    z-index: 2;
     position: absolute;
     right: 100%;     
     margin-right: 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: rgba(0, 0, 0, 0.377);
+    background-color: #180204;
     width: 400px;
     height: 600px;
     padding: 20px;
@@ -417,22 +430,26 @@ main {
     0 0 12px #a00028,
     0 0 24px #d11a3a;
 }
+
+
 .formulario-dois {
+    border-radius: 10px;
     position: absolute;
-    left: 100%;     
+    left: 100%;
     margin-left: 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: rgba(0, 0, 0, 0.377);
-    width: 370px;
-    height: 600px;
-    padding: 20px;
+    background-color: #180204;
     border-radius: 12px;
     box-shadow: 
     0 0 6px #6b0015,
     0 0 12px #a00028,
     0 0 24px #d11a3a;
+    width: 370px;
+    height: 600px;
+    padding: 20px;
+    z-index: 1;
 }
 
 .caixa-chance {
@@ -629,10 +646,9 @@ main {
 .anuncio-container {
     position: relative;
     width: 100%;
-    height: 600px;
+    height: 700px;
     overflow: hidden;
     border-radius: 10px;
-
     
 }
 
@@ -640,6 +656,7 @@ main {
     position: absolute;
     width: 100%;
     height: 100%;
+    border-radius: 10px;
     object-fit: cover;
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -648,7 +665,68 @@ main {
     0 0 12px #a00028,
     0 0 24px #d11a3a;
 }
+.tela-card {
 
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 105px;
+    border-radius: 10px;
+    width: 800px;
+    height: 500px;
+    background-color: #180204;
+    box-shadow: 
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+.tela-card img {
+    width: 900px;
+    height: auto;
+    left: 1px;
+    top: 2px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+    z-index: -1;
+}
+.tela-card h1 {
+    flex-direction: column;
+    font-size: 48px;
+    color: #fff;
+    text-shadow: 
+    0 0 5px #e6c300,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
+}
+.tela-card h2 {
+      flex-direction: column;
+    font-size: 30px;
+    color: #fff8d6;
+    margin-top: 20px;
+    text-shadow: 
+    0 0 5px #e6c300,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
+}
+.tela-card button {
+    margin-top: 30px;
+    padding: 15px 50px;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(45deg, #ff004c, #ffcc00);
+    box-shadow: 0 2px 0 #c99700, 0 0 10px rgba(255,204,0,0.6);
+    transition: 0.2s ease;
+}
 .anuncio.ativo {
     opacity: 1;
 }
@@ -736,9 +814,9 @@ button {
     top: 20px;
     width: 100%;
     height: 10px;
-    background: radial-gradient(circle, #ffd700 4px, transparent 5px);
     background-size: 30px 10px;
     background-repeat: repeat-x;
+    background: radial-gradient(circle, #ffd700 4px, transparent 5px);
     filter: drop-shadow(0 0 5px #ffd700);
 }
 
@@ -790,12 +868,12 @@ button {
     width: 90px;
     height: 90px;
     border-radius: 10px;
-    background: linear-gradient(165deg, #510067, #e100a7);
-    border: 2px solid #e100a7;
+    background: linear-gradient(165deg, #00d2ff, #3a7bd5);
+    border: 2px solid #00d2ff;
 ;
     box-shadow:
-        0 0 5px #510067,
-        0 0 10px #e100a7;
+        0 0 5px #3a7bd5,
+        0 0 10px #00d2ff;
     cursor: pointer;
     transition: 0.2s;
 }
