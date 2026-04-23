@@ -37,9 +37,15 @@ class Jogo extends EventTarget {
   get multiplicador() {
     return `${this.#multiplicador.toFixed(1)}x`;
   }
+  get idClicados() {
+    return this.#idClicados;
+  }
 
+  get idBlocosBomba() {
+    return this.#idBlocosBomba;
+  }
   get aposta() {
-    return `$ ${this.#aposta}`;
+    return `$ ${this.aposta}`;
   }
 
   set aposta(valor) {
@@ -198,6 +204,7 @@ class Jogo extends EventTarget {
 
   iniciarPartida() {
     this.sortearBlocosBomba();
+    this.dispatchEvent(new Event("partidaIniciada"));
 
     // cria 25 blocos
     for (let i = 0; i < 25; i++) {
