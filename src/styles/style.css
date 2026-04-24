@@ -51,7 +51,7 @@ main {
 }
 .titulo {
     position: absolute;
-    left: 50%;
+    left: 51.5%;
     top: -8px;
     transform: translateX(-50%);
     font-family: 'Great Vibes', cursive !important;
@@ -1089,9 +1089,9 @@ button {
     top: 20px;
     width: 100%;
     height: 10px;
+    background-image: radial-gradient(circle, #ffd700 4px, transparent 5px);
     background-size: 30px 10px;
     background-repeat: repeat-x;
-    background: radial-gradient(circle, #ffd700 4px, transparent 5px);
     filter: drop-shadow(0 0 5px #ffd700);
 }
 
