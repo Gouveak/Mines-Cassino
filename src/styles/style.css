@@ -190,52 +190,150 @@ main {
 }
 
 .caixa-multiplicador {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    width: 300px;
-    border-radius: 8px;
-    background: linear-gradient(165deg, #f5d547, #c9a400);
-    border: 3px solid #b89600;
-    position: relative;
-    overflow: visible;
-    transition: box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 300px;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(165deg, #f5d547, #c9a400) padding-box,
+    linear-gradient(var(--a), #fff176, #f5d547, #b89600, #fff9c4, #b89600, #f5d547) border-box;
+  overflow: hidden;
+  box-shadow:
+    0 0 10px #ffd700,
+    0 0 25px #ffc400,
+    inset 0 0 12px rgba(255,255,255,0.35);
+  animation:
+    girarBordaMultiplicador 4s linear infinite,
+    brilhoMultiplicador 3s ease-in-out infinite;
 }
 
 .caixa-multiplicador * {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
+}
+@property --a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes girarBordaMultiplicador {
+  to { --a: 360deg; }
+}
+@keyframes brilhoMultiplicador {
+
+  0% {
+    box-shadow:
+      0 0 8px #ffd700,
+      0 0 20px #ffc400,
+      inset 0 0 8px rgba(255,255,255,0.3);
+  }
+
+  50% {
+    box-shadow:
+      0 0 18px #fff176,
+      0 0 40px #ffd700,
+      inset 0 0 16px rgba(255,255,255,0.55);
+  }
+
+  100% {
+    box-shadow:
+      0 0 8px #ffd700,
+      0 0 20px #ffc400,
+      inset 0 0 8px rgba(255,255,255,0.3);
+  }
+
+}
+.caixa-multiplicador::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 40%;
+  height: 200%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.6),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+  animation: reflexoMultiplicador 3s ease-in-out infinite;
 }
 
+@keyframes reflexoMultiplicador {
+
+  0% { left: -80%; }
+
+  40% { left: 120%; }
+
+  100% { left: 120%; }
+
+}
+.caixa-multiplicador::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 80%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.8),
+    transparent
+  );
+
+  transform: skewX(-25deg);
+}
 .caixa-multiplicador.fogo-ativo {
-    animation: pulsoBorda 0.8s ease-out forwards;
+  animation:
+    impactoMultiplicador 0.6s ease,
+    girarBordaMultiplicador 4s linear infinite,
+    brilhoMultiplicador 3s ease-in-out infinite;
 }
 
-@keyframes pulsoBorda {
-    0%   { 
-        box-shadow: 0 0 0px transparent;
-        border-color: #b89600;
-        background: linear-gradient(165deg, #f5d547, #c9a400);
-    }
-    30%  { 
-        box-shadow: 0 0 20px #ff6a00cc, 0 0 40px #ff450066;
-        border-color: #ff6a00;
-        background: linear-gradient(165deg, #ffaa00, #ff6a00);
-    }
-    70%  { 
-        box-shadow: 0 0 10px #ff6a0088, 0 0 20px #ff450033;
-        border-color: #ffaa00;
-        background: linear-gradient(165deg, #ffc840, #ffaa00);
-    }
-    100% { 
-        box-shadow: 0 0 0px transparent;
-        border-color: #b89600;
-        background: linear-gradient(165deg, #f5d547, #c9a400);
-    }
+.caixa-multiplicador.fogo-ativo::after {
+  animation: brilhoPassando 0.6s ease;
 }
 
+@keyframes impactoMultiplicador {
+
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.15);
+    box-shadow:
+      0 0 25px #fff176,
+      0 0 50px #ffd700;
+  }
+
+  60% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+@keyframes brilhoPassando {
+
+  0% { left: -150%; }
+
+  100% { left: 200%; }
+
+}
 
 .caixa-multiplicador h1 {
     font-size: 20px;
@@ -265,55 +363,78 @@ main {
     100% { transform: scale(1);    text-shadow: 0 0 5px #e6c300, 0 0 10px #ffd700, 0 0 20px #ffd700; }
 }
 .caixa-potencial {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     height: 100px;
     width: 300px;
     border-radius: 10px;
-    background: linear-gradient(165deg, #f5d547, #c9a400);
-    border: 3px solid #b89600;
-    border: 3px solid #f5d547;
+
+    border: 3px solid transparent;
+
+    background:
+        linear-gradient(165deg, #f5d547, #c9a400) padding-box,
+        linear-gradient(var(--a), #fff176, #f5d547, #b89600, #fff9c4, #b89600, #f5d547) border-box;
+
+    position: relative;
+    overflow: hidden;
+
     box-shadow:
         0 0 10px #ffd700,
         0 0 25px #ffc400,
-        inset 0 0 10px rgba(255,255,255,0.4);
-    animation: brilhoPotencial 2.5s ease-in-out infinite;
-    overflow: hidden;
+        inset 0 0 12px rgba(255,255,255,0.35);
+
+    animation:
+        girarBordaPotencial 4s linear infinite,
+        brilhoPotencial 3s ease-in-out infinite;
 }
 
+@property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes girarBordaPotencial {
+    to { --a: 360deg; }
+}
+
+/* glow pulsando */
 @keyframes brilhoPotencial {
+
     0% {
         box-shadow:
-        0 0 10px #ffd700,
-        0 0 25px #ffc400,
-        inset 0 0 10px rgba(255,255,255,0.3);
+            0 0 8px #ffd700,
+            0 0 20px #ffc400,
+            inset 0 0 8px rgba(255,255,255,0.3);
     }
 
     50% {
         box-shadow:
-        0 0 20px #fff36a,
-        0 0 45px #ffd700,
-        inset 0 0 20px rgba(255,255,255,0.6);
+            0 0 18px #fff176,
+            0 0 40px #ffd700,
+            inset 0 0 16px rgba(255,255,255,0.55);
     }
 
     100% {
         box-shadow:
-        0 0 10px #ffd700,
-        0 0 25px #ffc400,
-        inset 0 0 10px rgba(255,255,255,0.3);
+            0 0 8px #ffd700,
+            0 0 20px #ffc400,
+            inset 0 0 8px rgba(255,255,255,0.3);
     }
+
 }
 
-.caixa-potencial::after {
+/* reflexo passando */
+.caixa-potencial::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: -150%;
-    width: 80%;
-    height: 100%;
+    top: -50%;
+    left: -80%;
+    width: 40%;
+    height: 200%;
 
     background: linear-gradient(
         120deg,
@@ -322,18 +443,18 @@ main {
         transparent
     );
 
-    transform: skewX(-25deg);
-    animation: reflexo 3s infinite;
+    transform: skewX(-20deg);
+    animation: reflexoPotencial 3s ease-in-out infinite;
 }
 
-@keyframes reflexo {
-    0% {
-        left: -150%;
-    }
+@keyframes reflexoPotencial {
 
-    100% {
-        left: 200%;
-    }
+    0% { left: -80%; }
+
+    40% { left: 120%; }
+
+    100% { left: 120%; }
+
 }
 
 .caixa-potencial h1 {
@@ -570,53 +691,97 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     height: 100px;
     width: 300px;
-    border-radius: 8px;
-    background: linear-gradient(165deg, #f5d547, #c9a400);
+    border-radius: 10px;
+
     border: 3px solid transparent;
+
     background:
         linear-gradient(165deg, #f5d547, #c9a400) padding-box,
         linear-gradient(var(--a), #fff176, #f5d547, #b89600, #fff9c4, #b89600, #f5d547) border-box;
+
     position: relative;
     overflow: hidden;
-    animation: girarBordaSaldo 3s linear infinite;
+
+    box-shadow:
+        0 0 10px #ffd700,
+        0 0 25px #ffc400,
+        inset 0 0 12px rgba(255,255,255,0.35);
+
+    animation:
+        girarBordaSaldo 4s linear infinite,
+        brilhoPulseSaldo 3s ease-in-out infinite;
 }
 
+/* propriedade da borda giratória */
 @property --a {
     syntax: "<angle>";
     inherits: false;
     initial-value: 0deg;
 }
 
+/* borda girando */
 @keyframes girarBordaSaldo {
     to { --a: 360deg; }
 }
 
-/* brilho varrendo */
+/* brilho pulsando */
+@keyframes brilhoPulseSaldo {
+
+    0% {
+        box-shadow:
+            0 0 8px #ffd700,
+            0 0 20px #ffc400,
+            inset 0 0 8px rgba(255,255,255,0.3);
+    }
+
+    50% {
+        box-shadow:
+            0 0 18px #fff176,
+            0 0 40px #ffd700,
+            inset 0 0 16px rgba(255,255,255,0.55);
+    }
+
+    100% {
+        box-shadow:
+            0 0 8px #ffd700,
+            0 0 20px #ffc400,
+            inset 0 0 8px rgba(255,255,255,0.3);
+    }
+
+}
+
+/* reflexo passando */
 .caixa-saldo::before {
     content: "";
     position: absolute;
     top: -50%;
-    left: -75%;
+    left: -80%;
     width: 40%;
     height: 200%;
+
     background: linear-gradient(
         120deg,
         transparent,
-        rgba(255, 255, 255, 0.45),
+        rgba(255,255,255,0.6),
         transparent
     );
+
     transform: skewX(-20deg);
-    animation: brilhoSaldo 2.5s ease-in-out infinite;
+    animation: brilhoSaldo 3s ease-in-out infinite;
 }
 
 @keyframes brilhoSaldo {
-    0%   { left: -75%; }
-    40%  { left: 125%; }
-    100% { left: 125%; }
-}
 
+    0% { left: -80%; }
+
+    40% { left: 120%; }
+
+    100% { left: 120%; }
+
+}
 .caixa-saldo * {
     position: relative;
     z-index: 1;
@@ -726,7 +891,7 @@ main {
     0 0 24px #d11a3a;
 }
 .tela-card {
-
+    z-index: 2;
     display: none;
     position: absolute;
     top: 50px;
@@ -739,7 +904,6 @@ main {
     0 0 6px #6b0015,
     0 0 12px #a00028,
     0 0 24px #d11a3a;
-    display: flex;
     justify-content: center;
     overflow: hidden;
     flex-direction: column;
@@ -747,13 +911,13 @@ main {
     z-index: 1;
 }
 .tela-card img {
+    z-index: 1;
     width: 900px;
     height: auto;
     left: 1px;
     top: 2px;
     margin-bottom: 20px;
     opacity: 0.5;
-    z-index: -1;
 }
 .tela-card h1 {
     z-index: 1;
