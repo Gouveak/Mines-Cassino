@@ -265,6 +265,7 @@ main {
     100% { transform: scale(1);    text-shadow: 0 0 5px #e6c300, 0 0 10px #ffd700, 0 0 20px #ffd700; }
 }
 .caixa-potencial {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -274,6 +275,65 @@ main {
     border-radius: 10px;
     background: linear-gradient(165deg, #f5d547, #c9a400);
     border: 3px solid #b89600;
+    border: 3px solid #f5d547;
+    box-shadow:
+        0 0 10px #ffd700,
+        0 0 25px #ffc400,
+        inset 0 0 10px rgba(255,255,255,0.4);
+    animation: brilhoPotencial 2.5s ease-in-out infinite;
+    overflow: hidden;
+}
+
+@keyframes brilhoPotencial {
+    0% {
+        box-shadow:
+        0 0 10px #ffd700,
+        0 0 25px #ffc400,
+        inset 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    50% {
+        box-shadow:
+        0 0 20px #fff36a,
+        0 0 45px #ffd700,
+        inset 0 0 20px rgba(255,255,255,0.6);
+    }
+
+    100% {
+        box-shadow:
+        0 0 10px #ffd700,
+        0 0 25px #ffc400,
+        inset 0 0 10px rgba(255,255,255,0.3);
+    }
+}
+
+.caixa-potencial::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.6),
+        transparent
+    );
+
+    transform: skewX(-25deg);
+    animation: reflexo 3s infinite;
+}
+
+@keyframes reflexo {
+    0% {
+        left: -150%;
+    }
+
+    100% {
+        left: 200%;
+    }
 }
 
 .caixa-potencial h1 {
@@ -696,6 +756,10 @@ main {
     z-index: -1;
 }
 .tela-card h1 {
+    z-index: 1;
+}
+.tela-card h1 {
+    z-index: 2;
     flex-direction: column;
     font-size: 48px;
     color: #fff;
@@ -706,6 +770,8 @@ main {
 }
 .tela-card h2 {
       flex-direction: column;
+    z-index: 2;
+    flex-direction: column;
     font-size: 30px;
     color: #fff8d6;
     margin-top: 20px;
@@ -715,6 +781,7 @@ main {
     0 0 20px #ffd700;
 }
 .tela-card button {
+    z-index: 2;
     margin-top: 30px;
     padding: 15px 50px;
     font-size: 18px;
@@ -726,6 +793,50 @@ main {
     background: linear-gradient(45deg, #ff004c, #ffcc00);
     box-shadow: 0 2px 0 #c99700, 0 0 10px rgba(255,204,0,0.6);
     transition: 0.2s ease;
+    transition: 0.1s ease;
+}
+.tela-card button:hover {
+    transition: 0.1s ease;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 0 #c99700, 0 0 25px rgba(255,204,0,1);
+}
+.tela-card::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 12px;
+    background: linear-gradient(
+        90deg,
+        red,
+        orange,
+        yellow,
+        lime,
+        cyan,
+        blue,
+        violet,
+        red
+    );
+    background-size: 400%;
+    animation: arcoirisBorda 6s linear infinite;
+    z-index: -1;
+}
+
+.tela-card::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 10px;
+    background: #180204;
+    z-index: -1;
+}
+
+@keyframes arcoirisBorda {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 400% 50%;
+    }
 }
 .anuncio.ativo {
     opacity: 1;
