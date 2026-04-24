@@ -30,7 +30,8 @@ class Jogo extends EventTarget {
   };
 
   get potencial() {
-    return `$ ${this.#aposta * this.#multiplicador}`;
+    const aposta = Number(this.#aposta) || 0;
+    return `$ ${aposta * this.#multiplicador}`;
   }
 
   get multiplicador() {
@@ -44,7 +45,8 @@ class Jogo extends EventTarget {
     return this.#idBlocosBomba;
   }
   get aposta() {
-    return `$ ${this.#aposta}`;
+    const aposta = Number(this.#aposta) || 0;
+    return `$ ${aposta}`;
   }
 
   set aposta(valor) {
@@ -73,38 +75,39 @@ class Jogo extends EventTarget {
   }
 
   encerrarPartida() {
+    const potencial = Number(this.#aposta) * this.#multiplicador;
+    const saldoFinal = this.#saldo + (this.#venceu ? potencial : 0);
 
-  // aqui eu calculo o saldo final que vai ser salvo
-  // isso é importante porque é esse valor que depois vai aparecer no Excel
-  const saldoFinal = this.#saldo + (this.#venceu ? this.#potencial : 0);
+    // aqui eu calculo o saldo final que vai ser salvo
+    // isso é importante porque é esse valor que depois vai aparecer no Excel
 
-  // aqui eu salvo os dados da partida
-  // esses dados vão para o localStorage e depois são usados para gerar o arquivo CSV
-  // que é o arquivo que será aberto no Excel
-  // estou salvando:
-  // - quantidade de jogadas (rodadas)
-  // - saldo final da partida
-  salvarPartida(this.qtdJogadas, saldoFinal);
+    // aqui eu salvo os dados da partida
+    // esses dados vão para o localStorage e depois são usados para gerar o arquivo CSV
+    // que é o arquivo que será aberto no Excel
+    // estou salvando:
+    // - quantidade de jogadas (rodadas)
+    // - saldo final da partida
+    salvarPartida(this.qtdJogadas, saldoFinal);
 
-  if (this.#venceu) {
-    window.alert("Você venceu!");
+    if (this.#venceu) {
+      window.alert("Você venceu!");
 
-    this.#saldo += this.#potencial;
-    this.#ganhoTotal += this.#potencial;
-    this.qtdPartidas += 1;
+      this.#saldo += potencial;
+      this.#ganhoTotal += potencial;
+      this.qtdPartidas += 1;
 
-    localStorage.setItem("saldoGlobal", this.#saldo);
-    localStorage.setItem("ganhoTotal", this.#ganhoTotal);
+      localStorage.setItem("saldoGlobal", this.#saldo);
+      localStorage.setItem("ganhoTotal", this.#ganhoTotal);
+    }
+
+    this.resetarAtributos();
+
+    if (!this.#venceu) {
+      window.alert("Você perdeu!");
+    }
+
+    this.dispatchEvent(new Event("partidaEncerrada"));
   }
-
-  this.resetarAtributos();
-
-  if (!this.#venceu) {
-    window.alert("Você perdeu!");
-  }
-
-  this.dispatchEvent(new Event("partidaEncerrada"));
-}
   adicionarFrenteVerso(blocoEl) {
     const frente = document.createElement("div");
     frente.classList.add("frente");
