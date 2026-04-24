@@ -22,7 +22,7 @@ class Jogo extends EventTarget {
   #venceu = true;
   #blocos = [];
 
-  qtdJogadas = 1;
+  qtdJogadas = 0;
 
   imagens = {
     estrela: "01100101011100110111010001110010.png",
@@ -175,6 +175,7 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
+    this.qtdJogadas += 1;
     console.log("Quantidade de jogadas : " + this.qtdJogadas);
 
     const idElemento = elemento.dataset.idBloco;
@@ -187,9 +188,9 @@ class Jogo extends EventTarget {
     if (objCorrespondente.temEstrela) {
       this.aumentarMultiplicador();
       elemento.classList.add("rotacionado");
-      this.qtdJogadas += 1;
       return;
     }
+
     console.log("não tem estrela");
     if (!objCorrespondente.temEstrela && this.qtdJogadas < 3) {
       console.log("vai manipular");
@@ -198,7 +199,7 @@ class Jogo extends EventTarget {
     } else {
       this.perdeu();
     }
-    this.qtdJogadas += 1;
+    
     elemento.classList.add("rotacionado");
   }
 
