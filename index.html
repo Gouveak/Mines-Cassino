@@ -1,11 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Definir Saldo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/styles/headersaldo.css">
+    <link rel="stylesheet" href="src/styles/saldo.css">
+    <link rel="stylesheet" href="src/styles/footersaldo.css">
 </head>
+
 <body>
-    
+    <header class="header"> <nav class="nav"> <h1 class="titulo">Mines</h1> </nav> </header>
+
+    <div class="form-container">
+    <div class="form-box">
+
+        <div class="topo">
+            <div class="ds-img">
+                <img src="src/assets/imagens/logodeverdade.png" alt="logo" class="logo-capi">
+            </div>
+            <h1 class="Ds-titulo">Mines</h1>
+            <p>Defina seu saldo inicial</p>
+        </div>
+
+        <div class="destaque">
+            <p>Saldo mínimo: 10 fichas</p>
+        </div>
+
+        
+        <input type="text" id="nomeInput" placeholder="Digite seu nome">
+
+        <select id="tipoUsuario">
+            <option value="">Selecione seu Curso</option>
+            <option value="ADM">ADM</option>
+            <option value="DS">DS</option>
+            <option value="LOG">LOG</option>
+            <option value="RH">RH</option>
+            <option value="visitante">Visitante</option>
+        </select>
+
+       
+       
+<select id="serieInput" style="display: none;">
+    <option value="">Selecione sua série</option>
+</select>
+
+       
+        <input type="number" id="saldoInput" min="10" step="10" placeholder="Digite seu saldo (Ex: 10, 20, 50...)">
+
+        <button type="button" id="btnSalvarSaldo">Entrar no jogo</button>
+
+        <div class="info">
+            Esse saldo será usado na partida
+        </div>
+
+    </div>
+</div>
+
+    <footer class="footer">
+        <div class="footer-content">
+
+            <h2 class="footer-logo">MINES</h2>
+
+            <p class="footer-text">
+                Jogue sem responsabilidade. Proibido para maiores de 18 anos.
+            </p>
+
+            <div class="footer-links">
+                <a>Termos</a>
+                <a>Privacidade</a>
+                <a>Suporte</a>
+            </div>
+
+            <p class="footer-copy">
+                © 2026 DSBet - Todos os direitos reservados
+            </p>
+
+        </div>
+    </footer>
+
+    <script src="src/js/saldo.js"></script>
+
+
 </body>
+
 </html>

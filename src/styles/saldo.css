@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 0;
+    background: radial-gradient(circle at top, #910f0fe5, #000);
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.form-box {
+    width: 520px;
+    max-width: 90%;
+    padding: 50px 40px;
+    background: linear-gradient(145deg, #250606, #7d0202cb);
+    border-radius: 18px;
+    box-shadow: 
+        0 0 6px #6b0015,
+        0 0 12px #a00028,
+        0 0 24px #d11a3a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topo h1 {
+    margin: 0;
+    color: #ffcc00;
+    font-size: 28px;
+}
+
+.topo p {
+    margin: 5px 0 25px;
+    color: #ccc;
+}
+
+.destaque {
+    width: 100%;
+    background: #220000;
+    border: 1px solid #ffcc00;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.destaque p {
+    margin: 0;
+    color: #ffcc00;
+    font-size: 14px;
+}
+
+#saldoInput,
+#nomeInput,
+#serieInput,
+#tipoUsuario {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+
+    border-radius: 10px;
+    border: 1px solid #550000;
+    outline: none;
+
+    font-size: 16px;
+    color: #000;
+}
+
+
+#saldoInput:focus,
+#nomeInput:focus,
+#serieInput:focus,
+#tipoUsuario:focus {
+    box-shadow: 0 0 10px #ff0000;
+}
+
+#tipoUsuario {
+    cursor: pointer;
+}
+
+
+#btnSalvarSaldo {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btnSalvarSaldo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px #ffcc00;
+}
+
+.info {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #aaa;
+}
+
+.logo-capi {
+    width: 115px;
+    filter: drop-shadow(0 0 8px red)
+            drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
+}
+
+.ds-img {
+    text-align: center;
+}
+
+.Ds-titulo {
+    text-align: center;
+}
+
+
+
