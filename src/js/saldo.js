@@ -100,11 +100,11 @@ btn.addEventListener("click", function() {
     }
 
     
-    localStorage.setItem("saldoGlobal", saldo);
-    localStorage.setItem("nomeUsuario", nome);
-    localStorage.setItem("tipoUsuario", tipo);
-    localStorage.setItem("serieUsuario", serie);
-
+localStorage.setItem("saldoGlobal", saldo);
+localStorage.setItem("scoreInicial", saldo); 
+localStorage.setItem("nomeUsuario", nome);
+localStorage.setItem("tipoUsuario", tipo);
+localStorage.setItem("serieUsuario", serie);
     
     window.location.href = "jogo.html";
 });

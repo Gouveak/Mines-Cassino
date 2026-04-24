@@ -903,3 +903,47 @@ button {
   transform: rotateY(180deg);
 }
 
+
+.btn-exportar {
+    height: 100px;
+    width: 180px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a1a1a;
+
+    background: linear-gradient(165deg, #fff3a0, #ffd700, #ffb300);
+    border: 3px solid #c99700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 5px #ffd700,
+        0 0 10px #ffcc00,
+        0 0 20px #ffb300;
+
+    transition: all 0.2s ease;
+}
+
+
+.btn-exportar:hover {
+    transform: translateY(-2px) scale(1.03);
+
+    box-shadow:
+        0 0 10px #ffd700,
+        0 0 25px #ffcc00,
+        0 0 40px #ffb300;
+}
+
+
+.btn-exportar:active {
+    transform: scale(0.98);
+    box-shadow:
+        0 0 5px #ffd700;
+}
