@@ -22,8 +22,7 @@ class Jogo extends EventTarget {
   #venceu = true;
   #blocos = [];
 
-  qtdJogadas = 1;
-  qtdPartidas = 1;
+  qtdJogadas = 0;
 
   imagens = {
     estrela: "01100101011100110111010001110010.png",
@@ -37,7 +36,13 @@ class Jogo extends EventTarget {
   get multiplicador() {
     return `${this.#multiplicador.toFixed(1)}x`;
   }
+  get idClicados() {
+    return this.#idClicados;
+  }
 
+  get idBlocosBomba() {
+    return this.#idBlocosBomba;
+  }
   get aposta() {
     return `$ ${this.#aposta}`;
   }
@@ -68,25 +73,38 @@ class Jogo extends EventTarget {
   }
 
   encerrarPartida() {
-    if (this.#venceu) {
-      window.alert("Você venceu!");
 
-      this.#saldo += this.#potencial;
-      this.#ganhoTotal += this.#potencial;
-      this.qtdPartidas += 1;
+  // aqui eu calculo o saldo final que vai ser salvo
+  // isso é importante porque é esse valor que depois vai aparecer no Excel
+  const saldoFinal = this.#saldo + (this.#venceu ? this.#potencial : 0);
 
-      localStorage.setItem("saldoGlobal", this.#saldo);
-      localStorage.setItem("ganhoTotal", this.#ganhoTotal);
-    }
+  // aqui eu salvo os dados da partida
+  // esses dados vão para o localStorage e depois são usados para gerar o arquivo CSV
+  // que é o arquivo que será aberto no Excel
+  // estou salvando:
+  // - quantidade de jogadas (rodadas)
+  // - saldo final da partida
+  salvarPartida(this.qtdJogadas, saldoFinal);
 
-    this.resetarAtributos();
+  if (this.#venceu) {
+    window.alert("Você venceu!");
 
-    if (!this.#venceu) {
-      window.alert("Você perdeu!");
-    }
-    this.dispatchEvent(new Event("partidaEncerrada"));
+    this.#saldo += this.#potencial;
+    this.#ganhoTotal += this.#potencial;
+    this.qtdPartidas += 1;
+
+    localStorage.setItem("saldoGlobal", this.#saldo);
+    localStorage.setItem("ganhoTotal", this.#ganhoTotal);
   }
 
+  this.resetarAtributos();
+
+  if (!this.#venceu) {
+    window.alert("Você perdeu!");
+  }
+
+  this.dispatchEvent(new Event("partidaEncerrada"));
+}
   adicionarFrenteVerso(blocoEl) {
     const frente = document.createElement("div");
     frente.classList.add("frente");
@@ -170,6 +188,7 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
+    this.qtdJogadas += 1;
     console.log("Quantidade de jogadas : " + this.qtdJogadas);
 
     const idElemento = elemento.dataset.idBloco;
@@ -184,6 +203,7 @@ class Jogo extends EventTarget {
       elemento.classList.add("rotacionado");
       return;
     }
+
     console.log("não tem estrela");
     if (!objCorrespondente.temEstrela && this.qtdJogadas < 3) {
       console.log("vai manipular");
@@ -192,12 +212,13 @@ class Jogo extends EventTarget {
     } else {
       this.perdeu();
     }
-    this.qtdJogadas += 1;
+    
     elemento.classList.add("rotacionado");
   }
 
   iniciarPartida() {
     this.sortearBlocosBomba();
+    this.dispatchEvent(new Event("partidaIniciada"));
 
     // cria 25 blocos
     for (let i = 0; i < 25; i++) {

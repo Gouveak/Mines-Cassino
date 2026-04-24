@@ -16,6 +16,7 @@
       <a href="index.html" id="btn-sair" class="link-saldo">Sair</a>
     </nav>
   </header>
+  <img class="fundo" src="src/assets/imagens/fundo.jpeg" />
   <main>
 
     <section class="caixas-ganho">
@@ -32,7 +33,14 @@
       </div>
       <div class="caixa-potencial">
         <h1>Potencial</h1>
-        <h2>$ 0</h2>
+        <h2 id="idPotencial">$ 0</h2>
+      </div>
+        <button class="btn-exportar" onclick="exportarCSV()">
+         Dados
+        </button>
+       <div class="caixa-temporizador">
+        <h1>Temporizador</h1>
+        <h2>03:00</h2>
       </div>
     </section>
     <section class="container">
@@ -54,48 +62,56 @@
             <img src="src/assets/imagens/ficha100.png" alt="" />
           </button>
         </div>
-        <button class="btn-coletar" id="btn-coletar">Coletar</button>
+        <button class="btn-iniciar" id="btn-iniciar"><b>COMEÇAR</b></button>
+        <button class="btn-coletar" id="btn-coletar"><b>COLETAR</b></button>
+
         <div class="caixa-chance">
-          <h1>Chance de Ganhar</h1>
+          <h1>Chance de Estrela</h1>
           <h2 id="chanceCaixa">0%</h2>
         </div>
-        <button class="btn-iniciar" id="btn-iniciar">Iniciar Jogo</button>
-        <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
       </div>
 
 
       <div class="campo-jogo">
         <img src="src/assets/imagens/01100101011100110111010001110010.png">
+        <div class="tela-card">
+          <h1>PARABÉNS!!!</h1>
+          <h2>VOCÊ ESTÁ ENTRE OS MELHORES JOGADORES!</h2>
+          <img src="src/assets/imagens/dinheiro.gif" />
+          <button id="recompensaCaixa">RECOMPENSA: $ 20</button>
+
+
+        </div>
         <div class="jogo">
           <div class="malha" id="malha"></div>
         </div>
       </div>
       <div class="formulario-dois">
+      
+    
         <div class="anuncio-container">
-          <img class="anuncio ativo" src="src/assets/imagens/dsbet.png" />
-          <img class="anuncio" src="src/assets/imagens/absolutejeff.jpeg" />
-          <img class="anuncio" src="src/assets/imagens/jeffagricultor.jpeg" />
-          <img class="anuncio" src="src/assets/imagens/jeffchefe.jpeg" />
-          <img class="anuncio" src="src/assets/imagens/jeffsonico.jpeg" />
-          <img class="anuncio" src="src/assets/imagens/kingjeff.jpeg" />
-          <img class="anuncio" src="src/assets/imagens/superjeff.jpeg" />
-          <img class="anuncio" src="src/assets/imagens/surfjeff.jpeg" />
-        </div>
+        
+          <img class="anuncio ativo" src="src/assets/imagens/propagandaeslote.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/propagandamines.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/propagandacartas.jpeg" />
+  
       </div>
     </section>
   </main>
-  <script src="src/js/tela-de-ganhar-perder.js"></script>
-  <script src="src/js/numeros.js"></script>
+  <script type="module" src="src/js/temporizador.js"></script>
+  <script type="module" src="src/js/tela-card.js"></script>
+  <script type="module" src="src/js/numeros.js"></script>
   <script src="src/js/anuncio.js"></script>
   <script type="module" src="src/js/campojogo.js"></script>
+  <script type="module" src="src/js/chance.js"></script>
   <script type="module" src="src/js/aposta.js"></script>
   <script src="src/js/coletar.js"></script>
-  <script src="src/js/ganho_potencial.js"></script>
+  <script type="module"src="src/js/ganho_potencial.js"></script>
   <script src="src/js/logica_jogo.js"></script>
   <script type="module" src="src/js/multiplicador.js"></script>
   <script src="src/js/reiniciar.js"></script>
   <script src="src/js/sair.js"></script>
-
+  <script src="src/js/informacoes.js"></script>
   <footer class="footer">
     <div class="footer-content">
       <h2 class="footer-logo">MINES</h2>
