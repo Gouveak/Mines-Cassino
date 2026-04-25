@@ -10,14 +10,11 @@ import { jogo } from "./campojogo.js";
 jogo.addEventListener("atualizarAposta", definirAposta);
 
 */
-import {
-  telaFimDeJogo,
-  telaPerdeu,
-} from "./tela-ganhar-perder.js";
+import { telaFimDeJogo, telaPerdeu } from "./tela-ganhar-perder.js";
 
 class Jogo extends EventTarget {
   #aposta;
-  #saldo;
+  #saldo = Number(localStorage.getItem("saldoGlobal"));
   #potencial;
   #ganhoTotal = Number(localStorage.getItem("ganhoTotal")) || 0;
   #multiplicador = 1;
@@ -50,6 +47,7 @@ class Jogo extends EventTarget {
   }
   get aposta() {
     const aposta = Number(this.#aposta) || 0;
+    console.log("aposta: " + aposta);
     return `$ ${aposta}`;
   }
 
@@ -78,8 +76,87 @@ class Jogo extends EventTarget {
     this.#idClicados = [];
     this.#venceu = true;
   }
+  armazenarPartida() {
+    localStorage.setItem("saldoGlobal", this.#saldo);
+    if (this.#blocos.length === 0) {
+      return;
+    }
+    const partida = {
+      saldo: this.#saldo,
+      aposta: this.#aposta,
+      multiplicador: this.#multiplicador,
+      idBlocosClicados: this.#idClicados,
+      idBlocosBomba: this.#idBlocosBomba,
+      qtdJogadas: this.qtdJogadas,
+    };
 
+    const partidaJSON = JSON.stringify(partida);
+    localStorage.setItem("ultimaPartida", partidaJSON);
+  }
+
+  recuperarPartida() {
+    const ultimaPartida = localStorage.getItem("ultimaPartida");
+    if (!ultimaPartida) {
+      return;
+    }
+
+    const partida = JSON.parse(ultimaPartida);
+    console.log(partida);
+    const { saldo, aposta, multiplicador, idBlocosClicados, idBlocosBomba, qtdJogadas } =
+      partida;
+    if (!idBlocosBomba) {
+      return;
+    }
+
+    console.log("há uma partida armazenada");
+    this.#saldo = saldo;
+    this.#aposta = aposta;
+    this.#multiplicador = multiplicador;
+    this.#idClicados = idBlocosClicados;
+    this.#idBlocosBomba = idBlocosBomba;
+    console.log(this.#idBlocosBomba);
+    this.qtdJogadas = qtdJogadas;
+
+    for (let i = 0; i < 25; i++) {
+      const blocoEl = document.createElement("div");
+      blocoEl.classList.add("bloco");
+
+      // define o id dos blocos
+      blocoEl.dataset.idBloco = i + 1;
+
+      this.adicionarFrenteVerso(blocoEl); // adiciona os elementos de frente e verso do bloco;
+      const verso = blocoEl.querySelector("div.verso"); // seleciona o verso do bloco
+
+      const isBlocoSorteado = this.#idBlocosBomba.includes(
+        Number(blocoEl.dataset.idBloco),
+      );
+
+      this.#definirImagemVerso(verso, isBlocoSorteado);
+
+      if (!this.#idClicados.includes(Number(blocoEl.dataset.idBloco))) {
+        blocoEl.addEventListener(
+          "click",
+          (e) => {
+            this.revelarBloco(blocoEl);
+          },
+          { once: true },
+        );
+      } else {
+        blocoEl.classList.add("rotacionado");
+      }
+      this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
+      malha.appendChild(blocoEl);
+    }
+    console.log(
+      "(partida recuperada) id dos blocos com a bomba: " + this.#idBlocosBomba,
+    );
+    console.log(this.#blocos);
+    btnColetar.disabled = false;
+    this.dispatchEvent(new Event("partidaRecuperada"));
+  }
   encerrarPartida() {
+    localStorage.removeItem("ultimaPartida");
+    console.log("a ultima partida foi deletada");
     this.saldo = localStorage.getItem("saldoGlobal");
     btnColetar.disabled = true;
     const potencial = Number(this.#aposta) * this.#multiplicador;
@@ -112,12 +189,13 @@ class Jogo extends EventTarget {
     }
 
     if (!this.#venceu && saldoFinal != 0) {
-     telaFimDeJogo.style.display = "flex";
+      telaFimDeJogo.style.display = "flex";
     }
 
     this.resetarAtributos();
 
     this.dispatchEvent(new Event("partidaEncerrada"));
+    console.log('partida encerrada')
   }
   adicionarFrenteVerso(blocoEl) {
     const frente = document.createElement("div");
@@ -328,10 +406,18 @@ btnIniciar.addEventListener("click", () => {
 
   jogo.addEventListener("partidaEncerrada", () => {
     malha.innerHTML = "";
+    console.log('malha esvaziada');
     ativarBotoes();
   });
   console.log("clicou");
   jogo.aposta = aposta;
   jogo.saldo = saldo;
   jogo.iniciarPartida();
+});
+
+window.addEventListener("beforeunload", () => {
+  jogo.armazenarPartida();
+});
+window.addEventListener("DOMContentLoaded", () => {
+  jogo.recuperarPartida();
 });

@@ -7,5 +7,6 @@ export const btnFecharTela = document.getElementById('fecharTela');
 
 btnFecharTela.addEventListener('click', (() => {
     telaFimDeJogo.style.display = 'none';
+    malha.innerHTML = '';
 }))
 
