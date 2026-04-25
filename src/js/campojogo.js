@@ -156,7 +156,17 @@ class Jogo extends EventTarget {
       this.encerrarPartida();
     }, 800);
   }
+  #definirImagemVerso(verso, isBlocoSorteado) {
+    const imagem = isBlocoSorteado
+      ? this.imagens["bomba"]
+      : this.imagens["estrela"];
+    verso.style.backgroundImage = `url('src/assets/imagens/${imagem}')`;
+  }
 
+  #registrarBloco(idBloco, isBlocoSorteado) {
+    const blocoObj = new Bloco(idBloco, isBlocoSorteado);
+    this.#blocos.push(blocoObj);
+  }
   manipular(idElemento) {
     console.log("O usuário clicou na bomba cedo demais, manipulando...");
     this.#idBlocosBomba = [];
@@ -171,16 +181,8 @@ class Jogo extends EventTarget {
         Number(blocoEl.dataset.idBloco),
       );
 
-      // se o id do bloco é um dos que foram sorteados
-      if (isBlocoSorteado) {
-        // troca a imagem do verso para a bomba
-        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["bomba"]}')`;
-      } else {
-        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["estrela"]}')`;
-      }
-
-      const blocoObj = new Bloco(blocoEl.dataset.idBloco, isBlocoSorteado);
-      this.#blocos.push(blocoObj);
+      this.#definirImagemVerso(verso, isBlocoSorteado);
+      this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
     });
   }
 
@@ -242,11 +244,7 @@ class Jogo extends EventTarget {
         Number(blocoEl.dataset.idBloco),
       );
 
-      // se o id do bloco é um dos que foram sorteados
-      if (isBlocoSorteado) {
-        // troca a imagem do verso para a bomba
-        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["bomba"]}')`;
-      }
+      this.#definirImagemVerso(verso, isBlocoSorteado);
 
       blocoEl.addEventListener(
         "click",
@@ -257,11 +255,8 @@ class Jogo extends EventTarget {
       );
 
       malha.appendChild(blocoEl);
-      // cria um objeto da classe Bloco com dois atributos: o id do elemento que corresponde a ele no DOM e uma boolean: ele é ou não um dos blocos sorteados com a bomba
-      const blocoObj = new Bloco(blocoEl.dataset.idBloco, isBlocoSorteado);
 
-      // adiciona o objeto na lista de blocos do jogo
-      this.#blocos.push(blocoObj);
+      this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
     }
 
     console.log(`Aposta: ${this.#aposta}`);
