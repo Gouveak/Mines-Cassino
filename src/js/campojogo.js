@@ -10,6 +10,10 @@ import { jogo } from "./campojogo.js";
 jogo.addEventListener("atualizarAposta", definirAposta);
 
 */
+import {
+  telaFimDeJogo,
+  telaPerdeu,
+} from "./tela-ganhar-perder.js";
 
 class Jogo extends EventTarget {
   #aposta;
@@ -76,6 +80,7 @@ class Jogo extends EventTarget {
   }
 
   encerrarPartida() {
+    this.saldo = localStorage.getItem("saldoGlobal");
     btnColetar.disabled = true;
     const potencial = Number(this.#aposta) * this.#multiplicador;
     const saldoFinal = this.#saldo + (this.#venceu ? potencial : 0);
@@ -102,8 +107,12 @@ class Jogo extends EventTarget {
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
     }
 
-    if (!this.#venceu) {
-      window.alert("Você perdeu!");
+    if (!this.#venceu && saldoFinal === 0) {
+      telaPerdeu.style.display = "flex";
+    }
+
+    if (!this.#venceu && saldoFinal != 0) {
+      telaFimDeJogo.style.display = "flex";
     }
 
     this.resetarAtributos();
