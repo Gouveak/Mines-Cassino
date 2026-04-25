@@ -910,6 +910,66 @@ main {
     align-items: center;
     z-index: 1;
 }
+.tela-tempo-esgotado {
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 105px;
+    border-radius: 10px;
+    width: 800px;
+    height: 500px;
+    background-color: #180204;
+    box-shadow: 
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+.tela-perdeu {
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 105px;
+    border-radius: 10px;
+    width: 800px;
+    height: 500px;
+    background-color: #180204;
+    box-shadow: 
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+.tela-fim-jogo {
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 105px;
+    border-radius: 10px;
+    width: 800px;
+    height: 500px;
+    background-color: #180204;
+    box-shadow: 
+    0 0 6px #6b0015,
+    0 0 12px #a00028,
+    0 0 24px #d11a3a;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
 .tela-card img {
     z-index: 1;
     width: 900px;
