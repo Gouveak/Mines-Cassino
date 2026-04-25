@@ -152,6 +152,7 @@ class Jogo extends EventTarget {
     );
     console.log(this.#blocos);
     btnColetar.disabled = false;
+    desativarBotoes();
     this.dispatchEvent(new Event("partidaRecuperada"));
   }
   encerrarPartida() {
