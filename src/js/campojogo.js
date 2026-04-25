@@ -112,7 +112,7 @@ class Jogo extends EventTarget {
     }
 
     if (!this.#venceu && saldoFinal != 0) {
-      telaFimDeJogo.style.display = "flex";
+     telaFimDeJogo.style.display = "flex";
     }
 
     this.resetarAtributos();
@@ -164,7 +164,7 @@ class Jogo extends EventTarget {
     this.revelarTudo(malha);
     setTimeout(() => {
       this.encerrarPartida();
-    }, 800);
+    }, 1200);
   }
   #definirImagemVerso(verso, isBlocoSorteado) {
     const imagem = isBlocoSorteado
