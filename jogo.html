@@ -78,25 +78,40 @@
           <img src="src/assets/imagens/dinheiro.gif" />
           <button id="recompensaCaixa">RECOMPENSA: $ 20</button>
         </div>
-        <div class="tela-tempo-esgotado">
-          <h1>ACABOU O TEMPO!</h1>
-          <h2>TENTE OUTROS JOGOS  </h2>
-          <a href="index.html">
-            <button>SAIR</button>
-          </a>
+
+       <div class="tela-tempo-esgotado">
+        <h1>ACABOU O TEMPO!!!</h1>
+        <h2>TENTE OUTROS JOGOS!</h2>
+        <h1>>>>>>>>>>>>>>>>>>>>>>></h1>
+        <img src="src/assets/imagens/alerta.png"/>
+        <a href="index.html">
+          <button>SAIR</button>
+        </a>
         </div>
+       
+
          <div class="tela-perdeu" id="tela-perdeu">
-          <h1>SALDO INSUFICIENTE</h1>
-          <h2>TENTE NOVAMENTE EM OUTROS JOGOS</h2>
+          <h1>! SALDO INSUFICIENTE !</h1>
+          <h2>TENTE NOVAMENTE NA PRÓXIMA!</h2>
+          <img src="src/assets/imagens/alerta.png"/>
           <a href="index.html">
             <button>SAIR</button>
           </a>
         </div>
+
          <div class="tela-fim-jogo" id="tela-fim-jogo">
           <h1>VOCÊ PERDEU!</h1>
           <h2>NÃO DESISTA, TENTE NOVAMENTE!</h2>
             <button id="fecharTela">TENTAR NOVAMENTE</button>
         </div>
+
+           <div class="tela-coletar">
+            <img src="src/assets/imagens/feliz.png"/>
+          <h1>VOCÊ COLETOU!</h1>
+          <h2>VOCÊ ESTÁ NO CAMINHO CERTO!</h2>
+            <button id="fecharTela">CONTINUAR APOSTANDO</button>
+        </div>
+
         <div class="jogo">
           <div class="malha" id="malha"></div>
         </div>
@@ -117,12 +132,13 @@
   <script type="module" src="src/js/tela-card.js"></script>
   <script type="module" src="src/js/numeros.js"></script>
   <script src="src/js/anuncio.js"></script>
-  <script type="module" src="src/js/tela-ganhar-perder.js"></script>
   <script type="module" src="src/js/campojogo.js"></script>
+  <script type="module" src="src/js/tela-ganhar-perder.js"></script>
   <script type="module" src="src/js/chance.js"></script>
   <script type="module" src="src/js/aposta.js"></script>
   <script type="module" src="src/js/coletar.js"></script>
   <script type="module" src="src/js/ganho_potencial.js"></script>
+  <script src="src/js/logica_jogo.js"></script>
   <script type="module" src="src/js/multiplicador.js"></script>
   <script src="src/js/reiniciar.js"></script>
   <script src="src/js/sair.js"></script>
