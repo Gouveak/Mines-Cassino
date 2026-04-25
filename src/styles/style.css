@@ -16,6 +16,7 @@ body {
 
 main {
     margin-left: 50px;
+
 }
  .header {
             position: relative;
@@ -37,17 +38,26 @@ main {
         }
 
        
-
-
-.fundo {
+.fundo-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 200vh; 
     z-index: -1;
+    animation: scrollDown 10s linear infinite;
+}
+.fundo {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
     opacity: 0.5;
+}
+
+@keyframes scrollDown {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
 }
 .titulo {
     position: absolute;
@@ -81,7 +91,7 @@ main {
     content: "";
     position: absolute;
     top: 50%;
-    width: 900px;
+    width: 2000px;
     height: 10px;
     transform: translateY(-50%);
 
@@ -401,7 +411,7 @@ main {
     to { --a: 360deg; }
 }
 
-/* glow pulsando */
+
 @keyframes brilhoPotencial {
 
     0% {
@@ -427,7 +437,7 @@ main {
 
 }
 
-/* reflexo passando */
+
 .caixa-potencial::before {
     content: "";
     position: absolute;
@@ -715,19 +725,19 @@ main {
         brilhoPulseSaldo 3s ease-in-out infinite;
 }
 
-/* propriedade da borda giratória */
+
 @property --a {
     syntax: "<angle>";
     inherits: false;
     initial-value: 0deg;
 }
 
-/* borda girando */
+
 @keyframes girarBordaSaldo {
     to { --a: 360deg; }
 }
 
-/* brilho pulsando */
+
 @keyframes brilhoPulseSaldo {
 
     0% {
@@ -753,7 +763,7 @@ main {
 
 }
 
-/* reflexo passando */
+
 .caixa-saldo::before {
     content: "";
     position: absolute;
@@ -1375,8 +1385,12 @@ button {
     outline: none !important;
 }
 
-
+.pagina {
+    position: relative;
+    overflow: hidden; 
+}
 .footer {
+    
     position: relative;
     background: linear-gradient(to top, #000, #1a0000);
     box-shadow: 
@@ -1529,4 +1543,112 @@ button {
     transform: scale(0.98);
     box-shadow:
         0 0 5px #ffd700;
+}
+
+@media (max-width: 1400px) {
+    .container {
+        width: 95%;
+    }
+ 
+    .formulario {
+        width: 320px;
+    }
+ 
+    .formulario-dois {
+        width: 300px;
+    }
+ 
+    .campo-jogo {
+        width: 820px;
+    }
+ 
+    .tela-card,
+    .tela-perdeu,
+    .tela-coletar,
+    .tela-fim-jogo,
+    .tela-tempo-esgotado {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 680px;
+    }
+}
+ 
+@media (max-width: 1280px) {
+    .container {
+        width: 98%;
+        margin: 30px auto;
+    }
+ 
+    .campo-jogo {
+        width: 700px;
+        height: 550px;
+    }
+ 
+    .formulario {
+        width: 270px;
+        padding: 15px;
+        gap: 15px;
+    }
+ 
+    .formulario-dois {
+        width: 260px;
+        padding: 15px;
+        gap: 15px;
+    }
+ 
+    .malha {
+        grid-template-columns: repeat(5, 85px);
+        gap: 14px;
+    }
+ 
+    .bloco {
+        width: 83px;
+        height: 83px;
+    }
+ 
+    .caixas-ganho {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+ 
+    .caixa-aposta {
+        width: 300px;
+    }
+ 
+    .caixa-multiplicador,
+    .caixa-potencial,
+    .caixa-saldo {
+        width: 260px;
+    }
+ 
+    .caixa-temporizador {
+        width: 250px;
+        right: 20px;
+    }
+ 
+    .tela-card,
+    .tela-perdeu,
+    .tela-coletar,
+    .tela-fim-jogo,
+    .tela-tempo-esgotado {
+        width: 600px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+ 
+    .btn-coletar,
+    .btn-reiniciar,
+    .btn-iniciar {
+        padding: 16px 40px;
+        font-size: 17px;
+    }
+ 
+    .caixa-apostar {
+        width: 300px;
+    }
+ 
+    .caixa-chance {
+        width: 300px;
+    }
 }
