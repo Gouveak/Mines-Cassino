@@ -76,6 +76,7 @@ class Jogo extends EventTarget {
   }
 
   encerrarPartida() {
+    btnColetar.disabled = true;
     const potencial = Number(this.#aposta) * this.#multiplicador;
     const saldoFinal = this.#saldo + (this.#venceu ? potencial : 0);
 
@@ -237,9 +238,6 @@ class Jogo extends EventTarget {
       this.adicionarFrenteVerso(blocoEl); // adiciona os elementos de frente e verso do bloco;
       const verso = blocoEl.querySelector("div.verso"); // seleciona o verso do bloco
 
-      // troca a imagem do verso para a estrela
-      verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["estrela"]}')`;
-
       const isBlocoSorteado = this.#idBlocosBomba.includes(
         Number(blocoEl.dataset.idBloco),
       );
@@ -286,6 +284,7 @@ class Bloco {
 
 const malha = document.getElementById("malha");
 const btnIniciar = document.getElementById("btn-iniciar");
+const btnColetar = document.getElementById("btn-coletar");
 const btnApostarDez = document.getElementById("btn-apostar-dez");
 const btnApostarCinquenta = document.getElementById("btn-apostar-cinquenta");
 const btnApostarCem = document.getElementById("btn-apostar-cem");
@@ -322,7 +321,6 @@ btnIniciar.addEventListener("click", () => {
     malha.innerHTML = "";
     ativarBotoes();
   });
-
   console.log("clicou");
   jogo.aposta = aposta;
   jogo.saldo = saldo;
