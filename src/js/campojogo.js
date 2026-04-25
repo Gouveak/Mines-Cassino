@@ -72,6 +72,7 @@ class Jogo extends EventTarget {
     this.#blocos = [];
     this.#idBlocosBomba = [];
     this.#idClicados = [];
+    this.#venceu = true;
   }
 
   encerrarPartida() {
@@ -100,11 +101,11 @@ class Jogo extends EventTarget {
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
     }
 
-    this.resetarAtributos();
-
     if (!this.#venceu) {
       window.alert("Você perdeu!");
     }
+
+    this.resetarAtributos();
 
     this.dispatchEvent(new Event("partidaEncerrada"));
   }
@@ -215,7 +216,7 @@ class Jogo extends EventTarget {
     } else {
       this.perdeu();
     }
-    
+
     elemento.classList.add("rotacionado");
   }
 
