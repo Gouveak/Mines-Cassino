@@ -155,13 +155,14 @@ class Jogo extends EventTarget {
     desativarBotoes();
     this.dispatchEvent(new Event("partidaRecuperada"));
   }
-  encerrarPartida() {
+  encerrarPartida(foiColeta = false) {
     localStorage.removeItem("ultimaPartida");
     console.log("a ultima partida foi deletada");
     this.saldo = localStorage.getItem("saldoGlobal");
     btnColetar.disabled = true;
     const potencial = Number(this.#aposta) * this.#multiplicador;
     const saldoFinal = this.#saldo + (this.#venceu ? potencial : 0);
+    const coletou = foiColeta && this.#venceu;
 
     // aqui eu calculo o saldo final que vai ser salvo
     // isso é importante porque é esse valor que depois vai aparecer no Excel
@@ -175,7 +176,9 @@ class Jogo extends EventTarget {
     salvarPartida(this.qtdJogadas, saldoFinal);
 
     if (this.#venceu) {
-      window.alert("Você venceu!");
+      if (!coletou) {
+        window.alert("Você venceu!");
+      }
 
       this.#saldo += potencial;
       this.#ganhoTotal += potencial;
@@ -195,7 +198,11 @@ class Jogo extends EventTarget {
 
     this.resetarAtributos();
 
-    this.dispatchEvent(new Event("partidaEncerrada"));
+    this.dispatchEvent(
+      new CustomEvent("partidaEncerrada", {
+        detail: { foiColeta: coletou },
+      }),
+    );
     console.log('partida encerrada')
   }
   adicionarFrenteVerso(blocoEl) {
