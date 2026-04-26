@@ -100,6 +100,8 @@ main {
     background-repeat: repeat-x;
 
     filter: drop-shadow(0 0 5px #ffd700);
+
+    animation: bolinhasAndando 2s linear infinite;
 }
 
 .titulo::before {
@@ -111,21 +113,34 @@ main {
     left: 100%;
     margin-left: 15px;
 }
+
+@keyframes bolinhasAndando {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 30px 0;
+    }
+}
 .logo {
     display: flex;
     position: relative;
     align-items: center;
     gap: 15px;
-    left: -350px;
+    left: -250px;
     top: -8px;
 }
-
-.logo img {
-    position: absolute;
+.logo img:nth-child(1){
     width: 200px;
-    height: auto;
+    position: absolute;
+    left: 0;
 }
 
+.logo img:nth-child(2){
+    width: 350px;
+    position: absolute;
+    left: -250px;
+}
 .link-saldo {
     z-index: 1;
     margin-left: auto;
@@ -556,21 +571,35 @@ main {
     width: 1000px;
     border-radius: 10px;
     background-color: #180204;
+    overflow: hidden;
+    position: relative;
     box-shadow: 
+
     0 0 6px #6b0015,
     0 0 12px #a00028,
     0 0 24px #d11a3a;
 }
 .campo-jogo img {
     position: absolute;
-    width: 620px;
-    height: 620px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
-    opacity: 0.05;
-    left: 186px;
-    top: -15px;
+    opacity: 0.1;
+    top: 0;
+    left: 0;
 }
+.campo-jogo img:nth-child(2) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+}
+
 .gif-confete {
     position: fixed;
     justify-self: center;
@@ -620,9 +649,39 @@ main {
     0 0 6px #6b0015,
     0 0 12px #a00028,
     0 0 24px #d11a3a;
+    animation: girarBorda 4s linear infinite;
+}
+@property --a {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
 }
 
-
+@keyframes girarBorda {
+    to { --a: 360deg; }
+}
+.formulario-dois> img:nth-child(1) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.formulario > img:nth-child(1) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
 .formulario-dois {
     border-radius: 10px;
     position: absolute;
@@ -632,8 +691,9 @@ main {
     flex-direction: column;
     gap: 20px;
     background-color: #180204;
-    border-radius: 12px;
-    box-shadow: 
+    border-radius:  12px;
+     box-shadow:
+    inset 0 0 10px #000000,
     0 0 6px #6b0015,
     0 0 12px #a00028,
     0 0 24px #d11a3a;
@@ -884,6 +944,11 @@ main {
     height: 700px;
     overflow: hidden;
     border-radius: 10px;
+     box-shadow:
+    inset 0 0 10px #000000,
+    0 0 5px #b8860b,
+    0 0 12px #ffd700,
+    0 0 24px #ffaa00;
     
 }
 
@@ -895,10 +960,6 @@ main {
     object-fit: cover;
     opacity: 0;
     transition: opacity 0.5s ease;
-    box-shadow: 
-    0 0 6px #6b0015,
-    0 0 12px #a00028,
-    0 0 24px #d11a3a;
 }
 .tela-card {
     z-index: 3;
@@ -1357,12 +1418,26 @@ main {
 }
 
 
-
+.titulo-container {
+    display: flex;
+    justify-content: center;
+    background-color: #000;
+    align-items: center;
+    margin-top: 20px;
+}
 .titulo {
+    position: absolute;
+    display: inline-block;
+    padding: 10px 30px 5px 30px;
+    top: -15px;
+    border: 2px solid #d4af37;
+    border-radius: 10%;
+    background-color: #180204;
+    box-shadow:
+        0 0 6px #ffd700, 0 0 12px #d4af37, 0 0 20px #ffd700;
     font-family: 'Fredoka', sans-serif;
     font-size: 48px;
     letter-spacing: 2px;
-    background: linear-gradient(45deg, #FFD700, #FFF5B7, #FFD700);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -1370,6 +1445,7 @@ main {
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
     animation: brilho 2s infinite alternate;
 }
+
 @keyframes brilho {
     from {
         text-shadow: 0 0 5px rgba(255, 217, 0, 0.5);
