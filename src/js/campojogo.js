@@ -14,7 +14,7 @@ import { telaFimDeJogo, telaPerdeu } from "./tela-ganhar-perder.js";
 
 class Jogo extends EventTarget {
   #aposta;
-  #saldo = Number(localStorage.getItem("saldoGlobal"));
+  #saldo;
   #potencial;
   #ganhoTotal = Number(localStorage.getItem("ganhoTotal")) || 0;
   #multiplicador = 1;
@@ -56,7 +56,7 @@ class Jogo extends EventTarget {
   }
 
   set saldo(valor) {
-    this.#saldo = Number(localStorage.getItem("saldoGlobal"));
+    this.#saldo = Number(valor);
   }
 
   aumentarMultiplicador() {
@@ -78,7 +78,6 @@ class Jogo extends EventTarget {
   }
 
   armazenarPartida() {
-    localStorage.setItem("saldoGlobal", this.#saldo);
     if (this.#blocos.length === 0) {
       return;
     }

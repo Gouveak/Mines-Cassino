@@ -1,6 +1,12 @@
 import { jogo } from "./campojogo.js";
 
+const animacoes = new Map();
+
 function animarNumero(elemento, valorAntigo, valorNovo, prefixo = "$ ") {
+  if (animacoes.has(elemento)) {
+    cancelAnimationFrame(animacoes.get(elemento));
+  }
+
   const duracao = 400;
   const inicio = performance.now();
 
@@ -11,11 +17,13 @@ function animarNumero(elemento, valorAntigo, valorNovo, prefixo = "$ ") {
     elemento.innerHTML = `${prefixo}${valorAtual}`;
 
     if (progresso < 1) {
-      requestAnimationFrame(atualizar);
+      animacoes.set(elemento, requestAnimationFrame(atualizar));
+    } else {
+      animacoes.delete(elemento);
     }
   }
 
-  requestAnimationFrame(atualizar);
+  animacoes.set(elemento, requestAnimationFrame(atualizar));
 }
 
 const caixaSaldoEl = document.getElementById("saldoCaixa");
@@ -49,8 +57,15 @@ function apostar(valorFicha) {
   }
 }
 
+function atualizarInterfaceSaldo() {
+  const novoSaldo = Number(localStorage.getItem("saldoGlobal"));
+  animarNumero(caixaSaldoEl, saldoAtual, novoSaldo);
+  saldoAtual = novoSaldo;
+}
+
 function atualizarInterfaceAposta() {
-  animarNumero(caixaApostaEl, valorAposta, Number(jogo.aposta.replace("$ ", "")));
+  const novaAposta = Number(jogo.aposta.replace("$ ", ""));
+  animarNumero(caixaApostaEl, valorAposta, novaAposta);
   valorAposta = 0;
 }
 
@@ -59,6 +74,8 @@ document.getElementById("btn-apostar-cinquenta").addEventListener("click", () =>
 document.getElementById("btn-apostar-cem").addEventListener("click", () => apostar(100));
 
 jogo.addEventListener("atualizarAposta", atualizarInterfaceAposta);
+jogo.addEventListener("partidaEncerrada", atualizarInterfaceSaldo);
+jogo.addEventListener("partidaRecuperada", atualizarInterfaceSaldo);
 
 const multiplicadorValor = document.getElementById("multiplicador");
 const caixaMultiplicador = document.querySelector(".caixa-multiplicador");
@@ -81,16 +98,16 @@ function definirMultiplicador() {
     ];
 
     posicoes.forEach(({ left, delay }) => {
-  const gif = document.createElement("img");
-  gif.src = "src/assets/imagens/confete.webp";
-  gif.classList.add("webp-confete");
-  gif.style.left = left;
-  gif.style.animationDelay = delay;
+      const gif = document.createElement("img");
+      gif.src = "src/assets/imagens/confete.webp";
+      gif.classList.add("webp-confete");
+      gif.style.left = left;
+      gif.style.animationDelay = delay;
 
-  document.body.appendChild(gif);
+      document.body.appendChild(gif);
 
-  setTimeout(() => gif.remove(), 1500);
-});
+      setTimeout(() => gif.remove(), 1500);
+    });
   }
 
   multiplicadorAnterior = valorNovo;
