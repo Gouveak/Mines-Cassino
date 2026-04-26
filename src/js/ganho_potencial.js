@@ -8,5 +8,6 @@ function definirPotencial() {
 
 jogo.addEventListener("atualizarMultiplicador", definirPotencial);
 jogo.addEventListener("partidaEncerrada", definirPotencial);
+jogo.addEventListener("partidaRecuperada", definirPotencial);
 
 definirPotencial();
