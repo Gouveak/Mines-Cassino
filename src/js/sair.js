@@ -5,7 +5,7 @@ document.getElementById("btn-sair").addEventListener("click", (e) => {
     localStorage.removeItem("totalAposta");
     localStorage.removeItem("saldoGlobal");
     localStorage.removeItem("ganhoTotal");
-
+    localStorage.removeItem("ultimaPartida");
 
     window.location.href = "index.html";
 });

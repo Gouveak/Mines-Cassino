@@ -56,7 +56,7 @@ class Jogo extends EventTarget {
   }
 
   set saldo(valor) {
-    this.#saldo = Number(valor);
+    this.#saldo = Number(localStorage.getItem("saldoGlobal"));
   }
 
   aumentarMultiplicador() {
@@ -76,14 +76,13 @@ class Jogo extends EventTarget {
     this.#idClicados = [];
     this.#venceu = true;
   }
-  
+
   armazenarPartida() {
     localStorage.setItem("saldoGlobal", this.#saldo);
     if (this.#blocos.length === 0) {
       return;
     }
     const partida = {
-      saldo: this.#saldo,
       aposta: this.#aposta,
       multiplicador: this.#multiplicador,
       idBlocosClicados: this.#idClicados,
@@ -98,19 +97,25 @@ class Jogo extends EventTarget {
   recuperarPartida() {
     const ultimaPartida = localStorage.getItem("ultimaPartida");
     if (!ultimaPartida) {
+      localStorage.setItem("totalAposta", 0);
       return;
     }
 
     const partida = JSON.parse(ultimaPartida);
     console.log(partida);
-    const { saldo, aposta, multiplicador, idBlocosClicados, idBlocosBomba, qtdJogadas } =
-      partida;
+    const {
+      saldo,
+      aposta,
+      multiplicador,
+      idBlocosClicados,
+      idBlocosBomba,
+      qtdJogadas,
+    } = partida;
     if (!idBlocosBomba) {
       return;
     }
 
     console.log("há uma partida armazenada");
-    this.#saldo = saldo;
     this.#aposta = aposta;
     this.#multiplicador = multiplicador;
     this.#idClicados = idBlocosClicados;
@@ -163,6 +168,7 @@ class Jogo extends EventTarget {
     btnColetar.disabled = true;
     const potencial = Number(this.#aposta) * this.#multiplicador;
     const saldoFinal = this.#saldo + (this.#venceu ? potencial : 0);
+    localStorage.setItem("saldoGlobal", saldoFinal);
     const coletou = foiColeta && this.#venceu;
 
     // aqui eu calculo o saldo final que vai ser salvo
@@ -177,12 +183,10 @@ class Jogo extends EventTarget {
     salvarPartida(this.qtdJogadas, saldoFinal);
 
     if (this.#venceu) {
-
       this.#saldo += potencial;
       this.#ganhoTotal += potencial;
       this.qtdPartidas += 1;
 
-      localStorage.setItem("saldoGlobal", this.#saldo);
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
     }
 
@@ -201,7 +205,7 @@ class Jogo extends EventTarget {
         detail: { foiColeta: coletou },
       }),
     );
-    console.log('partida encerrada')
+    console.log("partida encerrada");
   }
   adicionarFrenteVerso(blocoEl) {
     const frente = document.createElement("div");
@@ -398,6 +402,12 @@ function desativarBotoes() {
 
 // exporta o jogo para os atributos serem usados em outros arquivos
 export const jogo = new Jogo();
+jogo.addEventListener("partidaEncerrada", () => {
+  malha.innerHTML = "";
+  console.log("malha esvaziada");
+  ativarBotoes();
+});
+
 btnIniciar.addEventListener("click", () => {
   desativarBotoes();
 
@@ -410,11 +420,6 @@ btnIniciar.addEventListener("click", () => {
     return;
   }
 
-  jogo.addEventListener("partidaEncerrada", () => {
-    malha.innerHTML = "";
-    console.log('malha esvaziada');
-    ativarBotoes();
-  });
   console.log("clicou");
   jogo.aposta = aposta;
   jogo.saldo = saldo;

@@ -25,7 +25,6 @@ if (caixaApostaEl) {
 
 function apostar(valorFicha) {
   // caso o saldo seja suficiente, o valor da ficha será acumulado em aposta, e descontado de saldo
-  saldoAtual = Number(localStorage.getItem("saldoGlobal"));
   if (saldoAtual >= valorFicha) {
     valorAposta += valorFicha;
     saldoAtual -= valorFicha;
