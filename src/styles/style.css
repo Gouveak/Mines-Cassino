@@ -589,6 +589,16 @@ main {
     top: 0;
     left: 0;
 }
+.campo-jogo video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+}
 .campo-jogo img:nth-child(2) {
     position: absolute;
     width: 100%;
@@ -600,7 +610,7 @@ main {
     left: 0;
 }
 
-.gif-confete {
+.webp-confete {
     position: fixed;
     justify-self: center;
     width: 1000px;
@@ -660,7 +670,7 @@ main {
 @keyframes girarBorda {
     to { --a: 360deg; }
 }
-.formulario-dois> img:nth-child(1) {
+.formulario-dois> video:nth-child(1) {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -671,7 +681,7 @@ main {
     left: 0;
     z-index: -1;
 }
-.formulario > img:nth-child(1) {
+.formulario > video:nth-child(1) {
     position: absolute;
     width: 100%;
     height: 100%;
