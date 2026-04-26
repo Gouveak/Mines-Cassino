@@ -27,7 +27,7 @@ class Jogo extends EventTarget {
 
   imagens = {
     estrela: "01100101011100110111010001110010.png",
-    bomba: "bomb.gif",
+    bomba: "bomb.webp",
   };
 
   get potencial() {
