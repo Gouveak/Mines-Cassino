@@ -28,7 +28,6 @@ function apostar(valorFicha) {
   if (saldoAtual >= valorFicha) {
     valorAposta += valorFicha;
     saldoAtual -= valorFicha;
-
     caixaApostaEl.innerHTML = `$ ${valorAposta}`;
     caixaSaldoEl.innerHTML = `$ ${saldoAtual}`;
 
