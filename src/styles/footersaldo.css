@@ -1,3 +1,13 @@
+.pagina {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.form-container {
+    flex: 1;
+}
+
 .footer {
     position: relative;
     background: linear-gradient(to top, #000, #1a0000);
