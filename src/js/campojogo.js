@@ -10,10 +10,11 @@ import { jogo } from "./campojogo.js";
 jogo.addEventListener("atualizarAposta", definirAposta);
 
 */
+import { telaFimDeJogo, telaPerdeu } from "./tela-ganhar-perder.js";
 
 class Jogo extends EventTarget {
   #aposta;
-  #saldo;
+  #saldo = Number(localStorage.getItem("saldoGlobal"));
   #potencial;
   #ganhoTotal = Number(localStorage.getItem("ganhoTotal")) || 0;
   #multiplicador = 1;
@@ -26,7 +27,7 @@ class Jogo extends EventTarget {
 
   imagens = {
     estrela: "01100101011100110111010001110010.png",
-    bomba: "bomb.gif",
+    bomba: "bomb.webp",
   };
 
   get potencial() {
@@ -46,6 +47,7 @@ class Jogo extends EventTarget {
   }
   get aposta() {
     const aposta = Number(this.#aposta) || 0;
+    console.log("aposta: " + aposta);
     return `$ ${aposta}`;
   }
 
@@ -72,11 +74,95 @@ class Jogo extends EventTarget {
     this.#blocos = [];
     this.#idBlocosBomba = [];
     this.#idClicados = [];
+    this.#venceu = true;
+  }
+  armazenarPartida() {
+    localStorage.setItem("saldoGlobal", this.#saldo);
+    if (this.#blocos.length === 0) {
+      return;
+    }
+    const partida = {
+      saldo: this.#saldo,
+      aposta: this.#aposta,
+      multiplicador: this.#multiplicador,
+      idBlocosClicados: this.#idClicados,
+      idBlocosBomba: this.#idBlocosBomba,
+      qtdJogadas: this.qtdJogadas,
+    };
+
+    const partidaJSON = JSON.stringify(partida);
+    localStorage.setItem("ultimaPartida", partidaJSON);
   }
 
-  encerrarPartida() {
+  recuperarPartida() {
+    const ultimaPartida = localStorage.getItem("ultimaPartida");
+    if (!ultimaPartida) {
+      return;
+    }
+
+    const partida = JSON.parse(ultimaPartida);
+    console.log(partida);
+    const { saldo, aposta, multiplicador, idBlocosClicados, idBlocosBomba, qtdJogadas } =
+      partida;
+    if (!idBlocosBomba) {
+      return;
+    }
+
+    console.log("há uma partida armazenada");
+    this.#saldo = saldo;
+    this.#aposta = aposta;
+    this.#multiplicador = multiplicador;
+    this.#idClicados = idBlocosClicados;
+    this.#idBlocosBomba = idBlocosBomba;
+    console.log(this.#idBlocosBomba);
+    this.qtdJogadas = qtdJogadas;
+
+    for (let i = 0; i < 25; i++) {
+      const blocoEl = document.createElement("div");
+      blocoEl.classList.add("bloco");
+
+      // define o id dos blocos
+      blocoEl.dataset.idBloco = i + 1;
+
+      this.adicionarFrenteVerso(blocoEl); // adiciona os elementos de frente e verso do bloco;
+      const verso = blocoEl.querySelector("div.verso"); // seleciona o verso do bloco
+
+      const isBlocoSorteado = this.#idBlocosBomba.includes(
+        Number(blocoEl.dataset.idBloco),
+      );
+
+      this.#definirImagemVerso(verso, isBlocoSorteado);
+
+      if (!this.#idClicados.includes(Number(blocoEl.dataset.idBloco))) {
+        blocoEl.addEventListener(
+          "click",
+          (e) => {
+            this.revelarBloco(blocoEl);
+          },
+          { once: true },
+        );
+      } else {
+        blocoEl.classList.add("rotacionado");
+      }
+      this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
+      malha.appendChild(blocoEl);
+    }
+    console.log(
+      "(partida recuperada) id dos blocos com a bomba: " + this.#idBlocosBomba,
+    );
+    console.log(this.#blocos);
+    btnColetar.disabled = false;
+    desativarBotoes();
+    this.dispatchEvent(new Event("partidaRecuperada"));
+  }
+  encerrarPartida(foiColeta = false) {
+    localStorage.removeItem("ultimaPartida");
+    console.log("a ultima partida foi deletada");
+    this.saldo = localStorage.getItem("saldoGlobal");
+    btnColetar.disabled = true;
     const potencial = Number(this.#aposta) * this.#multiplicador;
     const saldoFinal = this.#saldo + (this.#venceu ? potencial : 0);
+    const coletou = foiColeta && this.#venceu;
 
     // aqui eu calculo o saldo final que vai ser salvo
     // isso é importante porque é esse valor que depois vai aparecer no Excel
@@ -90,7 +176,9 @@ class Jogo extends EventTarget {
     salvarPartida(this.qtdJogadas, saldoFinal);
 
     if (this.#venceu) {
-      window.alert("Você venceu!");
+      if (!coletou) {
+        window.alert("Você venceu!");
+      }
 
       this.#saldo += potencial;
       this.#ganhoTotal += potencial;
@@ -100,13 +188,22 @@ class Jogo extends EventTarget {
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
     }
 
-    this.resetarAtributos();
-
-    if (!this.#venceu) {
-      window.alert("Você perdeu!");
+    if (!this.#venceu && saldoFinal === 0) {
+      telaPerdeu.style.display = "flex";
     }
 
-    this.dispatchEvent(new Event("partidaEncerrada"));
+    if (!this.#venceu && saldoFinal != 0) {
+      telaFimDeJogo.style.display = "flex";
+    }
+
+    this.resetarAtributos();
+
+    this.dispatchEvent(
+      new CustomEvent("partidaEncerrada", {
+        detail: { foiColeta: coletou },
+      }),
+    );
+    console.log('partida encerrada')
   }
   adicionarFrenteVerso(blocoEl) {
     const frente = document.createElement("div");
@@ -153,9 +250,19 @@ class Jogo extends EventTarget {
     this.revelarTudo(malha);
     setTimeout(() => {
       this.encerrarPartida();
-    }, 800);
+    }, 1200);
+  }
+  #definirImagemVerso(verso, isBlocoSorteado) {
+    const imagem = isBlocoSorteado
+      ? this.imagens["bomba"]
+      : this.imagens["estrela"];
+    verso.style.backgroundImage = `url('src/assets/imagens/${imagem}')`;
   }
 
+  #registrarBloco(idBloco, isBlocoSorteado) {
+    const blocoObj = new Bloco(idBloco, isBlocoSorteado);
+    this.#blocos.push(blocoObj);
+  }
   manipular(idElemento) {
     console.log("O usuário clicou na bomba cedo demais, manipulando...");
     this.#idBlocosBomba = [];
@@ -170,16 +277,8 @@ class Jogo extends EventTarget {
         Number(blocoEl.dataset.idBloco),
       );
 
-      // se o id do bloco é um dos que foram sorteados
-      if (isBlocoSorteado) {
-        // troca a imagem do verso para a bomba
-        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["bomba"]}')`;
-      } else {
-        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["estrela"]}')`;
-      }
-
-      const blocoObj = new Bloco(blocoEl.dataset.idBloco, isBlocoSorteado);
-      this.#blocos.push(blocoObj);
+      this.#definirImagemVerso(verso, isBlocoSorteado);
+      this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
     });
   }
 
@@ -215,7 +314,7 @@ class Jogo extends EventTarget {
     } else {
       this.perdeu();
     }
-    
+
     elemento.classList.add("rotacionado");
   }
 
@@ -234,18 +333,11 @@ class Jogo extends EventTarget {
       this.adicionarFrenteVerso(blocoEl); // adiciona os elementos de frente e verso do bloco;
       const verso = blocoEl.querySelector("div.verso"); // seleciona o verso do bloco
 
-      // troca a imagem do verso para a estrela
-      verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["estrela"]}')`;
-
       const isBlocoSorteado = this.#idBlocosBomba.includes(
         Number(blocoEl.dataset.idBloco),
       );
 
-      // se o id do bloco é um dos que foram sorteados
-      if (isBlocoSorteado) {
-        // troca a imagem do verso para a bomba
-        verso.style.backgroundImage = `url('src/assets/imagens/${this.imagens["bomba"]}')`;
-      }
+      this.#definirImagemVerso(verso, isBlocoSorteado);
 
       blocoEl.addEventListener(
         "click",
@@ -256,11 +348,8 @@ class Jogo extends EventTarget {
       );
 
       malha.appendChild(blocoEl);
-      // cria um objeto da classe Bloco com dois atributos: o id do elemento que corresponde a ele no DOM e uma boolean: ele é ou não um dos blocos sorteados com a bomba
-      const blocoObj = new Bloco(blocoEl.dataset.idBloco, isBlocoSorteado);
 
-      // adiciona o objeto na lista de blocos do jogo
-      this.#blocos.push(blocoObj);
+      this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
     }
 
     console.log(`Aposta: ${this.#aposta}`);
@@ -290,6 +379,7 @@ class Bloco {
 
 const malha = document.getElementById("malha");
 const btnIniciar = document.getElementById("btn-iniciar");
+const btnColetar = document.getElementById("btn-coletar");
 const btnApostarDez = document.getElementById("btn-apostar-dez");
 const btnApostarCinquenta = document.getElementById("btn-apostar-cinquenta");
 const btnApostarCem = document.getElementById("btn-apostar-cem");
@@ -324,11 +414,18 @@ btnIniciar.addEventListener("click", () => {
 
   jogo.addEventListener("partidaEncerrada", () => {
     malha.innerHTML = "";
+    console.log('malha esvaziada');
     ativarBotoes();
   });
-
   console.log("clicou");
   jogo.aposta = aposta;
   jogo.saldo = saldo;
   jogo.iniciarPartida();
+});
+
+window.addEventListener("beforeunload", () => {
+  jogo.armazenarPartida();
+});
+window.addEventListener("DOMContentLoaded", () => {
+  jogo.recuperarPartida();
 });
