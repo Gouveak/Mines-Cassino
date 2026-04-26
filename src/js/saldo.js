@@ -2,9 +2,15 @@ const nomeInput = document.getElementById("nomeInput");
 const saldoEL = document.getElementById("saldoInput");
 const btn = document.getElementById("btnSalvarSaldo");
 
+
+nomeInput.addEventListener("input", () => {
+    nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
+});
+
+
 function validarSaldo(saldoInput, valorOriginal) {
 
-    if (valorOriginal === "") {
+    if (valorOriginal.trim() === "") {
         return "Por favor, insira o valor de fichas para continuar.";
     }
 
@@ -20,8 +26,9 @@ function validarSaldo(saldoInput, valorOriginal) {
         return "O saldo deve ser múltiplo de 10 (Ex: 10, 20, 50, 100).";
     }
 
-    return null; 
+    return null;
 }
+
 
 btn.addEventListener("click", function() {
 
@@ -34,15 +41,25 @@ btn.addEventListener("click", function() {
         return;
     }
 
+    const nomeValido = /^[A-Za-zÀ-ÿ\s]+$/;
+
+    if (!nomeValido.test(nome)) {
+        alert("Digite apenas letras no nome!");
+        return;
+    }
+
+    
     const erro = validarSaldo(saldo, valorTexto);
     if (erro) {
         alert(erro);
         return;
     }
 
+  
     localStorage.setItem("saldoGlobal", saldo);
-    localStorage.setItem("scoreInicial", saldo); 
+    localStorage.setItem("scoreInicial", saldo);
     localStorage.setItem("nomeUsuario", nome);
 
+   
     window.location.href = "jogo.html";
 });
