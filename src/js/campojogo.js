@@ -76,6 +76,7 @@ class Jogo extends EventTarget {
     this.#idClicados = [];
     this.#venceu = true;
   }
+  
   armazenarPartida() {
     localStorage.setItem("saldoGlobal", this.#saldo);
     if (this.#blocos.length === 0) {
@@ -176,9 +177,6 @@ class Jogo extends EventTarget {
     salvarPartida(this.qtdJogadas, saldoFinal);
 
     if (this.#venceu) {
-      if (!coletou) {
-        window.alert("Você venceu!");
-      }
 
       this.#saldo += potencial;
       this.#ganhoTotal += potencial;
