@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     padding: 0;
@@ -111,7 +111,7 @@ body {
 }
 
 .logo-capi {
-    width: 115px;
+    width: 200px;
     filter: drop-shadow(0 0 8px red)
             drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
 }
@@ -125,4 +125,171 @@ body {
 }
 
 
+.fundo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200vh; 
+    z-index: -1;
+    animation: scrollDown 10s linear infinite;
+}
+.fundo {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0.5;
+}
+
+@keyframes scrollDown {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+*/
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #910f0fe5, #000);
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.fundo-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.fundo {
+    width: 100%;
+    height: 200vh;
+    object-fit: cover;
+    opacity: 0.5;
+    animation: scrollDown 10s linear infinite;
+}
+
+@keyframes scrollDown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+
+.form-container {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    color: #fff;
+}
+
+.form-box {
+    width: 100%;
+    max-width: 520px;
+
+    padding: clamp(20px, 4vw, 50px);
+
+    background: linear-gradient(145deg, #250606, #7d0202cb);
+    border-radius: 18px;
+
+    box-shadow: 
+        0 0 6px #6b0015,
+        0 0 12px #a00028,
+        0 0 24px #d11a3a;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topo h1 {
+    color: #ffcc00;
+    font-size: clamp(20px, 2.5vw, 28px);
+}
+
+.topo p {
+    margin: 5px 0 25px;
+    color: #ccc;
+}
+
+
+.destaque {
+    width: 100%;
+    background: #220000;
+    border: 1px solid #ffcc00;
+    padding: 12px;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.destaque p {
+    color: #ffcc00;
+    font-size: 14px;
+}
+
+
+#saldoInput,
+#nomeInput,
+#serieInput,
+#tipoUsuario {
+    width: 100%;
+    padding: clamp(10px, 1.5vw, 14px);
+    margin: 10px 0;
+
+    border-radius: 10px;
+    border: 1px solid #550000;
+    outline: none;
+
+    font-size: clamp(14px, 1.5vw, 16px);
+}
+
+
+#btnSalvarSaldo {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    color: #000;
+
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btnSalvarSaldo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px #ffcc00;
+}
+
+.info {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #aaa;
+}
+
+
+.logo-capi {
+    width: clamp(120px, 20vw, 200px);
+    filter: drop-shadow(0 0 8px red)
+            drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
+}
+
+.ds-img {
+    text-align: center;
+}
 

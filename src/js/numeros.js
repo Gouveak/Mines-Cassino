@@ -81,14 +81,16 @@ function definirMultiplicador() {
     ];
 
     posicoes.forEach(({ left, delay }) => {
-      const gif = document.createElement("img");
-      gif.src = "src/assets/imagens/confete.gif";
-      gif.classList.add("gif-confete");
-      gif.style.left = left;
-      gif.style.animationDelay = delay;
-      document.body.appendChild(gif);
-      setTimeout(() => gif.remove(), 1500);
-    });
+  const gif = document.createElement("img");
+  gif.src = "src/assets/imagens/confete.webp";
+  gif.classList.add("webp-confete");
+  gif.style.left = left;
+  gif.style.animationDelay = delay;
+
+  document.body.appendChild(gif);
+
+  setTimeout(() => gif.remove(), 1500);
+});
   }
 
   multiplicadorAnterior = valorNovo;
