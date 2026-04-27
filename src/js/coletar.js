@@ -39,4 +39,4 @@ if (btnContinuarApostando && telaColetar) {
   btnContinuarApostando.addEventListener("click", () => {
     telaColetar.style.display = "none";
   });
-} //foi
+}
