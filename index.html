@@ -11,21 +11,28 @@
 </head>
 
 <body>
-    <header class="header">
-        <nav class="nav">
-            <h1 class="titulo">Mines</h1>
+    <div class="pagina">
+    <div class="fundo-container">
+    <img class="fundo" src="src/assets/imagens/fundo.jpeg" />
+    <img class="fundo" src="src/assets/imagens/fundo.jpeg" />
+    <img class="fundo" src="src/assets/imagens/fundo.jpeg" />
+  </div>
 
-        </nav>
-    </header>
+    <header class="header">
+    <nav class="nav">
+      <div class="titulo-container">
+        <h1 class="titulo">Mines</h1>
+      </div>
+    </nav>
+  </header>
+
     <div class="form-container">
     <div class="form-box">
 
         <div class="topo">
             <div class="ds-img">
-                <img src="src/assets/imagens/dsbet.png" alt="logo" class="logo-capi">
+                <img src="src/assets/imagens/logo_mines.png" alt="logo" class="logo-capi">
             </div>
-            <h1 class="Ds-titulo">DSBet</h1>
-            <p>Defina seu saldo inicial</p>
         </div>
 
         <div class="destaque">
@@ -33,25 +40,10 @@
         </div>
 
         
-        <input type="text" id="nomeInput" placeholder="Digite seu nome">
-
-        <select id="tipoUsuario">
-            <option value="">Selecione seu Curso</option>
-            <option value="ADM">ADM</option>
-            <option value="DS">DS</option>
-            <option value="LOG">LOG</option>
-            <option value="RH">RH</option>
-            <option value="visitante">Visitante</option>
-        </select>
+        <input type="text" id="nomeInput" placeholder="Digite seu nome: ">
 
        
-       
-<select id="serieInput" style="display: none;">
-    <option value="">Selecione sua série</option>
-</select>
-
-       
-        <input type="number" id="saldoInput" min="10" step="10" placeholder="Digite seu saldo (Ex: 10, 20, 50...)">
+        <input type="number" id="saldoInput" min="10" step="10" placeholder="Digite seu saldo: (Ex: 10, 20, 50...)">
 
         <button type="button" id="btnSalvarSaldo">Entrar no jogo</button>
 
@@ -81,6 +73,7 @@
                 © 2026 DSBet - Todos os direitos reservados
             </p>
 
+        </div>
         </div>
     </footer>
 

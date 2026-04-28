@@ -10,17 +10,27 @@
 </head>
 
 <body>
+  <div class="pagina">
+  <div class="fundo-container">
+    <img class="fundo" src="src/assets/imagens/fundo.jpeg" />
+    <img class="fundo" src="src/assets/imagens/fundo.jpeg" />
+  </div>
+
   <header class="header">
     <nav class="nav">
-      <h1 class="titulo">Mines</h1>
+      <div class="titulo-container">
+        <h1 class="titulo">Mines</h1>
+      </div>
       <a href="index.html" id="btn-sair" class="link-saldo">Sair</a>
     </nav>
   </header>
+
   <main>
 
     <section class="caixas-ganho">
       <div class="logo">
         <img src="src/assets/imagens/dsbet.png" />
+        <img src="src/assets/imagens/logo_mines.png" class="logo-jogo" />
       </div>
       <div class="caixa-saldo">
         <h1>Saldo</h1>
@@ -32,8 +42,9 @@
       </div>
       <div class="caixa-potencial">
         <h1>Potencial</h1>
-        <h2>$ 0</h2>
+        <h2 id="idPotencial">$ 0</h2>
       </div>
+      
        <div class="caixa-temporizador">
         <h1>Temporizador</h1>
         <h2>03:00</h2>
@@ -41,6 +52,9 @@
     </section>
     <section class="container">
       <div class="formulario">
+        <video autoplay loop muted>
+          <source src="src/assets/imagens/formulariofundo.mp4" />
+        </video>
         <div class="caixa-aposta">
           <h1>Aposta</h1>
           <h2 id="apostaCaixa">$ 0</h2>
@@ -65,41 +79,87 @@
           <h1>Chance de Estrela</h1>
           <h2 id="chanceCaixa">0%</h2>
         </div>
-
-        <button class="btn-reiniciar" id="btn-reiniciar">Reiniciar</button>
       </div>
 
 
       <div class="campo-jogo">
-        <img src="src/assets/imagens/01100101011100110111010001110010.png">
+         <video autoplay loop muted>   
+          <source src="src/assets/imagens/cassino.mp4">
+        </video>
+        <img src="src/assets/imagens/estrela.webp">
+        <div class="tela-card">
+          <h1>PARABÉNS!!!</h1>
+          <h2>VOCÊ ESTÁ ENTRE OS MELHORES JOGADORES!</h2>
+          <img src="src/assets/imagens/dinheiro.webp" />
+          <button id="recompensaCaixa">RECOMPENSA: $ 20</button>
+        </div>
+
+       <div class="tela-tempo-esgotado">
+        <h1>ACABOU O TEMPO!!!</h1>
+        <h2>TENTE OUTROS JOGOS!</h2>
+        <h1>>>>>>>>>>>>>>>>>>>>>>></h1>
+        <img src="src/assets/imagens/alerta.png"/>
+    
+          <button id="btn-sair-tempo">SAIR</button>
+        
+        </div>
+       
+
+         <div class="tela-perdeu" id="tela-perdeu">
+          <h1>! SALDO INSUFICIENTE !</h1>
+          <h2>TENTE NOVAMENTE NA PRÓXIMA!</h2>
+          <img src="src/assets/imagens/alerta.png"/>
+          
+           <button id="btn-sair-perdeu">SAIR</button>
+  
+        </div>
+
+         <div class="tela-fim-jogo" id="tela-fim-jogo">
+          <h1>VOCÊ PERDEU!</h1>
+          <h2>NÃO DESISTA, TENTE NOVAMENTE!</h2>
+            <button id="fecharTela">TENTAR NOVAMENTE</button>
+        </div>
+
+           <div class="tela-coletar">
+            <img src="src/assets/imagens/feliz.png"/>
+          <h1>VOCÊ COLETOU!</h1>
+          <h2>VOCÊ ESTÁ NO CAMINHO CERTO!</h2>
+            <button id="fecharTela">CONTINUAR APOSTANDO</button>
+        </div>
+
         <div class="jogo">
           <div class="malha" id="malha"></div>
         </div>
       </div>
       <div class="formulario-dois">
-        
+       <video autoplay loop muted>
+          <source src="src/assets/imagens/formulariofundo.mp4" />
+        </video>
+    
         <div class="anuncio-container">
+        
           <img class="anuncio ativo" src="src/assets/imagens/propagandaeslote.jpeg" />
-          <img class="anuncio" src="src/assets/imagens/propagandamines.jpeg" />
+          <img class="anuncio" src="src/assets/imagens/Propaganda Mines (2).png" />
           <img class="anuncio" src="src/assets/imagens/propagandacartas.jpeg" />
   
       </div>
     </section>
   </main>
   <script type="module" src="src/js/temporizador.js"></script>
-  <script src="src/js/tela-de-ganhar-perder.js"></script>
+  <script type="module" src="src/js/tela-card.js"></script>
   <script type="module" src="src/js/numeros.js"></script>
   <script src="src/js/anuncio.js"></script>
   <script type="module" src="src/js/campojogo.js"></script>
+  <script type="module" src="src/js/tela-ganhar-perder.js"></script>
   <script type="module" src="src/js/chance.js"></script>
   <script type="module" src="src/js/aposta.js"></script>
-  <script src="src/js/coletar.js"></script>
-  <script src="src/js/ganho_potencial.js"></script>
+  <script type="module" src="src/js/coletar.js"></script>
+  <script type="module" src="src/js/ganho_potencial.js"></script>
   <script src="src/js/logica_jogo.js"></script>
   <script type="module" src="src/js/multiplicador.js"></script>
-  <script src="src/js/reiniciar.js"></script>
+  <script type="module" src="src/js/reiniciar.js"></script>
   <script src="src/js/sair.js"></script>
-
+  <script src="src/js/informacoes.js"></script>
   <footer class="footer">
     <div class="footer-content">
       <h2 class="footer-logo">MINES</h2>

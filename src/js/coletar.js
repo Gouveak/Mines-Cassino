@@ -1,7 +1,30 @@
-/* 
-    aqui vc só precisa chamar o método encerrarPartida() do jogo ao clicar no botão
-    não esquece de importar!!!
+import { jogo } from "./campojogo.js";
 
-// import { jogo } from "./campojogo.js"; essa importação PRECISA estar no topo do arquivo
-// se não funcionar vá em jogo.html e veja se seu script tem type="module" assim como o campojogo.js e multiplicador.js têm. se não tiver, coloque
-*/
+const btnColetar = document.getElementById("btn-coletar");
+const telaColetar = document.querySelector(".tela-coletar");
+const btnContinuarApostando = telaColetar?.querySelector("button");
+
+btnColetar.disabled = true;
+
+jogo.addEventListener("partidaIniciada", () => {
+  btnColetar.disabled = false;
+});
+
+btnColetar.addEventListener("click", () => {
+  jogo.encerrarPartida(true);
+});
+
+jogo.addEventListener("partidaEncerrada", (event) => {
+  btnColetar.disabled = true;
+
+  if (event.detail?.foiColeta && telaColetar) {
+    telaColetar.style.display = "flex";
+  }
+});
+
+if (btnContinuarApostando && telaColetar) {
+  btnContinuarApostando.addEventListener("click", () => {
+    telaColetar.style.display = "none";
+  });
+}
+
