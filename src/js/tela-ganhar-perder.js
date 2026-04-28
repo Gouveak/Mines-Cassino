@@ -10,4 +10,6 @@ btnFecharTela.addEventListener('click', (() => {
     malha.innerHTML = '';
     ativarBotoes();
 }))
-
+export function mostrarTelaPerdeu() {
+    telaPerdeu.style.display = "flex"; // ou "block", depende do teu CSS
+}

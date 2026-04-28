@@ -1,4 +1,5 @@
 import { jogo } from "./campojogo.js";
+import { mostrarTelaPerdeu } from "./tela-ganhar-perder.js";
 
 const displayTemporizador = document.querySelector(".caixa-temporizador h2");
 
@@ -35,6 +36,7 @@ function tick() {
   if (segundosRestantes <= 0) {
     clearInterval(intervalo);
     localStorage.removeItem("temporizadorFim");
+    mostrarTelaPerdeu();
   }
 }
 
