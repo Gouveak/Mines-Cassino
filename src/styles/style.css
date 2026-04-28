@@ -1501,8 +1501,17 @@ button {
     background-size: 30px 10px;
     background-repeat: repeat-x;
     filter: drop-shadow(0 0 5px #ffd700);
+    animation: bolinhasAndando 2s linear infinite;
 }
 
+@keyframes bolinhasAndando {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 30px 0;
+    }
+}
 .footer-logo {
     font-family: 'Fredoka', sans-serif;
     font-size: 28px;
