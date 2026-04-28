@@ -16,7 +16,7 @@ function atualizarInterfaceSaldo() {
 }
 
 const caixaApostaEl = document.getElementById("apostaCaixa"); // const correspondnete ao h2 com a aposta
-let valorAposta = Number(localStorage.getItem("totalAposta")); // let resgata a variável correspondente ao valor da aposta, definida mais adiante
+let valorAposta = Number(localStorage.getItem("totalAposta")) || 0; // let resgata a variável correspondente ao valor da aposta, definida mais adiante
 
 if (caixaApostaEl) {
   // o valor da aposta é imprimido; caso o usuário feche ou recarregue a aba sem querer, o valor será mantido

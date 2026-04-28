@@ -1,14 +1,34 @@
-document.getElementById("btn-sair").addEventListener("click", (e) => {
-    e.preventDefault(); // faz com que primeiro rode o código e depois vá para próxima página
+import { jogo } from "./campojogo.js";
 
-    // limpa os dados salvos
-    localStorage.removeItem("totalAposta");
-    localStorage.removeItem("saldoGlobal");
-    localStorage.removeItem("ganhoTotal");
-    localStorage.removeItem("ultimaPartida");
-    
-    window.location.href = "index.html";
-});
+function reiniciarJogoOculto() {
+  const malha = document.getElementById("malha");
 
+  if (malha) {
+    malha.innerHTML = "";
+  }
 
+  jogo.resetarAtributos();
+  localStorage.removeItem("ultimaPartida");
+}
 
+// botão sair do header
+const btnSair = document.getElementById("btn-sair");
+
+if (btnSair) {
+  btnSair.addEventListener("click", () => {
+    reiniciarJogoOculto();
+  });
+}
+
+// botão sair da tela de tempo
+const btnSairTempo = document.getElementById("btn-sair-tempo");
+
+if (btnSairTempo) {
+  btnSairTempo.addEventListener("click", () => {
+    reiniciarJogoOculto();
+  });
+}const btnSairPerdeu = document.getElementById("btn-sair-perdeu");
+
+if (btnSairPerdeu) {
+  btnSairPerdeu.addEventListener("click", reiniciarJogoOculto);
+}

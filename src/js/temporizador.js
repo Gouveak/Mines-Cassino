@@ -19,65 +19,69 @@ function salvarTempo() {
 function recuperarTempo() {
   const fim = Number(localStorage.getItem("temporizadorFim"));
   if (!fim) return null;
+
   const restante = Math.round((fim - Date.now()) / 1000);
   return restante > 0 ? restante : 0;
 }
 
 function tick() {
   segundosRestantes--;
+
   salvarTempo();
   displayTemporizador.innerHTML = formatarTempo(segundosRestantes);
 
   if (segundosRestantes <= 30) {
     displayTemporizador.style.color = "#ff4444";
-    displayTemporizador.style.textShadow = "0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 30px #ff000088";
+    displayTemporizador.style.textShadow =
+      "0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 30px #ff000088";
   }
 
   if (segundosRestantes <= 0) {
     clearInterval(intervalo);
     localStorage.removeItem("temporizadorFim");
-    mostrarTelaPerdeu();
+
+    mostrarTelaPerdeu("tempo");
   }
 }
 
 function iniciarTemporizador() {
+
+  if (intervalo) return; // impede iniciar dois timers
+
   segundosRestantes = 180;
+
   salvarTempo();
+
   displayTemporizador.innerHTML = formatarTempo(segundosRestantes);
   displayTemporizador.style.color = "";
   displayTemporizador.style.textShadow = "";
 
-  clearInterval(intervalo);
   intervalo = setInterval(tick, 1000);
 }
 
 function pararTemporizador() {
   clearInterval(intervalo);
+  intervalo = null;
+
   segundosRestantes = 180;
+
   localStorage.removeItem("temporizadorFim");
+
   displayTemporizador.innerHTML = "03:00";
   displayTemporizador.style.color = "";
   displayTemporizador.style.textShadow = "";
 }
 
-// ao carregar a página, verifica se havia um temporizador rodando
 const tempoSalvo = recuperarTempo();
+
 if (tempoSalvo !== null && tempoSalvo > 0) {
   segundosRestantes = tempoSalvo;
-  displayTemporizador.innerHTML = formatarTempo(segundosRestantes);
 
-  if (segundosRestantes <= 30) {
-    displayTemporizador.style.color = "#ff4444";
-    displayTemporizador.style.textShadow = "0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 30px #ff000088";
-  }
+  displayTemporizador.innerHTML = formatarTempo(segundosRestantes);
 
   intervalo = setInterval(tick, 1000);
 }
 
 document.getElementById("btn-iniciar").addEventListener("click", () => {
   iniciarTemporizador();
-});
-
-jogo.addEventListener("partidaEncerrada", () => {
-  pararTemporizador();
 });
