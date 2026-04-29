@@ -362,3 +362,32 @@ body {
     text-align: center;
 }
 
+.titulo {
+    position: absolute;
+    display: inline-block;
+    padding: 10px 30px 5px 30px;
+    top: -15px;
+    border: 2px solid #d4af37;
+    border-radius: 10%;
+    background-color: #180204;
+    box-shadow:
+        0 0 6px #ffd700, 0 0 12px #d4af37, 0 0 20px #ffd700;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 48px;
+    letter-spacing: 2px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    animation: brilho 2s infinite alternate;
+}
+
+@keyframes brilho {
+    from {
+        text-shadow: 0 0 5px rgba(255, 217, 0, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+    }
+}
