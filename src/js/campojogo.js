@@ -318,8 +318,12 @@ class Jogo extends EventTarget {
     } else if(!objCorrespondente.temEstrela) {
       this.perdeu();
     }
-    
-    if (objCorrespondente.temEstrela && this.jogadasPartidaAtual % 2 == 0 || objCorrespondente.temEstrela && this.jogadasPartidaAtual == 2) {
+    const condicoesAumentarMultiplicador = {
+      "1": objCorrespondente.temEstrela && this.jogadasPartidaAtual == 2,
+      "2": objCorrespondente.temEstrela && this.jogadasPartidaAtual % 2 == 0,
+    }
+
+    if (condicoesAumentarMultiplicador["1"] || condicoesAumentarMultiplicador["2"]) {
       this.aumentarMultiplicador();
     } else {
       console.log('Quantidade de jogadas: ' + this.jogadasPartidaAtual);
