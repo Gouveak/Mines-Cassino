@@ -23,7 +23,8 @@ class Jogo extends EventTarget {
   #venceu = true;
   #blocos = [];
 
-  qtdJogadas = 0;
+  jogadasPartidaAtual = 0;
+  jogadasTotais = 0;
 
   imagens = {
     estrela: "01100101011100110111010001110010.png",
@@ -79,7 +80,7 @@ class Jogo extends EventTarget {
     this.#idBlocosBomba = [];
     this.#idClicados = [];
     this.#venceu = true;
-    this.qtdJogadas = 0;
+    this.jogadasPartidaAtual = 0;
   }
 
   armazenarPartida() {
@@ -94,7 +95,7 @@ class Jogo extends EventTarget {
       multiplicador: this.#multiplicador,
       idBlocosClicados: this.#idClicados,
       idBlocosBomba: this.#idBlocosBomba,
-      qtdJogadas: this.qtdJogadas,
+      jogadasTotais: this.jogadasTotais,
     };
 
     const partidaJSON = JSON.stringify(partida);
@@ -116,7 +117,7 @@ class Jogo extends EventTarget {
       multiplicador,
       idBlocosClicados,
       idBlocosBomba,
-      qtdJogadas,
+      jogadasTotais,
     } = partida;
     if (!idBlocosBomba) {
       return;
@@ -129,7 +130,7 @@ class Jogo extends EventTarget {
     this.#idClicados = idBlocosClicados;
     this.#idBlocosBomba = idBlocosBomba;
     console.log(this.#idBlocosBomba);
-    this.qtdJogadas = qtdJogadas;
+    this.jogadasTotais = jogadasTotais;
 
     for (let i = 0; i < 25; i++) {
       const blocoEl = document.createElement("div");
@@ -188,7 +189,7 @@ class Jogo extends EventTarget {
     // estou salvando:
     // - quantidade de jogadas (rodadas)
     // - saldo final da partida
-    salvarPartida(this.qtdJogadas, saldoFinal);
+    salvarPartida(this.jogadasTotais, saldoFinal);
 
     if (this.#venceu) {
       this.#saldo += potencial;
@@ -300,8 +301,9 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
-    this.qtdJogadas += 1;
-    console.log("Quantidade de jogadas : " + this.qtdJogadas);
+    this.jogadasTotais += 1;
+    this.jogadasPartidaAtual += 1;
+    console.log("Quantidade de jogadas (partida atual) : " + this.jogadasPartidaAtual);
 
     const idElemento = elemento.dataset.idBloco;
     console.log(idElemento);
@@ -310,17 +312,17 @@ class Jogo extends EventTarget {
     this.#idClicados.push(Number(idElemento));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
 
-    if (!objCorrespondente.temEstrela && this.qtdJogadas < 3) {
+    if (!objCorrespondente.temEstrela && this.jogadasTotais < 3) {
       console.log("vai manipular");
       this.manipular(Number(idElemento));
     } else if(!objCorrespondente.temEstrela) {
       this.perdeu();
     }
-
-    if (objCorrespondente.temEstrela && this.qtdJogadas % 2 == 0 || this.qtdJogadas == 2) {
+    
+    if (objCorrespondente.temEstrela && this.jogadasPartidaAtual % 2 == 0 || objCorrespondente.temEstrela && this.jogadasPartidaAtual == 2) {
       this.aumentarMultiplicador();
     } else {
-      console.log('Quantidade de jogadas: ' + this.qtdJogadas);
+      console.log('Quantidade de jogadas: ' + this.jogadasPartidaAtual);
     }
 
     elemento.classList.add("rotacionado");
