@@ -96,6 +96,7 @@ class Jogo extends EventTarget {
       idBlocosClicados: this.#idClicados,
       idBlocosBomba: this.#idBlocosBomba,
       jogadasTotais: this.jogadasTotais,
+      jogadasPartidaAtual: this.jogadasPartidaAtual
     };
 
     const partidaJSON = JSON.stringify(partida);
@@ -118,6 +119,7 @@ class Jogo extends EventTarget {
       idBlocosClicados,
       idBlocosBomba,
       jogadasTotais,
+      jogadasPartidaAtual
     } = partida;
     if (!idBlocosBomba) {
       return;
@@ -129,8 +131,9 @@ class Jogo extends EventTarget {
     this.#multiplicador = multiplicador;
     this.#idClicados = idBlocosClicados;
     this.#idBlocosBomba = idBlocosBomba;
-    console.log(this.#idBlocosBomba);
     this.jogadasTotais = jogadasTotais;
+    this.jogadasPartidaAtual = jogadasPartidaAtual;
+    console.log(this.#idBlocosBomba);
 
     for (let i = 0; i < 25; i++) {
       const blocoEl = document.createElement("div");
@@ -318,8 +321,12 @@ class Jogo extends EventTarget {
     } else if(!objCorrespondente.temEstrela) {
       this.perdeu();
     }
-    
-    if (objCorrespondente.temEstrela && this.jogadasPartidaAtual % 2 == 0 || objCorrespondente.temEstrela && this.jogadasPartidaAtual == 2) {
+    const condicoesAumentarMultiplicador = {
+      "1": objCorrespondente.temEstrela && this.jogadasPartidaAtual == 2,
+      "2": objCorrespondente.temEstrela && this.jogadasPartidaAtual % 2 == 0,
+    }
+
+    if (condicoesAumentarMultiplicador["1"] || condicoesAumentarMultiplicador["2"]) {
       this.aumentarMultiplicador();
     } else {
       console.log('Quantidade de jogadas: ' + this.jogadasPartidaAtual);
