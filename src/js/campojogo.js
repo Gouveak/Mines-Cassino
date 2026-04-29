@@ -79,6 +79,7 @@ class Jogo extends EventTarget {
     this.#idBlocosBomba = [];
     this.#idClicados = [];
     this.#venceu = true;
+    this.qtdJogadas = 0;
   }
 
   armazenarPartida() {
@@ -309,19 +310,17 @@ class Jogo extends EventTarget {
     this.#idClicados.push(Number(idElemento));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
 
-    if (objCorrespondente.temEstrela) {
-      this.aumentarMultiplicador();
-      elemento.classList.add("rotacionado");
-      return;
-    }
-
-    console.log("não tem estrela");
     if (!objCorrespondente.temEstrela && this.qtdJogadas < 3) {
       console.log("vai manipular");
       this.manipular(Number(idElemento));
+    } else if(!objCorrespondente.temEstrela) {
+      this.perdeu();
+    }
+
+    if (objCorrespondente.temEstrela && this.qtdJogadas % 2 == 0 || this.qtdJogadas == 2) {
       this.aumentarMultiplicador();
     } else {
-      this.perdeu();
+      console.log('Quantidade de jogadas: ' + this.qtdJogadas);
     }
 
     elemento.classList.add("rotacionado");
