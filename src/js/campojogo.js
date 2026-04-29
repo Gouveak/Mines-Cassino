@@ -318,6 +318,9 @@ class Jogo extends EventTarget {
     if (!objCorrespondente.temEstrela && this.jogadasTotais < 3) {
       console.log("vai manipular");
       this.manipular(Number(idElemento));
+      elemento.classList.add("rotacionado");
+      if(this.jogadasPartidaAtual % 2 == 0) this.aumentarMultiplicador();
+      return;
     } else if(!objCorrespondente.temEstrela) {
       this.perdeu();
     }
