@@ -27,20 +27,33 @@ function animarNumero(elemento, valorAntigo, valorNovo, prefixo = "$ ") {
 }
 
 const caixaSaldoEl = document.getElementById("saldoCaixa");
-let saldoAtual = Number(localStorage.getItem("saldoGlobal"));
+const caixaApostaEl = document.getElementById("apostaCaixa");
+let saldoAtual = 0;
+let valorAposta = 0;
+
+function lerNumeroStorage(chave) {
+  const valor = Number(localStorage.getItem(chave));
+  return Number.isFinite(valor) ? valor : 0;
+}
+
+function sincronizarValores() {
+  saldoAtual = lerNumeroStorage("saldoGlobal");
+  valorAposta = lerNumeroStorage("totalAposta");
+}
+
+sincronizarValores();
 
 if (caixaSaldoEl) {
   animarNumero(caixaSaldoEl, 0, saldoAtual);
 }
-
-const caixaApostaEl = document.getElementById("apostaCaixa");
-let valorAposta = Number(localStorage.getItem("totalAposta"));
 
 if (caixaApostaEl) {
   animarNumero(caixaApostaEl, 0, valorAposta);
 }
 
 function apostar(valorFicha) {
+  sincronizarValores();
+
   if (saldoAtual >= valorFicha) {
     const saldoAnterior = saldoAtual;
     const apostaAnterior = valorAposta;
@@ -58,15 +71,15 @@ function apostar(valorFicha) {
 }
 
 function atualizarInterfaceSaldo() {
-  const novoSaldo = Number(localStorage.getItem("saldoGlobal"));
+  const novoSaldo = lerNumeroStorage("saldoGlobal");
   animarNumero(caixaSaldoEl, saldoAtual, novoSaldo);
   saldoAtual = novoSaldo;
 }
 
 function atualizarInterfaceAposta() {
-  const novaAposta = Number(jogo.aposta.replace("$ ", ""));
+  const novaAposta = lerNumeroStorage("totalAposta");
   animarNumero(caixaApostaEl, valorAposta, novaAposta);
-  valorAposta = 0;
+  valorAposta = novaAposta;
 }
 
 document.getElementById("btn-apostar-dez").addEventListener("click", () => apostar(10));
