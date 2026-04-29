@@ -96,6 +96,7 @@ class Jogo extends EventTarget {
       idBlocosClicados: this.#idClicados,
       idBlocosBomba: this.#idBlocosBomba,
       jogadasTotais: this.jogadasTotais,
+      jogadasPartidaAtual: this.jogadasPartidaAtual
     };
 
     const partidaJSON = JSON.stringify(partida);
@@ -118,6 +119,7 @@ class Jogo extends EventTarget {
       idBlocosClicados,
       idBlocosBomba,
       jogadasTotais,
+      jogadasPartidaAtual
     } = partida;
     if (!idBlocosBomba) {
       return;
@@ -129,8 +131,9 @@ class Jogo extends EventTarget {
     this.#multiplicador = multiplicador;
     this.#idClicados = idBlocosClicados;
     this.#idBlocosBomba = idBlocosBomba;
-    console.log(this.#idBlocosBomba);
     this.jogadasTotais = jogadasTotais;
+    this.jogadasPartidaAtual = jogadasPartidaAtual;
+    console.log(this.#idBlocosBomba);
 
     for (let i = 0; i < 25; i++) {
       const blocoEl = document.createElement("div");
