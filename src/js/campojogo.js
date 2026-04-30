@@ -65,6 +65,7 @@ class Jogo extends EventTarget {
   }
 
   aumentarMultiplicador() {
+    if(this.#venceu == false) return;
     this.#multiplicador += 1;
     console.log(`Multiplicador: ${this.#multiplicador}`);
     this.dispatchEvent(new Event("atualizarMultiplicador"));
@@ -198,8 +199,6 @@ class Jogo extends EventTarget {
     if (this.#venceu) {
       this.#saldo += potencial;
       this.#ganhoTotal += potencial;
-      this.qtdPartidas += 1;
-
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
     }
 
@@ -324,8 +323,11 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
+    if(this.#venceu = false) return;
+    
     this.jogadasTotais += 1;
     this.jogadasPartidaAtual += 1;
+    let deveForcarPerder = this.#aposta >= 200 && this.jogadasPartidaAtual == 1;
     console.log("Quantidade de jogadas (partida atual) : " + this.jogadasPartidaAtual);
 
     const idElemento = elemento.dataset.idBloco;
@@ -335,7 +337,7 @@ class Jogo extends EventTarget {
     this.#idClicados.push(Number(idElemento));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
 
-    if(this.#aposta >= 200) {
+    if(deveForcarPerder) {
       this.forcarPerder(idElemento);
       elemento.classList.add("rotacionado");
       this.perdeu();
