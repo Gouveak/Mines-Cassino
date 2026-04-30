@@ -431,7 +431,7 @@ const btnApostarDez = document.getElementById("btn-apostar-dez");
 const btnApostarCinquenta = document.getElementById("btn-apostar-cinquenta");
 const btnApostarCem = document.getElementById("btn-apostar-cem");
 
-function ativarBotoes() {
+export function ativarBotoes() {
   btnIniciar.disabled = false;
   btnApostarDez.disabled = false;
   btnApostarCinquenta.disabled = false;
@@ -447,11 +447,6 @@ function desativarBotoes() {
 
 // exporta o jogo para os atributos serem usados em outros arquivos
 export const jogo = new Jogo();
-jogo.addEventListener("partidaEncerrada", () => {
-  malha.innerHTML = "";
-  console.log("malha esvaziada");
-  ativarBotoes();
-});
 
 btnIniciar.addEventListener("click", () => {
   desativarBotoes();
