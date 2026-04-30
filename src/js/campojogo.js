@@ -173,6 +173,7 @@ class Jogo extends EventTarget {
     desativarBotoes();
     this.dispatchEvent(new Event("partidaRecuperada"));
   }
+
   encerrarPartida(foiColeta = false) {
     localStorage.removeItem("ultimaPartida");
     console.log("a ultima partida foi deletada");
@@ -231,14 +232,15 @@ class Jogo extends EventTarget {
   }
 
   // sorteia 8 numeros aleatorios e guarda eles na propriedade idBlocosBomba
-  sortearBlocosBomba(numeroNaoPermitido) {
-    let numeros = [];
+  sortearBlocosBomba(numeroClicado, perder = false) {
+    
+    let numeros = perder ? [Number(numeroClicado)] : [];
 
     while (numeros.length < 8) {
       const numeroAleatorio = Math.floor(Math.random() * 25) + 1; // gera um número aleatório entre 1 e 25;
       if (
         !this.#idClicados.includes(numeroAleatorio) &&
-        numeroAleatorio !== numeroNaoPermitido &&
+        numeroAleatorio !== numeroClicado &&
         !numeros.includes(numeroAleatorio)
       ) {
         numeros.push(numeroAleatorio);
@@ -247,7 +249,7 @@ class Jogo extends EventTarget {
     }
     numeros.sort((a, b) => a - b);
     this.#idBlocosBomba = numeros;
-    if (numeroNaoPermitido) {
+    if (numeroClicado) {
       console.log("os novos numeros são: " + this.#idBlocosBomba);
     }
   }
@@ -296,6 +298,24 @@ class Jogo extends EventTarget {
     });
   }
 
+    forcarPerder(idElemento) {
+      console.log('O usuário apostou mais de 200 fichas: forçando a perder.');
+      this.#idBlocosBomba = [];
+      this.#blocos = [];
+      this.sortearBlocosBomba(idElemento, true);
+      const blocosEl = malha.querySelectorAll(".bloco");
+      blocosEl.forEach((blocoEl) => {
+        const verso = blocoEl.querySelector(".verso");
+        console.log('imagem do verso mudou (forçar perder)');
+
+        const isBlocoSorteado = this.#idBlocosBomba.includes(
+          Number(blocoEl.dataset.idBloco),
+        );
+        this.#definirImagemVerso(verso, isBlocoSorteado);
+        this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
+      })
+    }
+
   encontarObjCorrespondente(idElemento) {
     const objCorrespondente = this.#blocos.find(
       (bloco) => bloco.idCorrespondente == idElemento,
@@ -314,6 +334,13 @@ class Jogo extends EventTarget {
     const objCorrespondente = this.encontarObjCorrespondente(idElemento);
     this.#idClicados.push(Number(idElemento));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
+
+    if(this.#aposta >= 200) {
+      this.forcarPerder(idElemento);
+      elemento.classList.add("rotacionado");
+      this.perdeu();
+      return;
+    }
 
     if (!objCorrespondente.temEstrela && this.jogadasTotais < 3) {
       console.log("vai manipular");
