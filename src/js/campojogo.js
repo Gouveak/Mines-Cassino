@@ -323,7 +323,7 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
-    if(this.#venceu = false) return;
+    if(this.#venceu == false) return;
     
     this.jogadasTotais += 1;
     this.jogadasPartidaAtual += 1;
