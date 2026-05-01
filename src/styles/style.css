@@ -991,6 +991,20 @@ main {
     align-items: center;
     z-index: 1;
 }
+.tela-card h3 {
+    z-index: 3;
+    font-size: 20px;
+    color: #ffe600;
+    margin-top: 20px;
+
+}
+.tela-coletar h3 {
+    z-index: 3;
+    font-size: 20px;
+    color: #ffe600;
+    margin-top: 20px;
+
+}
 .tela-tempo-esgotado {
     z-index: 3;
     display: none;
@@ -1011,6 +1025,13 @@ main {
     flex-direction: column;
     align-items: center;
     z-index: 1;
+}
+.tela-tempo-esgotado h3 {
+    z-index: 3;
+    font-size: 20px;
+    color: #ffe600;
+    margin-top: 20px;
+
 }
 .tela-tempo-esgotado h1 {
     z-index: 3;
@@ -1096,7 +1117,13 @@ main {
     inset 0 0 40px #000;
     overflow: hidden;
 }
+.tela-perdeu h3 {
+    z-index: 3;
+    font-size: 20px;
+    color: #ffe600;
+    margin-top: 20px;
 
+}
 .tela-perdeu h1 {
     z-index: 3;
     font-size: 46px;
@@ -1179,34 +1206,40 @@ main {
     border-radius: 10px;
     background: linear-gradient(180deg, #1a0505, #0e0202);
     box-shadow:
-    0 0 8px #8b0000,
-    0 0 16px #b30000,
-    0 0 30px #ff3300,
+    0 0 8px #b38f00,
+    0 0 16px #ffd700,
+    0 0 30px #ffea00,
     inset 0 0 50px #000;
     overflow: hidden;
+}
+
+.tela-fim-jogo h3 {
+    z-index: 3;
+    font-size: 20px;
+    color: #fff3a0;
+    margin-top: 20px;
 }
 
 .tela-fim-jogo h1 {
     z-index: 3;
     font-size: 48px;
-    color: #ff3b3b;
+    color: #ffd700;
     text-align: center;
     text-shadow:
-    0 0 6px #ff0000,
-    0 0 12px #ff0000,
-    0 0 25px #ff3300;
+    0 0 6px #ffd700,
+    0 0 12px #ffea00,
+    0 0 25px #fff176;
 }
 
 .tela-fim-jogo h2 {
     z-index: 3;
     font-size: 26px;
-    color: #ffd166;
+    color: #ffe066;
     text-align: center;
     text-shadow:
-    0 0 5px #ff9900,
-    0 0 12px #ff6600;
+    0 0 5px #ffcc00,
+    0 0 12px #ffd700;
 }
-
 .tela-fim-jogo button {
     margin-top: 15px;
     z-index: 3;
