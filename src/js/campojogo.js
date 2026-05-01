@@ -14,7 +14,7 @@ import { telaFimDeJogo, telaPerdeu } from "./tela-ganhar-perder.js";
 
 class Jogo extends EventTarget {
   #aposta;
-  #saldo;
+  #saldo = Number(localStorage.getItem("saldoGlobal")) || 0;
   #potencial;
   #ganhoTotal = Number(localStorage.getItem("ganhoTotal")) || 0;
   #multiplicador = 1;
@@ -23,7 +23,8 @@ class Jogo extends EventTarget {
   #venceu = true;
   #blocos = [];
 
-  qtdJogadas = 0;
+  jogadasPartidaAtual = 0;
+  jogadasTotais = 0;
 
   imagens = {
     estrela: "01100101011100110111010001110010.png",
@@ -51,6 +52,10 @@ class Jogo extends EventTarget {
     return `$ ${aposta}`;
   }
 
+  get podeColetar() {
+    return this.#venceu && this.#idClicados.length > 0 && this.#blocos.length > 0;
+  }
+
   set aposta(valor) {
     this.#aposta = Number(valor);
   }
@@ -60,6 +65,7 @@ class Jogo extends EventTarget {
   }
 
   aumentarMultiplicador() {
+    if(this.#venceu == false) return;
     this.#multiplicador += 1;
     console.log(`Multiplicador: ${this.#multiplicador}`);
     this.dispatchEvent(new Event("atualizarMultiplicador"));
@@ -75,18 +81,23 @@ class Jogo extends EventTarget {
     this.#idBlocosBomba = [];
     this.#idClicados = [];
     this.#venceu = true;
+    this.jogadasPartidaAtual = 0;
   }
 
   armazenarPartida() {
+    localStorage.setItem("saldoGlobal", this.#saldo);
+
     if (this.#blocos.length === 0) {
       return;
     }
     const partida = {
+      saldo: this.#saldo,
       aposta: this.#aposta,
       multiplicador: this.#multiplicador,
       idBlocosClicados: this.#idClicados,
       idBlocosBomba: this.#idBlocosBomba,
-      qtdJogadas: this.qtdJogadas,
+      jogadasTotais: this.jogadasTotais,
+      jogadasPartidaAtual: this.jogadasPartidaAtual
     };
 
     const partidaJSON = JSON.stringify(partida);
@@ -108,19 +119,22 @@ class Jogo extends EventTarget {
       multiplicador,
       idBlocosClicados,
       idBlocosBomba,
-      qtdJogadas,
+      jogadasTotais,
+      jogadasPartidaAtual
     } = partida;
     if (!idBlocosBomba) {
       return;
     }
 
     console.log("há uma partida armazenada");
+    this.#saldo = Number(saldo) || Number(localStorage.getItem("saldoGlobal")) || 0;
     this.#aposta = aposta;
     this.#multiplicador = multiplicador;
     this.#idClicados = idBlocosClicados;
     this.#idBlocosBomba = idBlocosBomba;
+    this.jogadasTotais = jogadasTotais;
+    this.jogadasPartidaAtual = jogadasPartidaAtual;
     console.log(this.#idBlocosBomba);
-    this.qtdJogadas = qtdJogadas;
 
     for (let i = 0; i < 25; i++) {
       const blocoEl = document.createElement("div");
@@ -160,6 +174,7 @@ class Jogo extends EventTarget {
     desativarBotoes();
     this.dispatchEvent(new Event("partidaRecuperada"));
   }
+
   encerrarPartida(foiColeta = false) {
     localStorage.removeItem("ultimaPartida");
     console.log("a ultima partida foi deletada");
@@ -179,13 +194,11 @@ class Jogo extends EventTarget {
     // estou salvando:
     // - quantidade de jogadas (rodadas)
     // - saldo final da partida
-    salvarPartida(this.qtdJogadas, saldoFinal);
+    salvarPartida(this.jogadasTotais, saldoFinal);
 
     if (this.#venceu) {
       this.#saldo += potencial;
       this.#ganhoTotal += potencial;
-      this.qtdPartidas += 1;
-
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
     }
 
@@ -218,14 +231,15 @@ class Jogo extends EventTarget {
   }
 
   // sorteia 8 numeros aleatorios e guarda eles na propriedade idBlocosBomba
-  sortearBlocosBomba(numeroNaoPermitido) {
-    let numeros = [];
+  sortearBlocosBomba(numeroClicado, perder = false) {
+    
+    let numeros = perder ? [Number(numeroClicado)] : [];
 
     while (numeros.length < 8) {
       const numeroAleatorio = Math.floor(Math.random() * 25) + 1; // gera um número aleatório entre 1 e 25;
       if (
         !this.#idClicados.includes(numeroAleatorio) &&
-        numeroAleatorio !== numeroNaoPermitido &&
+        numeroAleatorio !== numeroClicado &&
         !numeros.includes(numeroAleatorio)
       ) {
         numeros.push(numeroAleatorio);
@@ -234,7 +248,7 @@ class Jogo extends EventTarget {
     }
     numeros.sort((a, b) => a - b);
     this.#idBlocosBomba = numeros;
-    if (numeroNaoPermitido) {
+    if (numeroClicado) {
       console.log("os novos numeros são: " + this.#idBlocosBomba);
     }
   }
@@ -283,6 +297,24 @@ class Jogo extends EventTarget {
     });
   }
 
+    forcarPerder(idElemento) {
+      console.log('O usuário apostou mais de 200 fichas: forçando a perder.');
+      this.#idBlocosBomba = [];
+      this.#blocos = [];
+      this.sortearBlocosBomba(idElemento, true);
+      const blocosEl = malha.querySelectorAll(".bloco");
+      blocosEl.forEach((blocoEl) => {
+        const verso = blocoEl.querySelector(".verso");
+        console.log('imagem do verso mudou (forçar perder)');
+
+        const isBlocoSorteado = this.#idBlocosBomba.includes(
+          Number(blocoEl.dataset.idBloco),
+        );
+        this.#definirImagemVerso(verso, isBlocoSorteado);
+        this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
+      })
+    }
+
   encontarObjCorrespondente(idElemento) {
     const objCorrespondente = this.#blocos.find(
       (bloco) => bloco.idCorrespondente == idElemento,
@@ -291,8 +323,12 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
-    this.qtdJogadas += 1;
-    console.log("Quantidade de jogadas : " + this.qtdJogadas);
+    if(this.#venceu == false) return;
+    
+    this.jogadasTotais += 1;
+    this.jogadasPartidaAtual += 1;
+    let deveForcarPerder = this.#aposta >= 200 && this.jogadasPartidaAtual == 1;
+    console.log("Quantidade de jogadas (partida atual) : " + this.jogadasPartidaAtual);
 
     const idElemento = elemento.dataset.idBloco;
     console.log(idElemento);
@@ -301,19 +337,31 @@ class Jogo extends EventTarget {
     this.#idClicados.push(Number(idElemento));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
 
-    if (objCorrespondente.temEstrela) {
-      this.aumentarMultiplicador();
+    if(deveForcarPerder) {
+      this.forcarPerder(idElemento);
       elemento.classList.add("rotacionado");
+      this.perdeu();
       return;
     }
 
-    console.log("não tem estrela");
-    if (!objCorrespondente.temEstrela && this.qtdJogadas < 3) {
+    if (!objCorrespondente.temEstrela && this.jogadasTotais < 3) {
       console.log("vai manipular");
       this.manipular(Number(idElemento));
+      elemento.classList.add("rotacionado");
+      if(this.jogadasPartidaAtual % 2 == 0) this.aumentarMultiplicador();
+      return;
+    } else if(!objCorrespondente.temEstrela) {
+      this.perdeu();
+    }
+    const condicoesAumentarMultiplicador = {
+      "1": objCorrespondente.temEstrela && this.jogadasPartidaAtual == 2,
+      "2": objCorrespondente.temEstrela && this.jogadasPartidaAtual % 2 == 0,
+    }
+
+    if (condicoesAumentarMultiplicador["1"] || condicoesAumentarMultiplicador["2"]) {
       this.aumentarMultiplicador();
     } else {
-      this.perdeu();
+      console.log('Quantidade de jogadas: ' + this.jogadasPartidaAtual);
     }
 
     elemento.classList.add("rotacionado");
@@ -385,7 +433,7 @@ const btnApostarDez = document.getElementById("btn-apostar-dez");
 const btnApostarCinquenta = document.getElementById("btn-apostar-cinquenta");
 const btnApostarCem = document.getElementById("btn-apostar-cem");
 
-function ativarBotoes() {
+export function ativarBotoes() {
   btnIniciar.disabled = false;
   btnApostarDez.disabled = false;
   btnApostarCinquenta.disabled = false;
@@ -401,11 +449,6 @@ function desativarBotoes() {
 
 // exporta o jogo para os atributos serem usados em outros arquivos
 export const jogo = new Jogo();
-jogo.addEventListener("partidaEncerrada", () => {
-  malha.innerHTML = "";
-  console.log("malha esvaziada");
-  ativarBotoes();
-});
 
 btnIniciar.addEventListener("click", () => {
   desativarBotoes();
