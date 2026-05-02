@@ -42,14 +42,24 @@ main {
 
        
 .fundo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.fundo-track {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 200vh; 
-    z-index: -1;
+    height: 200vh;
     animation: scrollDown 10s linear infinite;
 }
+
 .fundo {
     display: block;
     width: 100%;
@@ -60,7 +70,7 @@ main {
 
 @keyframes scrollDown {
     0%   { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
+    100% { transform: translateY(-100vh); }
 }
 .titulo {
     
