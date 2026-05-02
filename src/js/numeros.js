@@ -1,6 +1,12 @@
 import { jogo } from "./campojogo.js";
 
+const animacoes = new Map();
+
 function animarNumero(elemento, valorAntigo, valorNovo, prefixo = "$ ") {
+  if (animacoes.has(elemento)) {
+    cancelAnimationFrame(animacoes.get(elemento));
+  }
+
   const duracao = 400;
   const inicio = performance.now();
 
@@ -11,28 +17,43 @@ function animarNumero(elemento, valorAntigo, valorNovo, prefixo = "$ ") {
     elemento.innerHTML = `${prefixo}${valorAtual}`;
 
     if (progresso < 1) {
-      requestAnimationFrame(atualizar);
+      animacoes.set(elemento, requestAnimationFrame(atualizar));
+    } else {
+      animacoes.delete(elemento);
     }
   }
 
-  requestAnimationFrame(atualizar);
+  animacoes.set(elemento, requestAnimationFrame(atualizar));
 }
 
 const caixaSaldoEl = document.getElementById("saldoCaixa");
-let saldoAtual = Number(localStorage.getItem("saldoGlobal"));
+const caixaApostaEl = document.getElementById("apostaCaixa");
+let saldoAtual = 0;
+let valorAposta = 0;
+
+function lerNumeroStorage(chave) {
+  const valor = Number(localStorage.getItem(chave));
+  return Number.isFinite(valor) ? valor : 0;
+}
+
+function sincronizarValores() {
+  saldoAtual = lerNumeroStorage("saldoGlobal");
+  valorAposta = lerNumeroStorage("totalAposta");
+}
+
+sincronizarValores();
 
 if (caixaSaldoEl) {
   animarNumero(caixaSaldoEl, 0, saldoAtual);
 }
-
-const caixaApostaEl = document.getElementById("apostaCaixa");
-let valorAposta = Number(localStorage.getItem("totalAposta"));
 
 if (caixaApostaEl) {
   animarNumero(caixaApostaEl, 0, valorAposta);
 }
 
 function apostar(valorFicha) {
+  sincronizarValores();
+
   if (saldoAtual >= valorFicha) {
     const saldoAnterior = saldoAtual;
     const apostaAnterior = valorAposta;
@@ -49,9 +70,16 @@ function apostar(valorFicha) {
   }
 }
 
+function atualizarInterfaceSaldo() {
+  const novoSaldo = lerNumeroStorage("saldoGlobal");
+  animarNumero(caixaSaldoEl, saldoAtual, novoSaldo);
+  saldoAtual = novoSaldo;
+}
+
 function atualizarInterfaceAposta() {
-  animarNumero(caixaApostaEl, valorAposta, Number(jogo.aposta.replace("$ ", "")));
-  valorAposta = 0;
+  const novaAposta = lerNumeroStorage("totalAposta");
+  animarNumero(caixaApostaEl, valorAposta, novaAposta);
+  valorAposta = novaAposta;
 }
 
 document.getElementById("btn-apostar-dez").addEventListener("click", () => apostar(10));
@@ -59,6 +87,8 @@ document.getElementById("btn-apostar-cinquenta").addEventListener("click", () =>
 document.getElementById("btn-apostar-cem").addEventListener("click", () => apostar(100));
 
 jogo.addEventListener("atualizarAposta", atualizarInterfaceAposta);
+jogo.addEventListener("partidaEncerrada", atualizarInterfaceSaldo);
+jogo.addEventListener("partidaRecuperada", atualizarInterfaceSaldo);
 
 const multiplicadorValor = document.getElementById("multiplicador");
 const caixaMultiplicador = document.querySelector(".caixa-multiplicador");
@@ -81,16 +111,16 @@ function definirMultiplicador() {
     ];
 
     posicoes.forEach(({ left, delay }) => {
-  const gif = document.createElement("img");
-  gif.src = "src/assets/imagens/confete.webp";
-  gif.classList.add("webp-confete");
-  gif.style.left = left;
-  gif.style.animationDelay = delay;
+      const gif = document.createElement("img");
+      gif.src = "src/assets/imagens/confete.webp";
+      gif.classList.add("webp-confete");
+      gif.style.left = left;
+      gif.style.animationDelay = delay;
 
-  document.body.appendChild(gif);
+      document.body.appendChild(gif);
 
-  setTimeout(() => gif.remove(), 1500);
-});
+      setTimeout(() => gif.remove(), 1500);
+    });
   }
 
   multiplicadorAnterior = valorNovo;
