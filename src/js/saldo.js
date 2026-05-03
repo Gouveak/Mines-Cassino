@@ -30,8 +30,7 @@ function validarSaldo(saldoInput, valorOriginal) {
 }
 
 
-btn.addEventListener("click", function() {
-
+btn.addEventListener("click", function () {
     const nome = nomeInput.value.trim();
     const valorTexto = saldoEL.value;
     const saldo = Number(valorTexto);
@@ -48,18 +47,33 @@ btn.addEventListener("click", function() {
         return;
     }
 
-    
+
     const erro = validarSaldo(saldo, valorTexto);
     if (erro) {
         alert(erro);
         return;
     }
 
-  
+
     localStorage.setItem("saldoGlobal", saldo);
     localStorage.setItem("scoreInicial", saldo);
     localStorage.setItem("nomeUsuario", nome);
 
-   
-    window.location.href = "jogo.html";
+    fetch("salvar_mines.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `nome=${nome}&saldo=${saldo}`
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "ok") {
+                window.location.href = "jogo.html";
+            } else {
+                alert("Erro ao salvar!");
+                window.location.href = "jogo.html";
+            }
+        });
+
 });
