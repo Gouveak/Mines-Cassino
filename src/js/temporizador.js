@@ -84,4 +84,16 @@ if (tempoSalvo !== null && tempoSalvo > 0) {
 
 document.getElementById("btn-iniciar").addEventListener("click", () => {
   iniciarTemporizador();
+
 });
+
+document.getElementById("btn-sair").addEventListener("click", (e) => {
+  e.preventDefault(); // impede sair na hora
+
+  pararTemporizador();
+
+  window.location.href = "index.html"; 
+});
+
+document.getElementById("btn-sair-tempo").addEventListener("click", pararTemporizador);
+document.getElementById("btn-sair-perdeu").addEventListener("click", pararTemporizador);
