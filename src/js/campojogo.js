@@ -200,6 +200,7 @@ class Jogo extends EventTarget {
       this.#saldo += potencial;
       this.#ganhoTotal += potencial;
       localStorage.setItem("ganhoTotal", this.#ganhoTotal);
+      ativarBotoes();
     }
 
     if (!this.#venceu && saldoFinal === 0) {
@@ -474,3 +475,7 @@ window.addEventListener("beforeunload", () => {
 window.addEventListener("DOMContentLoaded", () => {
   jogo.recuperarPartida();
 });
+
+jogo.addEventListener("partidaEncerrada", (() => {
+  malha.innerHTML = '';
+}))
