@@ -4,6 +4,7 @@ function reiniciarJogoOculto() {
   const malha = document.getElementById("malha");
   if (malha) malha.innerHTML = "";
 
+  const saldoFinal = localStorage.getItem("saldoGlobal");
   jogo.resetarAtributos();
   localStorage.removeItem("ultimaPartida");
 }
