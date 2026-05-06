@@ -4,7 +4,6 @@ const telaCard = document.querySelector(".tela-card");
 const btnRecompensa = document.getElementById("recompensaCaixa");
 const saldoEl = document.getElementById("saldoCaixa");
 
-let estrelas = 0;
 let partidaAtiva = false;
 
 function animarNumero(elemento, valorAntigo, valorNovo, prefixo = "$ ") {
@@ -27,22 +26,19 @@ function animarNumero(elemento, valorAntigo, valorNovo, prefixo = "$ ") {
 }
 
 jogo.addEventListener("partidaIniciada", () => {
-  estrelas = 0;
   partidaAtiva = true;
 });
 jogo.addEventListener("partidaEncerrada", () => {
   partidaAtiva = false;
 });
 
-jogo.addEventListener("atualizarMultiplicador", () => {
+jogo.addEventListener("blocoClicado", () => {
 
   setTimeout(() => {
 
     if (!partidaAtiva) return;
 
-    estrelas++;
-
-    if (estrelas === 5) {
+    if (jogo.idClicados.length === 5) {
       telaCard.style.display = "flex";
     }
 
@@ -61,6 +57,5 @@ btnRecompensa.addEventListener("click", () => {
   }
 
   telaCard.style.display = "none";
-  estrelas = 0;
 
 });
