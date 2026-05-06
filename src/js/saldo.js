@@ -1,15 +1,12 @@
+const form = document.getElementById("formMines");
 const nomeInput = document.getElementById("nomeInput");
 const saldoEL = document.getElementById("saldoInput");
-const btn = document.getElementById("btnSalvarSaldo");
-
 
 nomeInput.addEventListener("input", () => {
     nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
 });
 
-
 function validarSaldo(saldoInput, valorOriginal) {
-
     if (valorOriginal.trim() === "") {
         return "Por favor, insira o valor de fichas para continuar.";
     }
@@ -29,8 +26,9 @@ function validarSaldo(saldoInput, valorOriginal) {
     return null;
 }
 
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-btn.addEventListener("click", function () {
     const nome = nomeInput.value.trim();
     const valorTexto = saldoEL.value;
     const saldo = Number(valorTexto);
@@ -47,33 +45,37 @@ btn.addEventListener("click", function () {
         return;
     }
 
-
     const erro = validarSaldo(saldo, valorTexto);
     if (erro) {
         alert(erro);
         return;
     }
 
-
-    localStorage.setItem("saldoGlobal", saldo);
-    localStorage.setItem("scoreInicial", saldo);
-    localStorage.setItem("nomeUsuario", nome);
-
-    fetch("salvar_mines.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `nome=${nome}&saldo=${saldo}`
-    })
-        .then(response => response.text())
-        .then(data => {
-            if (data === "ok") {
-                window.location.href = "jogo.html";
-            } else {
-                alert("Erro ao salvar!");
-                window.location.href = "jogo.html";
-            }
+    try {
+        const resposta = await fetch("salvar_mines.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            },
+            body: new URLSearchParams({
+                nome: nome,
+                saldo: saldo
+            }).toString()
         });
 
+        const data = await resposta.text();
+
+        if (data.trim() === "ok") {
+            localStorage.setItem("saldoGlobal", saldo);
+            localStorage.setItem("scoreInicial", saldo);
+            localStorage.setItem("nomeUsuario", nome);
+
+            window.location.href = "jogo.html";
+        } else {
+            alert("Erro ao salvar no banco!");
+        }
+    } catch (error) {
+        alert("Falha na conexão com o servidor.");
+        console.error(error);
+    }
 });

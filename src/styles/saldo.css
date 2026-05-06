@@ -162,22 +162,34 @@ body {
 
 .fundo-container {
     position: fixed;
-    inset: 0;
-    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
     overflow: hidden;
+    z-index: -1;
+}
+
+.fundo-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200vh;
+    animation: scrollDown 10s linear infinite;
 }
 
 .fundo {
+    display: block;
     width: 100%;
     height: 100vh;
     object-fit: cover;
     opacity: 0.5;
-    animation: scrollDown 10s linear infinite;
 }
 
 @keyframes scrollDown {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-100vh); }
 }
 .titulo {
     position: absolute;
@@ -350,16 +362,31 @@ body {
 }
 
 
-.logo-capi {
-    width: clamp(180px, 25vw, 280px);
-    max-width: 280px;
-    height: auto;
-    filter: drop-shadow(0 0 8px red)
-            drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
+/* Container das imagens */
+.ds-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    width: 100%;
+    
 }
 
-.ds-img {
-    text-align: center;
+
+.logo-capi,
+.logo-miness {
+    flex: 0 0 auto;
+    width: clamp(120px, 30%, 180px);
+    max-width: 220px;
+    height: auto;
+    display: block;
+}
+
+
+.logo-capi {
+    filter: drop-shadow(0 0 8px red)
+            drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
 }
 
 .titulo {
