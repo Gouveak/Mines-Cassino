@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Definir Saldo</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/styles/headersaldo.css">
@@ -12,35 +13,12 @@
 
 <body>
     <div class="pagina">
-     <div class="fundo-container">
-        <div class="fundo-track">
-            <img class="fundo" src="src/assets/imagens/fundo.png" />
-            <img class="fundo" src="src/assets/imagens/fundo.png" />
-        </div>
-    </div>
-
-    <header class="header">
-    <nav class="nav">
-      <div class="titulo-container">
-        <h1 class="titulo">Mines</h1>
-      </div>
-    </nav>
-  </header>
-
-    <div class="form-container">
-    <div class="form-box">
-
-        <div class="topo">
-            <div class="ds-img">
-                <img src="src/assets/imagens/dsbet.png" alt="logo-dsbet" class="logo-capi"><img src="src/assets/imagens/logo_mines.png" alt="logo-mines" class="logo-miness">
+        <div class="fundo-container">
+            <div class="fundo-track">
+                <img class="fundo" src="src/assets/imagens/fundo.png" alt="Fundo">
+                <img class="fundo" src="src/assets/imagens/fundo.png" alt="Fundo">
             </div>
         </div>
-
-        <div class="fundo-container">
-            <img class="fundo" src="src/assets/imagens/fundo.png" />
-            <img class="fundo" src="src/assets/imagens/fundo.png" />
-        </div>
-
 
         <header class="header">
             <nav class="nav">
@@ -50,48 +28,41 @@
             </nav>
         </header>
 
-        <div class="form-container">
+        <main class="form-container">
             <div class="form-box">
+                <div class="topo">
+                    <div class="ds-img">
+                        <img src="src/assets/imagens/dsbet.png" alt="logo-dsbet" class="logo-capi">
+                        <img src="src/assets/imagens/logo_mines.png" alt="logo-mines" class="logo-miness">
+                    </div>
+                </div>
+
+                <div class="destaque">
+                    <p>Saldo mínimo: 10 fichas</p>
+                </div>
 
                 <form id="formMines" action="salvar_mines.php" method="post">
+                    <input type="text" id="nomeInput" name="nome" placeholder="Digite seu nome:" required>
 
-                    <div class="topo">
-                        <div class="ds-img">
-                            <img src="src/assets/imagens/dsbet.png" alt="logo" class="logo-capi">
-                        </div>
-                    </div>
+                    <input type="number" id="saldoInput" name="saldo" min="10" step="10"
+                        placeholder="Digite seu saldo: (Ex: 10, 20, 50...)" required>
 
-                    <div class="destaque">
-                        <p>Saldo mínimo: 10 fichas</p>
-                    </div>
-
-
-                    <input type="text" id="nomeInput" name="nome" placeholder="Digite seu nome: ">
-
-
-                    <input type="number" id="saldoInput" min="10" name="saldo" step="10"
-                        placeholder="Digite seu saldo: (Ex: 10, 20, 50...)">
-
-                    <button type="button" id="btnSalvarSaldo">Entrar no jogo</button>
-
+                    <button type="submit" id="btnSalvarSaldo">Entrar no jogo</button>
                 </form>
 
                 <div class="info">
                     Esse saldo será usado na partida
                 </div>
-
             </div>
-        </div>
+        </main>
 
         <footer class="footer">
             <div class="footer-content">
-
                 <h2 class="footer-logo">MINES</h2>
 
                 <p class="footer-text">
-                    Projeto desenvolvido exclusivamente para fins educacionais, no âmbito das atividades
-                    acadêmicas da ETEC de
-                    Guarulhos.
+                    Projeto desenvolvido exclusivamente para fins educacionais, no âmbito das atividades acadêmicas da
+                    ETEC de Guarulhos.
                 </p>
 
                 <div class="footer-links">
@@ -103,13 +74,11 @@
                 <p class="footer-copy">
                     © 2026 DSBet - Todos os direitos reservados
                 </p>
-
             </div>
         </footer>
+    </div>
 
-        <script src="src/js/saldo.js"></script>
-
-
+    <script src="src/js/saldo.js"></script>
 </body>
 
 </html>
