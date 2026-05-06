@@ -336,6 +336,7 @@ class Jogo extends EventTarget {
 
     const objCorrespondente = this.encontarObjCorrespondente(idElemento);
     this.#idClicados.push(Number(idElemento));
+    this.dispatchEvent(new Event("blocoClicado"));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
 
     if(deveForcarPerder) {
