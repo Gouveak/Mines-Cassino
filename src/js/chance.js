@@ -3,9 +3,11 @@ import { jogo } from "./campojogo.js";
 const caixaChanceEl = document.getElementById("chanceCaixa"); // const referente ao h2 que exibe a chance de obter estrela
 
 function atualizarChance() { // function que irá atualizar o valor exibido para chance de ganhar através de cálculos a partir de elementos de campojogo.js 
+
   const totalBlocos = 25; // a malha é de 5x5
-  const totalBombas = jogo.idBlocosBomba.length; // pega a largura do array idBlocosBomba
-  const totalClicados = jogo.idClicados.length; // pega a largura do array idClicados
+  const totalBombas = (jogo.idBlocosBomba || []).length; // retorna o tamanho para total Bombas. || significa 'ou', e implica que caso o valor seja undefined (início do jogo), ele considerará um array de 'mentirinha'  
+  const totalClicados = (jogo.idClicados || []).length; // mesma lógica de totalBombas
+
 
   if (totalBombas === 0) { // garante que o valor exibido seja 0% antes do jogo começar
     caixaChanceEl.innerHTML = `0%`;
@@ -18,7 +20,7 @@ function atualizarChance() { // function que irá atualizar o valor exibido para
   const estrelasRestantes = totalEstrelas - totalClicados;
 
   if (blocosRestantes <= 0) { // proteção extra caso a lógica do jogo mude no futuro
-    caixaChanceEl.innerHTML = "0%";
+    caixaChanceEl.innerHTML = `0%`;
     return;
   }
 
@@ -30,10 +32,10 @@ function atualizarChance() { // function que irá atualizar o valor exibido para
 }
 
 function zerarChance() { // função que zera a chance e exibe o valor atualizado
-  let chanceManipulada = 0
-  caixaChanceEl.innerHTML = `${chanceManipulada}%`;
+  caixaChanceEl.innerHTML = `0%`;
 }
 
 jogo.addEventListener("partidaIniciada", atualizarChance); // quando campojogo.js chamar o evento partidaIniciada, o valor é exibido
-jogo.addEventListener("atualizarMultiplicador", atualizarChance); // quando campojogo.js chamar atualizarMultiplicador(), o valor é exibido
+jogo.addEventListener("blocoClicado", atualizarChance); // quando campojogo.js chamar blocoClicado, o valor é exibido
 jogo.addEventListener("partidaEncerrada", zerarChance); // quando campojogo.js chamar o evento partidaEncerrada, o valor é zerado
+jogo.addEventListener("partidaRecuperada", atualizarChance); // quando campojogo.js chamar partidaRecuperada, o valor é resgatado
