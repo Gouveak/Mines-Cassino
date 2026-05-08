@@ -55,3 +55,7 @@ function exportarCSV() {
     // simulo o clique pra baixar automaticamente
     link.click();
 }
+
+// deixa as funções acessíveis no HTML
+window.exportarCSV = exportarCSV;
+window.salvarPartida = salvarPartida;
