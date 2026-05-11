@@ -13,7 +13,7 @@ jogo.addEventListener("atualizarAposta", definirAposta);
 import { telaFimDeJogo, telaPerdeu } from "./tela-ganhar-perder.js";
 
 class Jogo extends EventTarget {
-  #aposta;
+  #aposta  = Number(localStorage.getItem("totalAposta")) || 0;
   #saldo = Number(localStorage.getItem("saldoGlobal")) || 0;
   #potencial;
   #ganhoTotal = Number(localStorage.getItem("ganhoTotal")) || 0;
@@ -65,7 +65,7 @@ class Jogo extends EventTarget {
   }
 
   aumentarMultiplicador() {
-    if(this.#venceu == false) return;
+    if (this.#venceu == false) return;
     this.#multiplicador += 1;
     console.log(`Multiplicador: ${this.#multiplicador}`);
     this.dispatchEvent(new Event("atualizarMultiplicador"));
@@ -73,7 +73,7 @@ class Jogo extends EventTarget {
 
   resetarAtributos() {
     this.#aposta = 0;
-    localStorage.setItem("totalAposta", this.#aposta);
+    //localStorage.setItem("totalAposta", this.#aposta);
     this.dispatchEvent(new Event("atualizarAposta"));
     this.#multiplicador = 1;
     this.dispatchEvent(new Event("atualizarMultiplicador"));
@@ -86,6 +86,7 @@ class Jogo extends EventTarget {
 
   armazenarPartida() {
     localStorage.setItem("saldoGlobal", this.#saldo);
+    localStorage.setItem("totalAposta", this.#aposta);
 
     if (this.#blocos.length === 0) {
       return;
@@ -107,7 +108,7 @@ class Jogo extends EventTarget {
   recuperarPartida() {
     const ultimaPartida = localStorage.getItem("ultimaPartida");
     if (!ultimaPartida) {
-      localStorage.setItem("totalAposta", 0);
+      //localStorage.setItem("totalAposta", 0);
       return;
     }
 
@@ -194,7 +195,9 @@ class Jogo extends EventTarget {
     // estou salvando:
     // - quantidade de jogadas (rodadas)
     // - saldo final da partida
-    salvarPartida(this.jogadasTotais, saldoFinal);
+
+    // linha comentada para botão exportar
+    //salvarPartida(this.jogadasTotais, saldoFinal);
 
     if (this.#venceu) {
       this.#saldo += potencial;
@@ -212,6 +215,8 @@ class Jogo extends EventTarget {
     }
 
     this.resetarAtributos();
+
+    localStorage.setItem("totalAposta", 0);
 
     this.dispatchEvent(
       new CustomEvent("partidaEncerrada", {
@@ -233,7 +238,7 @@ class Jogo extends EventTarget {
 
   // sorteia 8 numeros aleatorios e guarda eles na propriedade idBlocosBomba
   sortearBlocosBomba(numeroClicado, perder = false) {
-    
+
     let numeros = perder ? [Number(numeroClicado)] : [];
 
     while (numeros.length < 8) {
@@ -298,23 +303,23 @@ class Jogo extends EventTarget {
     });
   }
 
-    forcarPerder(idElemento) {
-      console.log('O usuário apostou mais de 200 fichas: forçando a perder.');
-      this.#idBlocosBomba = [];
-      this.#blocos = [];
-      this.sortearBlocosBomba(idElemento, true);
-      const blocosEl = malha.querySelectorAll(".bloco");
-      blocosEl.forEach((blocoEl) => {
-        const verso = blocoEl.querySelector(".verso");
-        console.log('imagem do verso mudou (forçar perder)');
+  forcarPerder(idElemento) {
+    console.log('O usuário apostou mais de 200 fichas: forçando a perder.');
+    this.#idBlocosBomba = [];
+    this.#blocos = [];
+    this.sortearBlocosBomba(idElemento, true);
+    const blocosEl = malha.querySelectorAll(".bloco");
+    blocosEl.forEach((blocoEl) => {
+      const verso = blocoEl.querySelector(".verso");
+      console.log('imagem do verso mudou (forçar perder)');
 
-        const isBlocoSorteado = this.#idBlocosBomba.includes(
-          Number(blocoEl.dataset.idBloco),
-        );
-        this.#definirImagemVerso(verso, isBlocoSorteado);
-        this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
-      })
-    }
+      const isBlocoSorteado = this.#idBlocosBomba.includes(
+        Number(blocoEl.dataset.idBloco),
+      );
+      this.#definirImagemVerso(verso, isBlocoSorteado);
+      this.#registrarBloco(blocoEl.dataset.idBloco, isBlocoSorteado);
+    })
+  }
 
   encontarObjCorrespondente(idElemento) {
     const objCorrespondente = this.#blocos.find(
@@ -324,8 +329,8 @@ class Jogo extends EventTarget {
   }
 
   revelarBloco(elemento) {
-    if(this.#venceu == false) return;
-    
+    if (this.#venceu == false) return;
+
     this.jogadasTotais += 1;
     this.jogadasPartidaAtual += 1;
     let deveForcarPerder = this.#aposta >= 200 && this.jogadasPartidaAtual == 1;
@@ -339,7 +344,7 @@ class Jogo extends EventTarget {
     this.dispatchEvent(new Event("blocoClicado"));
     console.log(`Elemento tem estrela: ${objCorrespondente.temEstrela}`);
 
-    if(deveForcarPerder) {
+    if (deveForcarPerder) {
       this.forcarPerder(idElemento);
       elemento.classList.add("rotacionado");
       this.perdeu();
@@ -350,9 +355,9 @@ class Jogo extends EventTarget {
       console.log("vai manipular");
       this.manipular(Number(idElemento));
       elemento.classList.add("rotacionado");
-      if(this.jogadasPartidaAtual % 2 == 0) this.aumentarMultiplicador();
+      if (this.jogadasPartidaAtual % 2 == 0) this.aumentarMultiplicador();
       return;
-    } else if(!objCorrespondente.temEstrela) {
+    } else if (!objCorrespondente.temEstrela) {
       this.perdeu();
     }
     const condicoesAumentarMultiplicador = {
