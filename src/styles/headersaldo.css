@@ -38,6 +38,8 @@ main {
             align-items: center;
             position: relative;
             justify-content: center;
+            position: relative;
+    left: 25px;
         }
 
        

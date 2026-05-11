@@ -32,8 +32,8 @@
             <div class="form-box">
                 <div class="topo">
                     <div class="ds-img">
-                        <img src="src/assets/imagens/dsbet.png" alt="logo-dsbet" class="logo-capi">
                         <img src="src/assets/imagens/logo_mines.png" alt="logo-mines" class="logo-miness">
+                        <img src="src/assets/imagens/dsbet.png" alt="logo-dsbet" class="logo-capi">
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                     <p>Saldo mínimo: 10 fichas</p>
                 </div>
 
-                <form id="formMines">
+                <form id="formMines" action="salvar_mines.php" method="post" autocomplete="off">
                     <input type="text" id="nomeInput" name="nome" placeholder="Digite seu nome:" required>
 
                     <input type="number" id="saldoInput" name="saldo" min="10" step="10"
@@ -75,10 +75,14 @@
                     © 2026 DSBet - Todos os direitos reservados
                 </p>
             </div>
+           <button class="btn-exportar" onclick="exportarCSV()">
+    Exportar Dados
+</button>
         </footer>
     </div>
 
     <script src="src/js/saldo.js"></script>
+    <script src="src/js/informacoes.js"></script>
 </body>
 
 </html>

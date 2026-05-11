@@ -255,13 +255,12 @@ body {
     }
 }
 
+
 .form-container {
     flex: 1;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 20px;
     color: #fff;
 }
@@ -269,7 +268,6 @@ body {
 .form-box {
     width: 100%;
     max-width: 520px;
-
     padding: clamp(20px, 4vw, 50px);
 
     background: linear-gradient(145deg, #250606, #7d0202cb);
@@ -370,23 +368,40 @@ body {
     gap: 0;
     flex-wrap: nowrap;
     width: 100%;
+    position: relative;
+    right: 47px;
     
 }
 
 
+.ds-img {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    width: 100%;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+    padding-left: 100px;
+}
+
 .logo-capi,
 .logo-miness {
-    flex: 0 0 auto;
-    width: clamp(120px, 30%, 180px);
-    max-width: 220px;
+    margin-left: -50px;
+    display: flex;
     height: auto;
-    display: block;
+    object-fit: contain;
 }
 
 
 .logo-capi {
-    filter: drop-shadow(0 0 8px red)
-            drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
+    width: clamp(90px, 18vw, 140px);
+    filter:
+        drop-shadow(0 0 8px red)
+        drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
+}
+
+.logo-miness {
+    width: clamp(180px, 20vw, 260px);
 }
 
 .titulo {
@@ -417,4 +432,41 @@ body {
     to {
         text-shadow: 0 0 20px rgba(255, 215, 0, 1);
     }
+}
+
+
+/* botão exportar dados discreto e centralizado */
+.btn-exportar {
+    display: block;
+
+    margin: 8px auto 0 auto;
+
+    padding: 8px 16px;
+
+    border-radius: 6px;
+
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 12px;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    backdrop-filter: blur(4px);
+}
+
+/* efeito suave */
+.btn-exportar:hover {
+    background: rgba(255, 215, 0, 0.08);
+
+    border-color: rgba(255, 215, 0, 0.4);
+
+    color: rgba(255, 255, 255, 0.9);
+
+    transform: translateY(-1px);
 }
