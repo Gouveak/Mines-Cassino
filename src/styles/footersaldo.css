@@ -61,7 +61,16 @@
 }
 
 .footer-links {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.footer-links img {
+    width: 35px;
+    height: 35px;
+    position: relative;
 }
 
 .footer-links a {
