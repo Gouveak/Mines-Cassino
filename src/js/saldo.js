@@ -3,79 +3,57 @@ const nomeInput = document.getElementById("nomeInput");
 const saldoEL = document.getElementById("saldoInput");
 
 nomeInput.addEventListener("input", () => {
-    nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
+  nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
 });
 
 function validarSaldo(saldoInput, valorOriginal) {
-    if (valorOriginal.trim() === "") {
-        return "Por favor, insira o valor de fichas para continuar.";
-    }
+  if (valorOriginal.trim() === "") {
+    return "Por favor, insira o valor de fichas para continuar.";
+  }
 
-    if (!Number.isFinite(saldoInput) || !Number.isInteger(saldoInput)) {
-        return "Por favor, insira um valor inteiro.";
-    }
+  if (!Number.isFinite(saldoInput) || !Number.isInteger(saldoInput)) {
+    return "Por favor, insira um valor inteiro.";
+  }
 
-    if (saldoInput < 10) {
-        return "O saldo mínimo permitido é 10 fichas.";
-    }
+  if (saldoInput < 10) {
+    return "O saldo mínimo permitido é 10 fichas.";
+  }
 
-    if (saldoInput % 10 !== 0) {
-        return "O saldo deve ser múltiplo de 10 (Ex: 10, 20, 50, 100).";
-    }
+  if (saldoInput % 10 !== 0) {
+    return "O saldo deve ser múltiplo de 10 (Ex: 10, 20, 50, 100).";
+  }
 
-    return null;
+  return null;
 }
 
 form.addEventListener("submit", async function (e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const nome = nomeInput.value.trim();
-    const valorTexto = saldoEL.value;
-    const saldo = Number(valorTexto);
+  const nome = nomeInput.value.trim();
+  const valorTexto = saldoEL.value;
+  const saldo = Number(valorTexto);
 
-    if (nome === "") {
-        alert("Digite seu nome para continuar!");
-        return;
-    }
+  if (nome === "") {
+    alert("Digite seu nome para continuar!");
+    return;
+  }
 
-    const nomeValido = /^[A-Za-zÀ-ÿ\s]+$/;
+  const nomeValido = /^[A-Za-zÀ-ÿ\s]+$/;
 
-    if (!nomeValido.test(nome)) {
-        alert("Digite apenas letras no nome!");
-        return;
-    }
+  if (!nomeValido.test(nome)) {
+    alert("Digite apenas letras no nome!");
+    return;
+  }
 
-    const erro = validarSaldo(saldo, valorTexto);
-    if (erro) {
-        alert(erro);
-        return;
-    }
+  const erro = validarSaldo(saldo, valorTexto);
+  if (erro) {
+    alert(erro);
+    return;
+  } else {
+    localStorage.setItem("saldoGlobal", saldo);
+    localStorage.setItem("scoreInicial", saldo);
+    localStorage.setItem("nomeUsuario", nome);
 
-    try {
-        const resposta = await fetch("salvar_mines.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-            },
-            body: new URLSearchParams({
-                nome: nome,
-                saldo: saldo
-            }).toString()
-        });
-
-        const data = await resposta.text();
-
-        if (data.trim() === "ok") {
-            localStorage.setItem("saldoGlobal", saldo);
-            localStorage.setItem("scoreInicial", saldo);
-            localStorage.setItem("nomeUsuario", nome);
-
-            window.location.href = "jogo.html";
-        } else {
-            alert("Erro ao salvar no banco!");
-        }
-    } catch (error) {
-        alert("Falha na conexão com o servidor.");
-        console.error(error);
-    }
+    window.location.href = "jogo.html";
+  }
 });
